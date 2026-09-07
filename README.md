@@ -1,44 +1,47 @@
-# Sanzu - Project Management & AI Assistant API
+# Sanzu - プロジェクト管理・AIアシスタントAPI
 
-Sanzu is a standalone REST API for project managers. Haitani is an external client and is not included in this repository. Haitani, mobile apps, web apps, and API tools communicate with Sanzu over HTTP/JSON.
+Sanzuは、プロジェクトマネージャー向けのスタンドアロン型REST APIです。Haitaniは外部クライアントであり、このリポジトリには含まれていません。Haitani、モバイルアプリ、Webアプリ、およびAPIツールは、HTTP/JSONを介してSanzuと通信します。
 
-## Architecture
+## アーキテクチャ
 
-`Haitani -> HTTP/REST -> Sanzu route handlers -> services and methodology engine -> PostgreSQL / configurable AI provider`
+`Haitani → HTTP/REST → Sanzu ルートハンドラー → サービスおよび方法論エンジン → PostgreSQL / 設定可能な AI プロバイダー`
 
-The App Router is used only as a backend API boundary; there is no frontend application.
+App RouterはバックエンドAPIの境界としてのみ使用され、フロントエンドアプリケーションは存在しません。
 
-## Features
+## 機能
 
-Authentication with bcrypt and JWT, project membership authorization, project/task/team/backlog/sprint/milestone/risk/issue management, deterministic metrics and health scoring, methodology compliance, recommendations, contextual AI assistance, and chat history.
+bcryptおよびJWTによる認証、プロジェクトメンバーシップの承認、プロジェクト／タスク／チーム／バックログ／スプリント／マイルストーン／リスク／課題の管理、決定論的なメトリクスと健全性スコア、方法論への準拠、推奨事項、文脈に応じたAIアシスタンス、チャット履歴。
 
-Supported strategies are Agile, Scrum, Kanban, Extreme Programming, Lean, Waterfall, and Hybrid. Strategies are registered in `src/methodology/types.ts` and can be extended without rewriting route handlers.
+サポートされている戦略は、アジャイル、スクラム、カンバン、エクストリーム・プログラミング、リーン、ウォーターフォール、およびハイブリッドです。戦略は `src/methodology/types.ts` に登録されており、ルートハンドラーを書き換えることなく拡張可能です。
 
-## Local setup
+## ローカル環境のセットアップ
 
-1. Copy `.env.example` to `.env` and set `DATABASE_URL` and a strong `JWT_SECRET`.
-2. Run `npm install`.
-3. Run `npx prisma generate`.
-4. Run `npx prisma migrate dev --name init` against PostgreSQL.
-5. Run `npm run seed` for demo data.
-6. Run `npm run dev`.
+1. `.env.example` を `.env` にコピーし、`DATABASE_URL` と強力な `JWT_SECRET` を設定します。
+2. `npm install` を実行します。
+3. `npx prisma generate` を実行します。
+4. PostgreSQL に対して `npx prisma migrate dev --name init` を実行します。
+5. デモデータを作成するには `npm run seed` を実行します。
+6. `npm run dev` を実行します。
 
-The API is available at `http://localhost:3000`. A public liveness endpoint is `GET /api/health`. Use `npm test` and `npm run typecheck` for verification.
+API は `http://localhost:3000` で利用可能です。公開の稼働確認エンドポイントは `GET /api/health` です。検証には `npm test` および `npm run typecheck` を使用してください。
 
-## Authentication
+## 認証
 
-Register or log in using `/api/auth/register` and `/api/auth/login`. Send the returned token as `Authorization: Bearer <token>`. Password hashes are never returned.
+`/api/auth/register` および `/api/auth/login` を使用して登録またはログインしてください。返されたトークンを `Authorization: Bearer <token>` として送信してください。パスワードのハッシュは決して返されません。
 
-Example: `GET /api/projects/{id}/analysis`, `GET /api/projects/{id}/health`, `GET /api/projects/{id}/metrics`, or `POST /api/chatbot/message` with `{ "projectId": "...", "message": "Why is this project behind schedule?" }`.
+例: `GET /api/projects/{id}/analysis`、`GET /api/projects/{id}/health`、`GET /api/projects/{id}/metrics`、または `{ 「projectId」: 「...」, 『message』: 「Why is this project behind schedule?」 }` を指定した `POST /api/chatbot/message`。
 
-## Documentation
+## ドキュメント
 
-See [API_DOCUMENTATION.md](API_DOCUMENTATION.md) and [openapi.yaml](openapi.yaml). Prisma schema and seed data are in `prisma/`.
+[API_DOCUMENTATION.md](API_DOCUMENTATION.md) および [openapi.yaml](openapi.yaml) を参照してください。Prisma スキーマとシードデータは `prisma/` ディレクトリにあります。
 
-## Security and operations
+## セキュリティと運用
 
-Secrets are environment-only. The API validates input with Zod, enforces project ownership or membership, avoids sensitive logging, and returns safe structured errors. Configure `AI_API_KEY`, `AI_MODEL`, and `AI_BASE_URL` for an OpenAI-compatible provider; without a key, the assistant returns deterministic findings without making a network call.
+シークレットは環境固有です。API は Zod を使用して入力を検証し、プロジェクトの所有権またはメンバーシップを強制し、機密情報のログ記録を回避し、安全な構造化エラーを返します。OpenAI 互換のプロバイダーを使用する場合は、`AI_API_KEY`、`AI_MODEL`、および `AI_BASE_URL` を設定してください。キーがない場合、アシスタントはネットワーク呼び出しを行わずに、決定論的な結果を返します。
 
-## Future improvements
+## 今後の改善点
 
-Add refresh tokens, pagination, audit events, queues for long-running AI analysis, richer historical flow metrics, and adapters for SAFe, PRINCE2, Six Sigma, Crystal, and Scrumban.
+リフレッシュトークン、ページネーション、監査イベント、長時間実行される AI 分析用のキュー、より詳細な過去のフローメトリクス、および SAFe、PRINCE2、シックスシグマ、Crystal、Scrumban 用のアダプターを追加する予定です。
+
+
+DeepL.com（無料版）で翻訳しました。
