@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mongodb"
   url      = env("DATABASE_URL")
 }
 
@@ -113,7 +113,7 @@ enum ChatRole {
 }
 
 model User {
-  id String @id @default(cuid())
+  id String @id @default(auto()) @map("_id") @db.ObjectId
   name String
   email String @unique
   password String
@@ -129,7 +129,7 @@ model User {
 }
 
 model Methodology {
-  id String @id
+  id String @id @map("_id")
   name String @unique
   description String
   principles Json
@@ -144,12 +144,12 @@ model Methodology {
 }
 
 model Project {
-  id String @id @default(cuid())
+  id String @id @default(auto()) @map("_id") @db.ObjectId
   name String
   description String?
   status ProjectStatus @default(PLANNING)
   methodologyId String
-  managerId String
+  managerId String @db.ObjectId
   startDate DateTime?
   endDate DateTime?
   objectives Json?
@@ -174,9 +174,9 @@ model Project {
 }
 
 model ProjectMember {
-  id String @id @default(cuid())
-  projectId String
-  userId String
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  projectId String @db.ObjectId
+  userId String @db.ObjectId
   role MemberRole
   joinedAt DateTime @default(now())
   project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
@@ -185,18 +185,18 @@ model ProjectMember {
 }
 
 model Task {
-  id String @id @default(cuid())
-  projectId String
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  projectId String @db.ObjectId
   title String
   description String?
   status TaskStatus @default(TODO)
   priority Priority @default(MEDIUM)
-  assignedTo String?
+  assignedTo String? @db.ObjectId
   estimatedHours Float?
   actualHours Float?
   storyPoints Int?
   dueDate DateTime?
-  sprintId String?
+  sprintId String? @db.ObjectId
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
@@ -207,8 +207,8 @@ model Task {
 }
 
 model BacklogItem {
-  id String @id @default(cuid())
-  projectId String
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  projectId String @db.ObjectId
   title String
   description String?
   type BacklogType
@@ -216,7 +216,7 @@ model BacklogItem {
   storyPoints Int?
   status BacklogStatus @default(BACKLOGGED)
   acceptanceCriteria String?
-  sprintId String?
+  sprintId String? @db.ObjectId
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
@@ -225,8 +225,8 @@ model BacklogItem {
 }
 
 model Sprint {
-  id String @id @default(cuid())
-  projectId String
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  projectId String @db.ObjectId
   name String
   goal String?
   startDate DateTime
@@ -241,8 +241,8 @@ model Sprint {
 }
 
 model Milestone {
-  id String @id @default(cuid())
-  projectId String
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  projectId String @db.ObjectId
   name String
   description String?
   dueDate DateTime
@@ -252,8 +252,8 @@ model Milestone {
 }
 
 model Risk {
-  id String @id @default(cuid())
-  projectId String
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  projectId String @db.ObjectId
   title String
   description String?
   probability Probability
@@ -261,7 +261,7 @@ model Risk {
   severity Int
   status RiskStatus @default(OPEN)
   mitigation String?
-  ownerId String?
+  ownerId String? @db.ObjectId
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
@@ -269,13 +269,13 @@ model Risk {
 }
 
 model Issue {
-  id String @id @default(cuid())
-  projectId String
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  projectId String @db.ObjectId
   title String
   description String?
   priority Priority @default(MEDIUM)
   status IssueStatus @default(OPEN)
-  assignedTo String?
+  assignedTo String? @db.ObjectId
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
@@ -283,8 +283,8 @@ model Issue {
 }
 
 model Recommendation {
-  id String @id @default(cuid())
-  projectId String
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  projectId String @db.ObjectId
   type RecommendationType
   priority RecommendationPriority
   title String
@@ -296,9 +296,9 @@ model Recommendation {
 }
 
 model ChatConversation {
-  id String @id @default(cuid())
-  userId String
-  projectId String
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  userId String @db.ObjectId
+  projectId String @db.ObjectId
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -308,8 +308,8 @@ model ChatConversation {
 }
 
 model ChatMessage {
-  id String @id @default(cuid())
-  conversationId String
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  conversationId String @db.ObjectId
   role ChatRole
   content String
   createdAt DateTime @default(now())

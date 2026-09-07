@@ -4,7 +4,7 @@ Sanzuは、プロジェクトマネージャー向けのスタンドアロン型
 
 ## アーキテクチャ
 
-`Haitani → HTTP/REST → Sanzu ルートハンドラー → サービスおよび方法論エンジン → PostgreSQL / 設定可能な AI プロバイダー`
+`Haitani → HTTP/REST → Sanzu ルートハンドラー → サービスおよび方法論エンジン → MongoDB / 設定可能な AI プロバイダー`
 
 App RouterはバックエンドAPIの境界としてのみ使用され、フロントエンドアプリケーションは存在しません。
 
@@ -19,7 +19,7 @@ bcryptおよびJWTによる認証、プロジェクトメンバーシップの�
 1. `.env.example` を `.env` にコピーし、`DATABASE_URL` と強力な `JWT_SECRET` を設定します。
 2. `npm install` を実行します。
 3. `npx prisma generate` を実行します。
-4. PostgreSQL に対して `npx prisma migrate dev --name init` を実行します。
+4. MongoDB に対して `npx prisma db push` を実行します。
 5. デモデータを作成するには `npm run seed` を実行します。
 6. `npm run dev` を実行します。
 
@@ -33,7 +33,7 @@ API は `http://localhost:3000` で利用可能です。公開の稼働確認エ
 
 ## ドキュメント
 
-[API_DOCUMENTATION.md](API_DOCUMENTATION.md) および [openapi.yaml](openapi.yaml) を参照してください。Prisma スキーマとシードデータは `prisma/` ディレクトリにあります。
+[API_DOCUMENTATION.md](API_DOCUMENTATION.md) および [openapi.yaml](openapi.yaml) を参照してください。Prisma スキーマとシードデータは `prisma/` ディレクトリにあります。MongoDB はリレーショナルマイグレーションを使用しないため、スキーマの反映には `npx prisma db push` を使用します。
 
 ## セキュリティと運用
 
