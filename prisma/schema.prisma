@@ -1,0 +1,317 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  ADMIN
+  PROJECT_MANAGER
+}
+enum ProjectStatus {
+  PLANNING
+  ACTIVE
+  ON_HOLD
+  COMPLETED
+  CANCELLED
+}
+enum TaskStatus {
+  TODO
+  IN_PROGRESS
+  BLOCKED
+  DONE
+  CANCELLED
+}
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+enum MemberRole {
+  PROJECT_MANAGER
+  PRODUCT_OWNER
+  SCRUM_MASTER
+  DEVELOPER
+  DESIGNER
+  TESTER
+  ANALYST
+  STAKEHOLDER
+  OTHER
+}
+enum BacklogType {
+  USER_STORY
+  BUG
+  TASK
+  FEATURE
+  IMPROVEMENT
+}
+enum BacklogStatus {
+  BACKLOGGED
+  READY
+  IN_PROGRESS
+  DONE
+}
+enum SprintStatus {
+  PLANNED
+  ACTIVE
+  COMPLETED
+  CANCELLED
+}
+enum MilestoneStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  DELAYED
+  CANCELLED
+}
+enum Probability {
+  LOW
+  MEDIUM
+  HIGH
+}
+enum Impact {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+enum RiskStatus {
+  OPEN
+  MITIGATED
+  ACCEPTED
+  CLOSED
+}
+enum IssueStatus {
+  OPEN
+  IN_PROGRESS
+  RESOLVED
+  CLOSED
+}
+enum RecommendationType {
+  PERFORMANCE
+  RISK
+  METHODOLOGY
+  TEAM
+  SCHEDULE
+  QUALITY
+  WORKLOAD
+}
+enum RecommendationPriority {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+enum ChatRole {
+  USER
+  ASSISTANT
+  SYSTEM
+}
+
+model User {
+  id String @id @default(cuid())
+  name String
+  email String @unique
+  password String
+  role UserRole @default(PROJECT_MANAGER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  projects Project[] @relation("manager")
+  memberships ProjectMember[]
+  conversations ChatConversation[]
+  ownedRisks Risk[] @relation("riskOwner")
+  assignedTasks Task[] @relation("taskAssignee")
+  assignedIssues Issue[] @relation("issueAssignee")
+}
+
+model Methodology {
+  id String @id
+  name String @unique
+  description String
+  principles Json
+  roles Json
+  events Json
+  artifacts Json
+  practices Json
+  metrics Json
+  rules Json
+  recommendations Json
+  projects Project[]
+}
+
+model Project {
+  id String @id @default(cuid())
+  name String
+  description String?
+  status ProjectStatus @default(PLANNING)
+  methodologyId String
+  managerId String
+  startDate DateTime?
+  endDate DateTime?
+  objectives Json?
+  configuration Json?
+  definitionOfDone String?
+  workflow Json?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  methodology Methodology @relation(fields: [methodologyId], references: [id])
+  manager User @relation("manager", fields: [managerId], references: [id])
+  members ProjectMember[]
+  tasks Task[]
+  backlog BacklogItem[]
+  sprints Sprint[]
+  milestones Milestone[]
+  risks Risk[]
+  issues Issue[]
+  recommendations Recommendation[]
+  conversations ChatConversation[]
+  @@index([managerId])
+  @@index([methodologyId])
+}
+
+model ProjectMember {
+  id String @id @default(cuid())
+  projectId String
+  userId String
+  role MemberRole
+  joinedAt DateTime @default(now())
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@unique([projectId, userId])
+}
+
+model Task {
+  id String @id @default(cuid())
+  projectId String
+  title String
+  description String?
+  status TaskStatus @default(TODO)
+  priority Priority @default(MEDIUM)
+  assignedTo String?
+  estimatedHours Float?
+  actualHours Float?
+  storyPoints Int?
+  dueDate DateTime?
+  sprintId String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  assignee User? @relation("taskAssignee", fields: [assignedTo], references: [id])
+  sprint Sprint? @relation(fields: [sprintId], references: [id], onDelete: SetNull)
+  @@index([projectId, status])
+  @@index([sprintId])
+}
+
+model BacklogItem {
+  id String @id @default(cuid())
+  projectId String
+  title String
+  description String?
+  type BacklogType
+  priority Priority @default(MEDIUM)
+  storyPoints Int?
+  status BacklogStatus @default(BACKLOGGED)
+  acceptanceCriteria String?
+  sprintId String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  sprint Sprint? @relation(fields: [sprintId], references: [id], onDelete: SetNull)
+  @@index([projectId, status])
+}
+
+model Sprint {
+  id String @id @default(cuid())
+  projectId String
+  name String
+  goal String?
+  startDate DateTime
+  endDate DateTime
+  status SprintStatus @default(PLANNED)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  tasks Task[]
+  backlogItems BacklogItem[]
+  @@index([projectId, status])
+}
+
+model Milestone {
+  id String @id @default(cuid())
+  projectId String
+  name String
+  description String?
+  dueDate DateTime
+  status MilestoneStatus @default(PENDING)
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  @@index([projectId, dueDate])
+}
+
+model Risk {
+  id String @id @default(cuid())
+  projectId String
+  title String
+  description String?
+  probability Probability
+  impact Impact
+  severity Int
+  status RiskStatus @default(OPEN)
+  mitigation String?
+  ownerId String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  owner User? @relation("riskOwner", fields: [ownerId], references: [id])
+}
+
+model Issue {
+  id String @id @default(cuid())
+  projectId String
+  title String
+  description String?
+  priority Priority @default(MEDIUM)
+  status IssueStatus @default(OPEN)
+  assignedTo String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  assignee User? @relation("issueAssignee", fields: [assignedTo], references: [id])
+}
+
+model Recommendation {
+  id String @id @default(cuid())
+  projectId String
+  type RecommendationType
+  priority RecommendationPriority
+  title String
+  description String
+  reason String
+  suggestedAction String
+  createdAt DateTime @default(now())
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+}
+
+model ChatConversation {
+  id String @id @default(cuid())
+  userId String
+  projectId String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  messages ChatMessage[]
+  @@index([userId, projectId])
+}
+
+model ChatMessage {
+  id String @id @default(cuid())
+  conversationId String
+  role ChatRole
+  content String
+  createdAt DateTime @default(now())
+  conversation ChatConversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+}

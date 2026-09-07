@@ -1,0 +1,54 @@
+openapi: 3.0.3
+info:
+  title: Sanzu API
+  version: 1.0.0
+  description: Project Management and AI Assistant REST API. Haitani is an external client.
+servers:
+  - url: http://localhost:3000/api
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    Envelope:
+      type: object
+      properties:
+        success: { type: boolean }
+        data: {}
+        message: { type: string }
+    Error:
+      type: object
+      properties:
+        success: { type: boolean, example: false }
+        error:
+          type: object
+          properties:
+            code: { type: string }
+            message: { type: string }
+paths:
+  /health:
+    get:
+      summary: Liveness check
+      responses: { '200': { description: Healthy } }
+  /auth/register:
+    post:
+      summary: Register a user
+      requestBody: { required: true, content: { application/json: { schema: { type: object, required: [name, email, password], properties: { name: { type: string }, email: { type: string, format: email }, password: { type: string, minLength: 8 } } } } } }
+      responses: { '201': { description: Created }, '422': { description: Validation error } }
+  /auth/login:
+    post:
+      summary: Log in
+      responses: { '200': { description: JWT returned }, '401': { description: Invalid credentials } }
+  /projects:
+    get: { security: [{ bearerAuth: [] }], summary: List accessible projects, responses: { '200': { description: Projects } } }
+    post: { security: [{ bearerAuth: [] }], summary: Create a project, responses: { '201': { description: Created } } }
+  /projects/{projectId}/analysis:
+    get: { security: [{ bearerAuth: [] }], summary: Analyze project, parameters: [{ in: path, name: projectId, required: true, schema: { type: string } }], responses: { '200': { description: Analysis } } }
+  /projects/{projectId}/health:
+    get: { security: [{ bearerAuth: [] }], summary: Get deterministic project health, parameters: [{ in: path, name: projectId, required: true, schema: { type: string } }], responses: { '200': { description: Health } } }
+  /projects/{projectId}/metrics:
+    get: { security: [{ bearerAuth: [] }], summary: Get project metrics, parameters: [{ in: path, name: projectId, required: true, schema: { type: string } }], responses: { '200': { description: Metrics } } }
+  /chatbot/message:
+    post: { security: [{ bearerAuth: [] }], summary: Ask the Sanzu Project Management Assistant, responses: { '200': { description: Contextual answer } } }

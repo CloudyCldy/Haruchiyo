@@ -1,0 +1,6 @@
+import { NextRequest } from "next/server";
+import { prisma } from "@/lib/prisma";
+import { withAuth } from "@/lib/route";
+import { handleError, ok } from "@/lib/http";
+export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) { return withAuth(request, async user => { try { const conversation = await prisma.chatConversation.findFirst({ where: { id: (await params).id, userId: user.id }, include: { messages: { orderBy: { createdAt: "asc" } } } }); if (!conversation) throw Object.assign(new Error("Conversation not found"), { name: "NotFoundError" }); return ok(conversation); } catch (error) { return handleError(error); } }); }
+export async function DELETE(request: NextRequest, { params }: { params: Promise<{ id: string }> }) { return withAuth(request, async user => { try { const conversation = await prisma.chatConversation.findFirst({ where: { id: (await params).id, userId: user.id } }); if (!conversation) throw Object.assign(new Error("Conversation not found"), { name: "NotFoundError" }); await prisma.chatConversation.delete({ where: { id: conversation.id } }); return new Response(null, { status: 204 }); } catch (error) { return handleError(error); } }); }

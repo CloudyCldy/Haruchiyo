@@ -1,0 +1,3 @@
+import OpenAI from "openai";
+export interface AIProvider { complete(system: string, user: string): Promise<string>; }
+export class OpenAIProvider implements AIProvider { private client = new OpenAI({ apiKey: process.env.AI_API_KEY || "", baseURL: process.env.AI_BASE_URL }); async complete(system: string, user: string) { if (!process.env.AI_API_KEY) return "AI provider is not configured. The deterministic project findings are available in the warnings and recommendations."; const result = await this.client.chat.completions.create({ model: process.env.AI_MODEL || "gpt-4o-mini", messages: [{ role: "system", content: system }, { role: "user", content: user }] }); return result.choices[0]?.message.content || "No response was generated."; } }

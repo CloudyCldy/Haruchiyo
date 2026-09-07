@@ -1,0 +1,3 @@
+import { prisma } from "@/lib/prisma";
+import { analyzeProject } from "@/services/analysis.service";
+export async function buildProjectContext(projectId: string) { const project = await prisma.project.findUniqueOrThrow({ where: { id: projectId }, include: { methodology: true, tasks: true, backlog: true, sprints: true, members: true, risks: true, issues: true, milestones: true } }); return { project: { id: project.id, name: project.name, description: project.description, methodology: project.methodology.name }, findings: analyzeProject(project), tasks: project.tasks, backlog: project.backlog, sprints: project.sprints, team: project.members, risks: project.risks, issues: project.issues, milestones: project.milestones }; }

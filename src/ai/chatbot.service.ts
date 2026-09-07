@@ -1,0 +1,5 @@
+import { prisma } from "@/lib/prisma";
+import { AIProvider, OpenAIProvider } from "@/ai/provider.service";
+import { buildProjectContext } from "@/ai/context.service";
+import { systemPrompt } from "@/ai/prompt.service";
+export async function answerMessage(userId: string, projectId: string, message: string, conversationId?: string, provider: AIProvider = new OpenAIProvider()) { const context = await buildProjectContext(projectId); const conversation = conversationId ? await prisma.chatConversation.findFirstOrThrow({ where: { id: conversationId, userId, projectId } }) : await prisma.chatConversation.create({ data: { userId, projectId } }); await prisma.chatMessage.create({ data: { conversationId: conversation.id, role: "USER", content: message } }); const response = await provider.complete(systemPrompt, JSON.stringify({ question: message, context })); await prisma.chatMessage.create({ data: { conversationId: conversation.id, role: "ASSISTANT", content: response } }); return { conversationId: conversation.id, methodology: context.project.methodology, response, recommendations: context.findings.recommendations, warnings: context.findings.problems }; }

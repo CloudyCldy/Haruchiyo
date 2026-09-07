@@ -1,0 +1,2 @@
+import { calculateMetrics, health } from "@/services/metrics.service";
+describe("Sanzu deterministic metrics", () => { it("calculates progress and blocked work", () => { const metrics = calculateMetrics({ methodologyId: "SCRUM", tasks: [{ status: "DONE", storyPoints: 3 }, { status: "BLOCKED", storyPoints: 2 }], risks: [], issues: [], milestones: [], sprints: [] }); expect(metrics.progress).toBe(50); expect(metrics.blockedTasks).toBe(1); expect(health(metrics).score).toBeGreaterThan(0); }); });
