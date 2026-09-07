@@ -1,0 +1,45 @@
+:root { --hair: #E85D8A; --blush: #F5A6C0; --teal: #4FD1C5; --vest: #6B2C57; --ink: #3B1530; --tie: #C41E3A; --shirt: #F4EFE8; --skin: #F0C9A0; }
+* { box-sizing: border-box; }
+html, body { margin: 0; min-height: 100%; }
+body { background: var(--shirt); color: var(--ink); font-family: "Trebuchet MS", "Segoe UI", sans-serif; }
+button, input { font: inherit; }
+.register-shell { min-height: 100vh; display: grid; grid-template-columns: minmax(420px, 0.92fr) minmax(520px, 1.08fr); }
+.brand-panel { position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: center; padding: clamp(48px, 8vw, 120px); color: var(--shirt); background: var(--ink); isolation: isolate; }
+.brand-panel::before { content: ""; position: absolute; z-index: -1; width: 560px; height: 560px; right: -240px; top: -150px; border: 100px solid var(--vest); border-radius: 50%; opacity: .8; }
+.brand-panel::after { content: ""; position: absolute; z-index: -1; width: 240px; height: 240px; left: -100px; bottom: -85px; border-radius: 50%; background: var(--hair); }
+.brand-mark { width: 54px; height: 54px; display: grid; place-items: center; margin-bottom: 60px; border: 2px solid var(--teal); color: var(--teal); font-family: Georgia, serif; font-size: 30px; font-weight: bold; transform: rotate(-8deg); }
+.brand-mark span { transform: rotate(8deg); }
+.eyebrow, .topline, label, .status-dot { letter-spacing: .12em; font-size: 11px; font-weight: bold; }
+.eyebrow { margin: 0 0 20px; color: var(--teal); }
+h1 { max-width: 580px; margin: 0; font-family: Georgia, serif; font-size: clamp(42px, 5vw, 76px); line-height: .98; font-weight: normal; letter-spacing: 0; }
+h1 em { color: var(--blush); font-style: italic; }
+.brand-copy { max-width: 390px; margin: 28px 0 48px; color: #ddcad4; font-size: 16px; line-height: 1.6; }
+.signal-list { display: grid; gap: 15px; color: #eadde3; font-size: 13px; }
+.signal-list b { display: inline-block; width: 34px; color: var(--hair); font-size: 10px; letter-spacing: .08em; }
+.decor-line { width: 92px; height: 3px; margin-top: 66px; background: var(--tie); }
+.quote { max-width: 280px; margin: 18px 0 0; color: #b99eae; font-family: Georgia, serif; font-size: 13px; font-style: italic; line-height: 1.5; }
+.form-panel { display: grid; place-items: center; padding: 48px; background: var(--shirt); }
+.form-wrap { width: min(100%, 440px); }
+.topline { display: flex; justify-content: space-between; margin-bottom: 82px; color: var(--vest); }
+.status-dot { color: #238e83; font-size: 10px; }
+h2 { margin: 0; font-family: Georgia, serif; font-size: clamp(38px, 4vw, 56px); font-weight: normal; letter-spacing: 0; }
+.intro { margin: 12px 0 42px; color: #806776; font-size: 15px; }
+form { display: grid; gap: 10px; }
+label { margin-top: 14px; color: var(--vest); }
+input { width: 100%; padding: 15px 2px; border: 0; border-bottom: 1px solid #cdb8c2; outline: 0; border-radius: 0; background: transparent; color: var(--ink); font-size: 16px; transition: border-color .2s; }
+input:focus { border-color: var(--hair); }
+input::placeholder { color: #b7a3ad; }
+.password-field { position: relative; }
+.password-field input { padding-right: 78px; }
+.show-password { position: absolute; right: 0; bottom: 11px; padding: 4px 0; border: 0; background: transparent; color: var(--tie); cursor: pointer; font-size: 9px; font-weight: bold; letter-spacing: .08em; }
+.submit-button { min-height: 54px; margin-top: 34px; border: 0; background: var(--hair); color: white; cursor: pointer; font-size: 11px; font-weight: bold; letter-spacing: .12em; transition: background .2s, transform .2s; }
+.submit-button:hover { background: var(--tie); transform: translateY(-2px); }
+.submit-button:disabled { cursor: wait; opacity: .65; transform: none; }
+.feedback { display: grid; gap: 8px; margin-top: 22px; padding: 16px; border-left: 3px solid; font-size: 13px; line-height: 1.45; }
+.feedback.success { border-color: var(--teal); background: #e4f5f1; color: #245e5b; }
+.feedback.error { border-color: var(--tie); background: #fbe9ec; color: var(--tie); }
+.feedback code { overflow-wrap: anywhere; padding: 8px; background: rgba(255,255,255,.75); font-size: 10px; }
+.login-note { margin: 32px 0 0; color: #806776; font-size: 13px; }
+a { color: var(--tie); font-weight: bold; text-decoration: none; }
+.legal { margin-top: 54px; color: #b7a3ad; font-size: 10px; }
+@media (max-width: 800px) { .register-shell { display: block; } .brand-panel { min-height: 430px; padding: 42px 28px; } .brand-mark { margin-bottom: 38px; } .brand-copy { margin-bottom: 28px; } .signal-list, .quote { display: none; } .decor-line { margin-top: 38px; } .form-panel { padding: 48px 28px 60px; } .topline { margin-bottom: 58px; } }
