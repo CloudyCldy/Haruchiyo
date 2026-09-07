@@ -1,6 +1,7 @@
 import { jwtVerify, SignJWT } from "jose";
 import { NextRequest } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { assertObjectId } from "@/lib/errors";
 
 const secret = new TextEncoder().encode(process.env.JWT_SECRET || "development-only-change-me");
 export async function signToken(userId: string) {
@@ -23,6 +24,7 @@ export function publicUser(user: { id: string; name: string; email: string; role
   return { id, name, email, role, createdAt, updatedAt };
 }
 export async function requireProjectAccess(userId: string, projectId: string) {
+  assertObjectId(projectId, "projectId");
   const project = await prisma.project.findFirst({ where: { id: projectId, OR: [{ managerId: userId }, { members: { some: { userId } } }] } });
   if (!project) { const error = new Error("Project not found or access denied"); error.name = "AuthorizationError"; throw error; }
   return project;
