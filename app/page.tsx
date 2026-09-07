@@ -19,6 +19,7 @@ export default function HomePage() {
   const [projectForm, setProjectForm] = useState({ name: "", description: "", methodologyId: "SCRUM", startDate: "", endDate: "" });
   const [projectStatus, setProjectStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [projectMessage, setProjectMessage] = useState("");
+  const [copiedProjectId, setCopiedProjectId] = useState<string | null>(null);
 
   useEffect(() => {
     const token = window.localStorage.getItem("sanzu_token");
@@ -99,6 +100,12 @@ export default function HomePage() {
 
   function logout() { window.localStorage.removeItem("sanzu_token"); setProfile(null); setProjects([]); setStatus("idle"); setMode("login"); }
 
+  async function copyProjectId(projectId: string) {
+    await navigator.clipboard.writeText(projectId);
+    setCopiedProjectId(projectId);
+    window.setTimeout(() => setCopiedProjectId(null), 1800);
+  }
+
   function switchMode(nextMode: "register" | "login") {
     setMode(nextMode);
     setStatus("idle");
@@ -111,7 +118,7 @@ export default function HomePage() {
       <header className="workspace-header"><div className="workspace-brand"><div className="brand-mark"><span>S</span></div><div><p className="eyebrow">SANZU / WORKSPACE</p><strong>Project command center</strong></div></div><div className="profile-chip"><span className="avatar">{profile.name.slice(0, 1).toUpperCase()}</span><span><b>{profile.name}</b><small>{profile.email}</small></span><button type="button" onClick={logout}>SALIR</button></div></header>
       <section className="workspace-content"><div className="workspace-intro"><div><p className="eyebrow">PERFIL DE USUARIO</p><h2>Hola, {profile.name.split(" ")[0]}.</h2><p>Registra un proyecto y empieza a darle dirección.</p></div><span className="role-badge">{profile.role.replace("_", " ")}</span></div>
         <div className="workspace-grid"><section className="project-form-card"><div className="section-kicker">NUEVO PROYECTO <span>01</span></div><h3>Registra tu proyecto</h3><p className="card-copy">La metodología define las reglas, métricas y recomendaciones de Sanzu.</p><form onSubmit={createProject}><label htmlFor="project-name">Nombre del proyecto</label><input id="project-name" value={projectForm.name} onChange={(event) => setProjectForm({ ...projectForm, name: event.target.value })} placeholder="Ej. Plataforma e-commerce" required /><label htmlFor="methodology">Metodología</label><select id="methodology" value={projectForm.methodologyId} onChange={(event) => setProjectForm({ ...projectForm, methodologyId: event.target.value })}>{(methodologies.length ? methodologies : [{ id: "SCRUM", name: "Scrum", description: "" }, { id: "KANBAN", name: "Kanban", description: "" }]).map((methodology) => <option key={methodology.id} value={methodology.id}>{methodology.name}</option>)}</select><label htmlFor="project-description">Descripción <span className="optional">OPCIONAL</span></label><textarea id="project-description" value={projectForm.description} onChange={(event) => setProjectForm({ ...projectForm, description: event.target.value })} placeholder="¿Qué quieres construir?" rows={3} /><div className="date-grid"><div><label htmlFor="start-date">Inicio <span className="optional">OPCIONAL</span></label><input id="start-date" type="date" value={projectForm.startDate} onChange={(event) => setProjectForm({ ...projectForm, startDate: event.target.value })} /></div><div><label htmlFor="end-date">Entrega <span className="optional">OPCIONAL</span></label><input id="end-date" type="date" value={projectForm.endDate} onChange={(event) => setProjectForm({ ...projectForm, endDate: event.target.value })} /></div></div><button className="submit-button" type="submit" disabled={projectStatus === "loading"}>{projectStatus === "loading" ? "REGISTRANDO..." : "REGISTRAR PROYECTO  →"}</button></form>{projectMessage && <div className={`feedback ${projectStatus}`} role={projectStatus === "error" ? "alert" : "status"}>{projectMessage}</div>}</section>
-          <section className="projects-card"><div className="section-kicker">TUS PROYECTOS <span>{String(projects.length).padStart(2, "0")}</span></div><h3>Proyectos registrados</h3>{projects.length === 0 ? <div className="empty-projects"><span>＋</span><p>Aún no tienes proyectos.<br />El primero empieza aquí.</p></div> : <div className="project-list">{projects.map((project) => <article className="project-row" key={project.id}><div className="project-icon">{project.name.slice(0, 1).toUpperCase()}</div><div><strong>{project.name}</strong><span>{project.methodology?.name || project.status}</span></div><code title={project.id}>{project.id}</code></article>)}</div>}</section></div>
+          <section className="projects-card"><div className="section-kicker">TUS PROYECTOS <span>{String(projects.length).padStart(2, "0")}</span></div><h3>Proyectos registrados</h3>{projects.length === 0 ? <div className="empty-projects"><span>＋</span><p>Aún no tienes proyectos.<br />El primero empieza aquí.</p></div> : <div className="project-list">{projects.map((project) => <article className="project-row" key={project.id}><div className="project-icon">{project.name.slice(0, 1).toUpperCase()}</div><div><strong>{project.name}</strong><span>{project.methodology?.name || project.status}</span></div><div className="project-id"><small>PROJECT ID</small><code title={project.id}>{project.id}</code><button type="button" onClick={() => copyProjectId(project.id)}>{copiedProjectId === project.id ? "COPIADO" : "COPIAR"}</button></div></article>)}</div>}</section></div>
       </section>
     </main>
   );
