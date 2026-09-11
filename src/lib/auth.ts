@@ -2,6 +2,7 @@ import { jwtVerify, SignJWT } from "jose";
 import { NextRequest } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { assertObjectId } from "@/lib/errors";
+import { createHash } from "node:crypto";
 
 const secret = new TextEncoder().encode(process.env.JWT_SECRET || "development-only-change-me");
 export async function signToken(userId: string) {
@@ -18,6 +19,14 @@ export async function getAuthUser(request: NextRequest) {
     if (!user) throw new Error("User not found");
     return user;
   } catch { throw new Error("Authentication required"); }
+}
+export async function getAuthClient(request: NextRequest) {
+  const key = request.headers.get("X-Api-Key");
+  if (!key) { const error = new Error("API key required"); error.name = "AuthenticationError"; throw error; }
+  const keyHash = createHash("sha256").update(key).digest("hex");
+  const client = await prisma.apiClient.findFirst({ where: { keyHash, active: true } });
+  if (!client) { const error = new Error("Invalid API key"); error.name = "AuthenticationError"; throw error; }
+  return client;
 }
 export function publicUser(user: { id: string; name: string; email: string; role: string; createdAt: Date; updatedAt: Date }) {
   const { id, name, email, role, createdAt, updatedAt } = user;

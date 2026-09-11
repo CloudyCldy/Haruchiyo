@@ -10,6 +10,7 @@
     "typecheck": "tsc --noEmit",
     "test": "jest --runInBand",
     "seed": "tsx prisma/seed.ts",
+    "create-partner-key": "tsx prisma/create-partner-key.ts",
     "prisma:generate": "prisma generate",
     "prisma:push": "prisma db push"
   },

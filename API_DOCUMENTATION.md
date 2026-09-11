@@ -10,14 +10,38 @@ Success responses use `{ "success": true, "data": ..., "message": "..." }`. Erro
 
 ## Endpoint groups
 
-- Auth: `POST /auth/register`, `POST /auth/login`
-- User: `GET|PUT /users/me`
-- Methodologies: `GET /methodologies`, `GET /methodologies/:id`, `GET /methodologies/:id/rules`, `GET /methodologies/:id/metrics`
-- Projects: `GET|POST /projects`, `GET|PUT|DELETE /projects/:id`
-- Tasks: `GET|POST /projects/:projectId/tasks`, `GET|PUT|DELETE /tasks/:id`
-- Project collections: `GET|POST /projects/:projectId/{team|backlog|sprints|milestones|risks|issues}`
-- Collection items: `GET|PUT|DELETE /{backlog|sprints|milestones|risks|issues|team}/:id`
-- Intelligence: `GET /projects/:projectId/{metrics|health|compliance|analysis}`, `GET|POST /projects/:projectId/recommendations`
-- Chat: `POST /chatbot/message`, `GET /chatbot/conversations`, `GET|DELETE /chatbot/conversations/:id`
 
 Use ISO dates for date fields. Create and update payloads are validated with Zod. Project-related requests require ownership or membership.
+
+## Integración de partners (API key)
+
+Las rutas de partner usan una API key compartida por Haitani, no JWT ni usuarios por organización o proyecto. En cada request se debe enviar:
+
+`X-Api-Key: <SANZU_API_KEY>`
+
+Endpoints disponibles:
+
+- `POST /api/partner/projects`: crea o actualiza idempotentemente un proyecto por `externalRef`.
+- `GET /api/partner/projects/:externalRef`: obtiene el proyecto y su metodología.
+- `GET /api/partner/projects/:externalRef/metrics`
+- `GET /api/partner/projects/:externalRef/health`
+- `GET /api/partner/projects/:externalRef/compliance`
+- `GET /api/partner/projects/:externalRef/analysis`
+- `GET /api/partner/projects/:externalRef/recommendations`
+- `POST /api/partner/chatbot/message`: consulta el chatbot con el contexto del proyecto.
+
+Ejemplo de alta o actualización:
+
+```json
+{
+	"externalRef": "haitani-proj-123",
+	"name": "Haitani Delivery Platform",
+	"methodologyId": "SCRUM",
+	"requirements": {
+		"business": ["Release MVP in Q4"],
+		"technical": ["Use the existing payment provider"]
+	}
+}
+```
+
+La clave se genera manualmente con `npm run create-partner-key` y se muestra una sola vez en consola. No existe un endpoint público para generarla.

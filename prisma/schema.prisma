@@ -128,6 +128,14 @@ model User {
   assignedIssues Issue[] @relation("issueAssignee")
 }
 
+model ApiClient {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  keyHash   String   @unique
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+}
+
 model Methodology {
   id String @id @map("_id")
   name String @unique
@@ -145,6 +153,7 @@ model Methodology {
 
 model Project {
   id String @id @default(auto()) @map("_id") @db.ObjectId
+  externalRef String? @unique
   name String
   description String?
   status ProjectStatus @default(PLANNING)
@@ -154,6 +163,7 @@ model Project {
   endDate DateTime?
   objectives Json?
   configuration Json?
+  requirements Json?
   definitionOfDone String?
   workflow Json?
   createdAt DateTime @default(now())
