@@ -5,7 +5,7 @@
   "description": "Sanzu Project Management and AI Assistant REST API",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "prisma generate && next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "test": "jest --runInBand",
