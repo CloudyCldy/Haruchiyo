@@ -44,6 +44,27 @@ paths:
   /projects:
     get: { security: [{ bearerAuth: [] }], summary: List accessible projects, responses: { '200': { description: Projects } } }
     post: { security: [{ bearerAuth: [] }], summary: Create a project, responses: { '201': { description: Created } } }
+  /projects/{projectId}/tasks:
+    get: { security: [{ bearerAuth: [] }], summary: List project tasks, parameters: [{ in: path, name: projectId, required: true, schema: { type: string } }], responses: { '200': { description: Tasks } } }
+    post: { security: [{ bearerAuth: [] }], summary: Create a project task, parameters: [{ in: path, name: projectId, required: true, schema: { type: string } }], responses: { '201': { description: Created }, '422': { description: Validation error } } }
+  /tasks/{id}:
+    get: { security: [{ bearerAuth: [] }], summary: Get a task, parameters: [{ in: path, name: id, required: true, schema: { type: string } }], responses: { '200': { description: Task } } }
+    put: { security: [{ bearerAuth: [] }], summary: Update a task, parameters: [{ in: path, name: id, required: true, schema: { type: string } }], responses: { '200': { description: Updated } } }
+    delete: { security: [{ bearerAuth: [] }], summary: Delete a task, parameters: [{ in: path, name: id, required: true, schema: { type: string } }], responses: { '204': { description: Deleted } } }
+  /projects/{projectId}/backlog:
+    get: { security: [{ bearerAuth: [] }], summary: List backlog items, parameters: [{ in: path, name: projectId, required: true, schema: { type: string } }], responses: { '200': { description: Backlog } } }
+    post: { security: [{ bearerAuth: [] }], summary: Create a backlog item, parameters: [{ in: path, name: projectId, required: true, schema: { type: string } }], responses: { '201': { description: Created } } }
+  /backlog/{id}:
+    get: { security: [{ bearerAuth: [] }], summary: Get a backlog item, parameters: [{ in: path, name: id, required: true, schema: { type: string } }], responses: { '200': { description: Backlog item } } }
+    put: { security: [{ bearerAuth: [] }], summary: Update a backlog item, parameters: [{ in: path, name: id, required: true, schema: { type: string } }], responses: { '200': { description: Updated } } }
+    delete: { security: [{ bearerAuth: [] }], summary: Delete a backlog item, parameters: [{ in: path, name: id, required: true, schema: { type: string } }], responses: { '204': { description: Deleted } } }
+  /projects/{projectId}/sprints:
+    get: { security: [{ bearerAuth: [] }], summary: List sprints, parameters: [{ in: path, name: projectId, required: true, schema: { type: string } }], responses: { '200': { description: Sprints } } }
+    post: { security: [{ bearerAuth: [] }], summary: Create a sprint, parameters: [{ in: path, name: projectId, required: true, schema: { type: string } }], responses: { '201': { description: Created } } }
+  /sprints/{id}:
+    get: { security: [{ bearerAuth: [] }], summary: Get sprint with tasks and backlog items, parameters: [{ in: path, name: id, required: true, schema: { type: string } }], responses: { '200': { description: Sprint details } } }
+    put: { security: [{ bearerAuth: [] }], summary: Update a sprint, parameters: [{ in: path, name: id, required: true, schema: { type: string } }], responses: { '200': { description: Updated } } }
+    delete: { security: [{ bearerAuth: [] }], summary: Delete a sprint, parameters: [{ in: path, name: id, required: true, schema: { type: string } }], responses: { '204': { description: Deleted } } }
   /projects/{projectId}/analysis:
     get: { security: [{ bearerAuth: [] }], summary: Analyze project, parameters: [{ in: path, name: projectId, required: true, schema: { type: string } }], responses: { '200': { description: Analysis } } }
   /projects/{projectId}/health:

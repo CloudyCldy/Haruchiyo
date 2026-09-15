@@ -10,6 +10,20 @@ Success responses use `{ "success": true, "data": ..., "message": "..." }`. Erro
 
 ## Endpoint groups
 
+### Sprint 2: daily work management
+
+All endpoints below require JWT authentication and project ownership or membership. They use the standard success/error envelopes described above.
+
+- `GET /api/projects/:projectId/tasks`: list project tasks.
+- `POST /api/projects/:projectId/tasks`: create a task (`title` required; optional `status`, `priority`, `storyPoints`, `sprintId`).
+- `GET|PUT|DELETE /api/tasks/:id`: read, update, or delete a task. A supplied `sprintId` must belong to the task project.
+- `GET /api/projects/:projectId/backlog`: list backlog items.
+- `POST /api/projects/:projectId/backlog`: create a backlog item (`type` required: `USER_STORY`, `BUG`, `TASK`, `FEATURE`, or `IMPROVEMENT`).
+- `GET|PUT|DELETE /api/backlog/:id`: manage a backlog item. Status transitions are `BACKLOGGED -> READY -> IN_PROGRESS -> DONE`; `sprintId` may be `null`.
+- `GET /api/projects/:projectId/sprints`: list project sprints.
+- `POST /api/projects/:projectId/sprints`: create a sprint with `startDate` before `endDate`.
+- `GET|PUT|DELETE /api/sprints/:id`: manage a sprint. `GET` includes related `tasks` and `backlogItems`; status transitions are `PLANNED -> ACTIVE -> COMPLETED` or `CANCELLED`.
+
 
 Use ISO dates for date fields. Create and update payloads are validated with Zod. Project-related requests require ownership or membership.
 
