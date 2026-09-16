@@ -73,3 +73,26 @@ paths:
     get: { security: [{ bearerAuth: [] }], summary: Get project metrics, parameters: [{ in: path, name: projectId, required: true, schema: { type: string } }], responses: { '200': { description: Metrics } } }
   /chatbot/message:
     post: { security: [{ bearerAuth: [] }], summary: Ask the Sanzu Project Management Assistant, responses: { '200': { description: Contextual answer } } }
+  /documentation:
+    get: { summary: List documentation items, responses: { '200': { description: Documentation items } } }
+  /documentation/{id}:
+    get: { summary: Get documentation item, parameters: [{ in: path, name: id, required: true, schema: { type: string } }, { in: query, name: section, required: false, schema: { type: string } }], responses: { '200': { description: Documentation item } } }
+  /methodologies:
+    get: { summary: List registered methodologies, responses: { '200': { description: Methodologies list } } }
+  /methodologies/{id}:
+    get: { summary: Get methodology details, parameters: [{ in: path, name: id, required: true, schema: { type: string } }], responses: { '200': { description: Methodology details } } }
+  /templates:
+    get: { summary: List work templates, responses: { '200': { description: Templates list } } }
+  /templates/{id}:
+    get: { summary: Get template definition and markdown schema, parameters: [{ in: path, name: id, required: true, schema: { type: string } }, { in: query, name: section, required: false, schema: { type: string } }], responses: { '200': { description: Template definition } } }
+  /processes:
+    get: { summary: List standard processes, responses: { '200': { description: Processes list } } }
+  /processes/{id}:
+    get: { summary: Get process phases and roles, parameters: [{ in: path, name: id, required: true, schema: { type: string } }, { in: query, name: phase, required: false, schema: { type: string } }], responses: { '200': { description: Process definition } } }
+  /checklists:
+    get: { summary: List quality checklists, responses: { '200': { description: Checklists list } } }
+  /checklists/{id}:
+    get: { summary: Get checklist items and criticality, parameters: [{ in: path, name: id, required: true, schema: { type: string } }, { in: query, name: section, required: false, schema: { type: string } }], responses: { '200': { description: Checklist definition } } }
+  /checklists/{id}/evaluate:
+    post: { summary: Evaluate checklist compliance, parameters: [{ in: path, name: id, required: true, schema: { type: string } }], requestBody: { required: true, content: { application/json: { schema: { type: object, properties: { itemStatuses: { type: object } } } } } }, responses: { '200': { description: Evaluation result } } }
+

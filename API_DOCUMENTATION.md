@@ -59,3 +59,30 @@ Ejemplo de alta o actualización:
 ```
 
 La clave se genera manualmente con `npm run create-partner-key` y se muestra una sola vez en consola. No existe un endpoint público para generarla.
+
+## Knowledge Base API (Documentación viva y metodologías)
+
+Endpoints públicos y reutilizables para alimentar clientes, portales o integraciones con el catálogo estandarizado de gobernanza:
+
+### 1. Documentación general
+- `GET /api/documentation`: lista directrices y estándares organizacionales (`?category=STANDARDS`).
+- `GET /api/documentation/:id`: contenido completo del documento o sección enfocada (`?section=methodology-alignment`).
+
+### 2. Metodologías
+- `GET /api/methodologies`: lista todas las metodologías registradas (Scrum, Kanban, XP, Lean, Waterfall, Agile, Hybrid) con roles, eventos, principios, plantillas, procesos y checklists asociados.
+- `GET /api/methodologies/:id`: detalle completo de una estrategia metodológica.
+
+### 3. Plantillas (Templates)
+- `GET /api/templates`: catálogo de plantillas (`?methodology=SCRUM`, `?category=EXECUTION`).
+- `GET /api/templates/:id`: estructura completa o sección puntual de la plantilla (`?section=acceptance-criteria`) con campos, tipos y validaciones.
+
+### 4. Procesos (Processes)
+- `GET /api/processes`: lista de procesos estándar (`?methodology=SCRUM`).
+- `GET /api/processes/:id`: proceso completo o fase enfocada (`?phase=1` o `?phase=refinamiento`) con responsables (RACI), entradas, salidas y criterios de salida.
+
+### 5. Checklists de Calidad y Cumplimiento
+- `GET /api/checklists`: listas de comprobación (`?methodology=SCRUM`, `?stage=DONE`).
+- `GET /api/checklists/:id`: detalle completo o sección específica (`?section=code-quality-and-tests`) con items clasificados por criticidad.
+- `POST /api/checklists/:id/evaluate`: evalúa el cumplimiento enviando `{ "itemStatuses": { "<item_id>": true/false } }`. Retorna porcentaje general de cumplimiento, estado de aprobación (`isPassed`), desglose por sección (`sectionBreakdown`) y recomendaciones automáticas de mitigación.
+
+
