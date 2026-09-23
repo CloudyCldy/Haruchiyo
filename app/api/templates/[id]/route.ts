@@ -25,8 +25,13 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
       category: template.category,
       version: template.version,
       section
+    }, "Operation completed successfully", 200, {
+      "Cache-Control": "public, max-age=3600, stale-while-revalidate=86400",
     });
   }
 
-  return ok(template);
+  return ok(template, "Operation completed successfully", 200, {
+    "Cache-Control": "public, max-age=3600, stale-while-revalidate=86400",
+  });
+
 }

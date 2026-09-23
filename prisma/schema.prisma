@@ -259,6 +259,7 @@ model Milestone {
   status MilestoneStatus @default(PENDING)
   project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
   @@index([projectId, dueDate])
+  @@index([projectId, status])
 }
 
 model Risk {
@@ -276,6 +277,8 @@ model Risk {
   updatedAt DateTime @updatedAt
   project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
   owner User? @relation("riskOwner", fields: [ownerId], references: [id])
+  @@index([projectId])
+  @@index([projectId, status])
 }
 
 model Issue {
@@ -290,6 +293,9 @@ model Issue {
   updatedAt DateTime @updatedAt
   project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
   assignee User? @relation("issueAssignee", fields: [assignedTo], references: [id])
+  @@index([projectId])
+  @@index([projectId, status])
+  @@index([assignedTo])
 }
 
 model Recommendation {
@@ -303,6 +309,8 @@ model Recommendation {
   suggestedAction String
   createdAt DateTime @default(now())
   project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  @@index([projectId])
+  @@index([projectId, priority])
 }
 
 model ChatConversation {
@@ -315,6 +323,7 @@ model ChatConversation {
   project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
   messages ChatMessage[]
   @@index([userId, projectId])
+  @@index([projectId])
 }
 
 model ChatMessage {
@@ -324,4 +333,6 @@ model ChatMessage {
   content String
   createdAt DateTime @default(now())
   conversation ChatConversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  @@index([conversationId])
 }
+
