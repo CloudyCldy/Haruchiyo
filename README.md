@@ -2,6 +2,45 @@
 
 Sanzuは、プロジェクトマネージャー向けのスタンドアロン型REST APIです。Haitaniは外部クライアントであり、このリポジトリには含まれていません。Haitani、モバイルアプリ、Webアプリ、およびAPIツールは、HTTP/JSONを介してSanzuと通信します。
 
+## API v1 (español) — Integración con Haitani
+
+> Ruta oficial: **`/api/v1`**. `/api` sigue funcionando como alias legado. Toda respuesta trae `X-API-Version: v1`.
+> Contrato completo, códigos de error y ejemplos: [docs/CONTRATO_HAITANI_SANZU.md](docs/CONTRATO_HAITANI_SANZU.md).
+
+```bash
+npm install
+cp .env.example .env          # DATABASE_URL (MongoDB) y JWT_SECRET (obligatorio en producción)
+npx prisma db push && npm run seed
+npm run create-partner-key    # clave X-Api-Key para Haitani (SANZU_API_KEY)
+npm run dev
+npm test                      # pruebas unitarias e integración de rutas
+```
+
+Ejemplos:
+
+```bash
+# Login -> JWT
+curl -X POST localhost:3000/api/v1/auth/login -H 'Content-Type: application/json' \
+  -d '{"email":"manager@sanzu.dev","password":"SanzuDemo123!"}'
+
+# Health, métricas, riesgos y recomendaciones (JWT)
+curl localhost:3000/api/v1/projects/$ID/health  -H "Authorization: Bearer $TOKEN"
+curl localhost:3000/api/v1/projects/$ID/metrics -H "Authorization: Bearer $TOKEN"
+curl "localhost:3000/api/v1/projects/$ID/risks?summary=true" -H "Authorization: Bearer $TOKEN"
+curl "localhost:3000/api/v1/projects/$ID/recommendations?live=true" -H "Authorization: Bearer $TOKEN"
+curl "localhost:3000/api/v1/projects/$ID/backlog?type=BUG&sprintId=none" -H "Authorization: Bearer $TOKEN"
+
+# Contexto real desde Haitani (API key) -> health, riesgos, problemas, recomendaciones, documentos requeridos
+curl -X POST localhost:3000/api/v1/projects/haitani-proj-1/context \
+  -H "X-Api-Key: $SANZU_API_KEY" -H 'Content-Type: application/json' \
+  -d '{"project":{"name":"Demo","methodology":"SCRUM","phase":"EXECUTION","startDate":"2026-09-13","endDate":"2026-10-24"},
+       "tasks":[{"id":1,"title":"API v1","status":"bloqueada","priority":"alta","assignedTo":7}],
+       "team":[{"userId":7,"name":"Alberto"}]}'
+```
+
+Errores: `{ "success": false, "error": { "code": "VALIDATION_ERROR", "message": "..." } }` con los códigos
+`BAD_REQUEST 400 · UNAUTHORIZED 401 · INVALID_CREDENTIALS 401 · FORBIDDEN 403 · NOT_FOUND 404 · CONFLICT 409 · VALIDATION_ERROR 422 · INTERNAL_ERROR 500 · AI_SERVICE_ERROR 502`.
+
 ## アーキテクチャ
 
 `Haitani → HTTP/REST → Sanzu ルートハンドラー → サービスおよび方法論エンジン → MongoDB / 設定可能な AI プロバイダー`
