@@ -124,6 +124,15 @@ paths:
     post: { security: [{ apiKeyAuth: [] }], summary: Upsert a Haitani project by externalRef, responses: { '201': { description: Synced } } }
   /partner/projects/{externalRef}/{metric}:
     get: { security: [{ apiKeyAuth: [] }], summary: 'metric = metrics | health | compliance | analysis | recommendations', parameters: [{ in: path, name: externalRef, required: true, schema: { type: string } }, { in: path, name: metric, required: true, schema: { type: string } }], responses: { '200': { description: Result } } }
+  /partner/projects/{externalRef}/backlog:
+    get: { security: [{ apiKeyAuth: [] }], summary: 'Backlog del proyecto de Haitani (filtros ?type ?status ?priority ?sprintId)', parameters: [{ in: path, name: externalRef, required: true, schema: { type: string } }], responses: { '200': { description: Items }, '404': { description: Project not synced } } }
+    post: { security: [{ apiKeyAuth: [] }], summary: Add a backlog item, parameters: [{ in: path, name: externalRef, required: true, schema: { type: string } }], responses: { '201': { description: Created }, '422': { description: Validation error } } }
+  /partner/projects/{externalRef}/backlog/{itemId}:
+    put: { security: [{ apiKeyAuth: [] }], summary: 'Edit an item or change its status (one step; a jump returns 409)', parameters: [{ in: path, name: externalRef, required: true, schema: { type: string } }, { in: path, name: itemId, required: true, schema: { type: string } }], responses: { '200': { description: Updated }, '409': { description: Invalid transition } } }
+    delete: { security: [{ apiKeyAuth: [] }], summary: Delete an item, parameters: [{ in: path, name: externalRef, required: true, schema: { type: string } }, { in: path, name: itemId, required: true, schema: { type: string } }], responses: { '204': { description: Deleted } } }
+  /partner/projects/{externalRef}/sprints:
+    get: { security: [{ apiKeyAuth: [] }], summary: Sprints of the project, parameters: [{ in: path, name: externalRef, required: true, schema: { type: string } }], responses: { '200': { description: Sprints } } }
+    put: { security: [{ apiKeyAuth: [] }], summary: 'Sync Haitani sprints (full list; creates, updates and deletes the mirror)', parameters: [{ in: path, name: externalRef, required: true, schema: { type: string } }], requestBody: { required: true, content: { application/json: { schema: { type: object, required: [sprints], properties: { sprints: { type: array, items: { type: object, required: [externalRef, name, startDate, endDate], properties: { externalRef: { type: string }, name: { type: string }, goal: { type: string }, startDate: { type: string, format: date }, endDate: { type: string, format: date }, status: { type: string, enum: [PLANNED, ACTIVE, COMPLETED, CANCELLED] } } } } } } } } }, responses: { '200': { description: Sprints after sync }, '422': { description: Invalid list } } }
   /partner/chatbot/message:
     post: { security: [{ apiKeyAuth: [] }], summary: 'Chatbot for Haitani (externalRef + message)', responses: { '200': { description: Contextual answer } } }
   /chatbot/message:

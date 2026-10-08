@@ -11,6 +11,8 @@ export const backlogFilterSchema = z.object({ type: z.enum(["USER_STORY", "BUG",
 const sprintFields = { name: z.string().trim().min(1), goal: z.string().optional(), startDate: z.coerce.date(), endDate: z.coerce.date(), status: z.enum(["PLANNED", "ACTIVE", "COMPLETED", "CANCELLED"]).optional() };
 export const sprintSchema = z.object(sprintFields).refine(value => value.startDate < value.endDate, { message: "startDate must be before endDate", path: ["startDate"] });
 export const sprintUpdateSchema = z.object(sprintFields).partial();
+/** Haitani: lista completa de sus sprints de un proyecto; Sanzu deja su copia igual a esta lista. */
+export const partnerSprintSyncSchema = z.object({ sprints: z.array(z.object({ ...sprintFields, externalRef: z.string().trim().min(1).max(100) }).refine(value => value.startDate <= value.endDate, { message: "startDate must not be after endDate", path: ["startDate"] })).max(500) });
 export const chatSchema = z.object({ projectId: objectIdSchema, message: z.string().trim().min(1).max(4000), conversationId: objectIdSchema.optional() });
 export const partnerProjectSchema = z.object({ externalRef: z.string().trim().min(1), name: z.string().trim().min(1), methodologyId: z.string().trim().min(1), requirements: z.unknown() });
 export const partnerChatSchema = z.object({ externalRef: z.string().trim().min(1), message: z.string().trim().min(1).max(4000), conversationId: objectIdSchema.optional(), requirements: z.unknown().optional() });

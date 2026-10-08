@@ -41,6 +41,32 @@ export async function updateBacklogItem(id: string, projectId: string, input: an
 }
 
 export async function listSprints(projectId: string) { return prisma.sprint.findMany({ where: { projectId }, orderBy: { startDate: "asc" } }); }
+
+export type PartnerSprint = { externalRef: string; name: string; goal?: string; startDate: Date; endDate: Date; status?: "PLANNED" | "ACTIVE" | "COMPLETED" | "CANCELLED" };
+
+/**
+ * INT-01: deja los sprints de Sanzu del proyecto iguales a los de Haitani.
+ * Crea o actualiza cada sprint por su externalRef y borra los que Haitani ya no tiene
+ * (sus ítems del backlog quedan "sin sprint"). Los sprints creados en Sanzu (sin externalRef) no se tocan.
+ */
+export async function syncPartnerSprints(projectId: string, sprints: PartnerSprint[]) {
+  type MirrorSprint = { id: string; externalRef: string | null };
+  const existing: MirrorSprint[] = await prisma.sprint.findMany({ where: { projectId, externalRef: { not: null } } });
+  const byRef = new Map<string | null, MirrorSprint>(existing.map(sprint => [sprint.externalRef, sprint]));
+  const incoming = new Set<string>();
+  for (const { externalRef, ...data } of sprints) {
+    incoming.add(externalRef);
+    const current = byRef.get(externalRef);
+    if (current) await prisma.sprint.update({ where: { id: current.id }, data });
+    else await prisma.sprint.create({ data: { ...data, externalRef, projectId } });
+  }
+  const stale = existing.filter(sprint => !incoming.has(sprint.externalRef as string)).map(sprint => sprint.id);
+  if (stale.length) {
+    await prisma.backlogItem.updateMany({ where: { projectId, sprintId: { in: stale } }, data: { sprintId: null } });
+    await prisma.sprint.deleteMany({ where: { id: { in: stale } } });
+  }
+  return listSprints(projectId);
+}
 export async function createSprint(projectId: string, input: any) { return prisma.sprint.create({ data: { ...input, projectId } }); }
 export async function getSprint(id: string) { return prisma.sprint.findUnique({ where: { id }, include: { tasks: true, backlogItems: true } }); }
 export async function updateSprint(id: string, input: any) {
