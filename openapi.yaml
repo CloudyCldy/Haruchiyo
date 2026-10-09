@@ -1,16 +1,25 @@
 openapi: 3.0.3
 info:
   title: Sanzu API
-  version: 1.0.0
-  description: Project Management and AI Assistant REST API. Haitani is an external client.
+  version: 1.1.0
+  description: |
+    Project Management and AI Assistant REST API. Haitani is an external client.
+    Ruta oficial versionada: /api/v1. /api es un alias legado (mismas respuestas).
+    Todas las respuestas incluyen el header X-API-Version. Códigos de error en docs/CONTRATO_HAITANI_SANZU.md.
 servers:
+  - url: http://localhost:3000/api/v1
   - url: http://localhost:3000/api
+    description: Alias legado (deprecado)
 components:
   securitySchemes:
     bearerAuth:
       type: http
       scheme: bearer
       bearerFormat: JWT
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-Api-Key
   schemas:
     Envelope:
       type: object
@@ -25,8 +34,32 @@ components:
         error:
           type: object
           properties:
-            code: { type: string }
+            code: { type: string, enum: [BAD_REQUEST, UNAUTHORIZED, INVALID_CREDENTIALS, FORBIDDEN, NOT_FOUND, CONFLICT, VALIDATION_ERROR, AI_SERVICE_ERROR, INTERNAL_ERROR] }
             message: { type: string }
+            details: {}
+    ContextRequest:
+      type: object
+      required: [project]
+      properties:
+        project:
+          type: object
+          required: [name]
+          properties:
+            name: { type: string }
+            description: { type: string }
+            methodology: { type: string, example: SCRUM }
+            phase: { type: string, example: EXECUTION }
+            status: { type: string }
+            startDate: { type: string, format: date }
+            endDate: { type: string, format: date }
+            weeklyCapacityHours: { type: number, example: 40 }
+        tasks: { type: array, items: { type: object, required: [title], properties: { id: {}, title: { type: string }, status: { type: string, example: en_proceso }, priority: { type: string, example: alta }, assignedTo: {}, estimatedHours: { type: number }, storyPoints: { type: integer }, dueDate: { type: string, format: date }, sprintId: {} } } }
+        team: { type: array, items: { type: object, required: [userId], properties: { userId: {}, name: { type: string }, role: { type: string } } } }
+        risks: { type: array, items: { type: object, required: [title], properties: { title: { type: string }, probability: { type: string }, impact: { type: string }, status: { type: string }, mitigation: { type: string }, ownerId: {} } } }
+        sprint: { type: object, properties: { name: { type: string }, goal: { type: string }, startDate: { type: string, format: date }, endDate: { type: string, format: date }, status: { type: string } } }
+        milestones: { type: array, items: { type: object, required: [name, dueDate], properties: { name: { type: string }, dueDate: { type: string, format: date }, status: { type: string } } } }
+        issues: { type: array, items: { type: object, required: [title], properties: { title: { type: string }, priority: { type: string }, status: { type: string } } } }
+        documentation: { type: array, items: { type: object, required: [title], properties: { id: {}, title: { type: string }, type: { type: string }, url: { type: string } } } }
 paths:
   /health:
     get:
@@ -52,7 +85,7 @@ paths:
     put: { security: [{ bearerAuth: [] }], summary: Update a task, parameters: [{ in: path, name: id, required: true, schema: { type: string } }], responses: { '200': { description: Updated } } }
     delete: { security: [{ bearerAuth: [] }], summary: Delete a task, parameters: [{ in: path, name: id, required: true, schema: { type: string } }], responses: { '204': { description: Deleted } } }
   /projects/{projectId}/backlog:
-    get: { security: [{ bearerAuth: [] }], summary: List backlog items, parameters: [{ in: path, name: projectId, required: true, schema: { type: string } }], responses: { '200': { description: Backlog } } }
+    get: { security: [{ bearerAuth: [] }], summary: 'List backlog items by priority (filters ?type ?status ?priority ?sprintId=<id>|none)', parameters: [{ in: path, name: projectId, required: true, schema: { type: string } }], responses: { '200': { description: Backlog } } }
     post: { security: [{ bearerAuth: [] }], summary: Create a backlog item, parameters: [{ in: path, name: projectId, required: true, schema: { type: string } }], responses: { '201': { description: Created } } }
   /backlog/{id}:
     get: { security: [{ bearerAuth: [] }], summary: Get a backlog item, parameters: [{ in: path, name: id, required: true, schema: { type: string } }], responses: { '200': { description: Backlog item } } }
@@ -71,6 +104,37 @@ paths:
     get: { security: [{ bearerAuth: [] }], summary: Get deterministic project health, parameters: [{ in: path, name: projectId, required: true, schema: { type: string } }], responses: { '200': { description: Health } } }
   /projects/{projectId}/metrics:
     get: { security: [{ bearerAuth: [] }], summary: Get project metrics, parameters: [{ in: path, name: projectId, required: true, schema: { type: string } }], responses: { '200': { description: Metrics } } }
+  /projects/{projectId}/risks:
+    get: { security: [{ bearerAuth: [] }], summary: 'Risks sorted by severity with level (?status=OPEN; ?summary=true returns Risk Center summary)', parameters: [{ in: path, name: projectId, required: true, schema: { type: string } }], responses: { '200': { description: Risks } } }
+    post: { security: [{ bearerAuth: [] }], summary: 'Create a risk (severity = impact x probability)', parameters: [{ in: path, name: projectId, required: true, schema: { type: string } }], responses: { '201': { description: Created } } }
+  /projects/{projectId}/recommendations:
+    get: { security: [{ bearerAuth: [] }], summary: 'Stored recommendations by priority (?live=true computes without saving)', parameters: [{ in: path, name: projectId, required: true, schema: { type: string } }], responses: { '200': { description: Recommendations } } }
+    post: { security: [{ bearerAuth: [] }], summary: 'Generate and save recommendations (deduplicated for 7 days)', parameters: [{ in: path, name: projectId, required: true, schema: { type: string } }], responses: { '201': { description: '{ generated, saved, items }' } } }
+  /projects/{projectId}/compliance:
+    get: { security: [{ bearerAuth: [] }], summary: Methodology compliance, parameters: [{ in: path, name: projectId, required: true, schema: { type: string } }], responses: { '200': { description: Compliance } } }
+  /projects/{projectId}/context:
+    post:
+      summary: Analyze the real project context sent by Haitani (INT-01)
+      description: With X-Api-Key, projectId is the externalRef (haitani-proj-N) or Sanzu id. With JWT, it is the Sanzu id. Stateless, nothing is persisted.
+      security: [{ apiKeyAuth: [] }, { bearerAuth: [] }]
+      parameters: [{ in: path, name: projectId, required: true, schema: { type: string } }]
+      requestBody: { required: true, content: { application/json: { schema: { $ref: '#/components/schemas/ContextRequest' } } } }
+      responses: { '200': { description: 'health, summary, blockedTasks, risks, problems, compliance, recommendations, requiredDocuments' }, '401': { description: Unauthorized }, '403': { description: Forbidden }, '422': { description: Validation error } }
+  /partner/projects:
+    post: { security: [{ apiKeyAuth: [] }], summary: Upsert a Haitani project by externalRef, responses: { '201': { description: Synced } } }
+  /partner/projects/{externalRef}/{metric}:
+    get: { security: [{ apiKeyAuth: [] }], summary: 'metric = metrics | health | compliance | analysis | recommendations', parameters: [{ in: path, name: externalRef, required: true, schema: { type: string } }, { in: path, name: metric, required: true, schema: { type: string } }], responses: { '200': { description: Result } } }
+  /partner/projects/{externalRef}/backlog:
+    get: { security: [{ apiKeyAuth: [] }], summary: 'Backlog del proyecto de Haitani (filtros ?type ?status ?priority ?sprintId)', parameters: [{ in: path, name: externalRef, required: true, schema: { type: string } }], responses: { '200': { description: Items }, '404': { description: Project not synced } } }
+    post: { security: [{ apiKeyAuth: [] }], summary: Add a backlog item, parameters: [{ in: path, name: externalRef, required: true, schema: { type: string } }], responses: { '201': { description: Created }, '422': { description: Validation error } } }
+  /partner/projects/{externalRef}/backlog/{itemId}:
+    put: { security: [{ apiKeyAuth: [] }], summary: 'Edit an item or change its status (one step; a jump returns 409)', parameters: [{ in: path, name: externalRef, required: true, schema: { type: string } }, { in: path, name: itemId, required: true, schema: { type: string } }], responses: { '200': { description: Updated }, '409': { description: Invalid transition } } }
+    delete: { security: [{ apiKeyAuth: [] }], summary: Delete an item, parameters: [{ in: path, name: externalRef, required: true, schema: { type: string } }, { in: path, name: itemId, required: true, schema: { type: string } }], responses: { '204': { description: Deleted } } }
+  /partner/projects/{externalRef}/sprints:
+    get: { security: [{ apiKeyAuth: [] }], summary: Sprints of the project, parameters: [{ in: path, name: externalRef, required: true, schema: { type: string } }], responses: { '200': { description: Sprints } } }
+    put: { security: [{ apiKeyAuth: [] }], summary: 'Sync Haitani sprints (full list; creates, updates and deletes the mirror)', parameters: [{ in: path, name: externalRef, required: true, schema: { type: string } }], requestBody: { required: true, content: { application/json: { schema: { type: object, required: [sprints], properties: { sprints: { type: array, items: { type: object, required: [externalRef, name, startDate, endDate], properties: { externalRef: { type: string }, name: { type: string }, goal: { type: string }, startDate: { type: string, format: date }, endDate: { type: string, format: date }, status: { type: string, enum: [PLANNED, ACTIVE, COMPLETED, CANCELLED] } } } } } } } } }, responses: { '200': { description: Sprints after sync }, '422': { description: Invalid list } } }
+  /partner/chatbot/message:
+    post: { security: [{ apiKeyAuth: [] }], summary: 'Chatbot for Haitani (externalRef + message)', responses: { '200': { description: Contextual answer } } }
   /chatbot/message:
     post: { security: [{ bearerAuth: [] }], summary: Ask the Sanzu Project Management Assistant, responses: { '200': { description: Contextual answer } } }
   /documentation:
@@ -95,4 +159,3 @@ paths:
     get: { summary: Get checklist items and criticality, parameters: [{ in: path, name: id, required: true, schema: { type: string } }, { in: query, name: section, required: false, schema: { type: string } }], responses: { '200': { description: Checklist definition } } }
   /checklists/{id}/evaluate:
     post: { summary: Evaluate checklist compliance, parameters: [{ in: path, name: id, required: true, schema: { type: string } }], requestBody: { required: true, content: { application/json: { schema: { type: object, properties: { itemStatuses: { type: object } } } } } }, responses: { '200': { description: Evaluation result } } }
-

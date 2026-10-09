@@ -31,3 +31,11 @@ export async function getPartnerServiceUser() {
     },
   });
 }
+
+
+/** Id de Sanzu del proyecto de Haitani (por externalRef), sin cargar relaciones. */
+export async function getPartnerProjectId(externalRef: string) {
+  const project = await prisma.project.findUnique({ where: { externalRef }, select: { id: true } });
+  if (!project) throw new NotFoundError("Project not found. Sync it first with POST /api/v1/partner/projects");
+  return project.id;
+}

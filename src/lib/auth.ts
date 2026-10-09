@@ -1,40 +1,62 @@
 import { jwtVerify, SignJWT } from "jose";
 import { NextRequest } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { assertObjectId } from "@/lib/errors";
+import { assertObjectId, AuthenticationError, AuthorizationError } from "@/lib/errors";
 import { createHash } from "node:crypto";
 
-const secret = new TextEncoder().encode(process.env.JWT_SECRET || "development-only-change-me");
-export async function signToken(userId: string) {
-  return new SignJWT({ userId }).setProtectedHeader({ alg: "HS256" }).setIssuedAt().setExpirationTime("7d").sign(secret);
+function jwtSecret() {
+  const value = process.env.JWT_SECRET;
+  if (!value && process.env.NODE_ENV === "production") throw new Error("JWT_SECRET must be configured in production");
+  return new TextEncoder().encode(value || "development-only-change-me");
 }
+
+export async function signToken(userId: string) {
+  return new SignJWT({ userId }).setProtectedHeader({ alg: "HS256" }).setIssuedAt().setExpirationTime("7d").sign(jwtSecret());
+}
+
 export async function getAuthUser(request: NextRequest) {
   const value = request.headers.get("authorization");
-  if (!value?.startsWith("Bearer ")) throw new Error("Authentication required");
+  if (!value?.startsWith("Bearer ")) throw new AuthenticationError("Authentication required");
+  let userId: string | undefined;
   try {
-    const { payload } = await jwtVerify(value.slice(7), secret);
-    const userId = typeof payload.userId === "string" ? payload.userId : undefined;
-    if (!userId) throw new Error("Invalid token");
-    const user = await prisma.user.findUnique({ where: { id: userId } });
-    if (!user) throw new Error("User not found");
-    return user;
-  } catch { throw new Error("Authentication required"); }
+    const { payload } = await jwtVerify(value.slice(7), jwtSecret());
+    userId = typeof payload.userId === "string" ? payload.userId : undefined;
+  } catch {
+    throw new AuthenticationError("Invalid or expired token");
+  }
+  if (!userId || !/^[a-f\d]{24}$/i.test(userId)) throw new AuthenticationError("Invalid token");
+  const user = await prisma.user.findUnique({ where: { id: userId } });
+  if (!user) throw new AuthenticationError("Authentication required");
+  return user;
 }
+
 export async function getAuthClient(request: NextRequest) {
   const key = request.headers.get("X-Api-Key");
-  if (!key) { const error = new Error("API key required"); error.name = "AuthenticationError"; throw error; }
+  if (!key) throw new AuthenticationError("API key required");
   const keyHash = createHash("sha256").update(key).digest("hex");
   const client = await prisma.apiClient.findFirst({ where: { keyHash, active: true } });
-  if (!client) { const error = new Error("Invalid API key"); error.name = "AuthenticationError"; throw error; }
+  if (!client) throw new AuthenticationError("Invalid API key");
   return client;
 }
+
 export function publicUser(user: { id: string; name: string; email: string; role: string; createdAt: Date; updatedAt: Date }) {
   const { id, name, email, role, createdAt, updatedAt } = user;
   return { id, name, email, role, createdAt, updatedAt };
 }
+
+/** Un usuario tiene acceso si es manager del proyecto o miembro (ProjectMember). */
 export async function requireProjectAccess(userId: string, projectId: string) {
   assertObjectId(projectId, "projectId");
   const project = await prisma.project.findFirst({ where: { id: projectId, OR: [{ managerId: userId }, { members: { some: { userId } } }] } });
-  if (!project) { const error = new Error("Project not found or access denied"); error.name = "AuthorizationError"; throw error; }
+  if (!project) throw new AuthorizationError("Project not found or access denied");
+  return project;
+}
+
+/** Para editar/eliminar el proyecto: manager o miembro con rol PROJECT_MANAGER (SB-02). */
+export async function requireProjectManager(userId: string, projectId: string) {
+  const project = await requireProjectAccess(userId, projectId);
+  if (project.managerId === userId) return project;
+  const membership = await prisma.projectMember.findFirst({ where: { projectId, userId, role: "PROJECT_MANAGER" } });
+  if (!membership) throw new AuthorizationError("Only the project manager can perform this action");
   return project;
 }
