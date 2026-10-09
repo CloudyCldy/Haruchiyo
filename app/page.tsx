@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useEffect, useState, useRef } from "react";
 
 type ApiResult = {
   success?: boolean;
@@ -23,6 +23,7 @@ type Project = {
   name: string;
   description?: string;
   status: string;
+  methodologyId?: string;
   methodology?: { name: string };
 };
 
@@ -32,15 +33,64 @@ type Methodology = {
   description: string;
 };
 
+type ProjectAnalysis = {
+  projectId: string;
+  methodology: string;
+  metrics: {
+    progress: number;
+    pendingTasks: number;
+    blockedTasks: number;
+    overdueTasks: number;
+    riskCount: number;
+    issueCount: number;
+    milestoneProgress: number;
+  };
+  compliance: {
+    score: number;
+    status: string;
+    problems: { description: string }[];
+  };
+  health: number;
+  problems: { description: string }[];
+  recommendations: { title?: string; description?: string; suggestedAction?: string }[];
+};
+
+type Task = {
+  id: string;
+  title: string;
+  description?: string;
+  status: "TODO" | "IN_PROGRESS" | "BLOCKED" | "DONE" | "CANCELLED";
+  priority: "LOW" | "MEDIUM" | "HIGH" | "CRITICAL";
+};
+
+type ChatMessageItem = {
+  id: string;
+  role: "user" | "assistant";
+  content: string;
+  recommendations?: string[];
+  warnings?: string[];
+  timestamp: string;
+};
+
 export default function HomePage() {
+  // Estado de Tema (Dark por defecto, con soporte Light)
+  const [theme, setTheme] = useState<"dark" | "light">("dark");
+
+  // Estado de Autenticación
   const [form, setForm] = useState({ name: "", email: "", password: "" });
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [result, setResult] = useState<ApiResult | null>(null);
   const [showPassword, setShowPassword] = useState(false);
   const [mode, setMode] = useState<"register" | "login">("register");
+
+  // Estado del Workspace
   const [profile, setProfile] = useState<Profile | null>(null);
   const [projects, setProjects] = useState<Project[]>([]);
   const [methodologies, setMethodologies] = useState<Methodology[]>([]);
+  const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null);
+  const [activeTab, setActiveTab] = useState<"operations" | "inspection" | "ai">("operations");
+
+  // Formulario de Nueva Operación
   const [projectForm, setProjectForm] = useState({
     name: "",
     description: "",
@@ -52,29 +102,99 @@ export default function HomePage() {
   const [projectMessage, setProjectMessage] = useState("");
   const [copiedProjectId, setCopiedProjectId] = useState<string | null>(null);
 
+  // Análisis e Inspección Táctica
+  const [analysis, setAnalysis] = useState<ProjectAnalysis | null>(null);
+  const [analysisLoading, setAnalysisLoading] = useState(false);
+  const [tasks, setTasks] = useState<Task[]>([]);
+  const [taskForm, setTaskForm] = useState({ title: "", priority: "MEDIUM", status: "TODO" });
+  const [taskSubmitting, setTaskSubmitting] = useState(false);
+
+  // Asistente de Inteligencia Estratégica (Chatbot)
+  const [chatMessages, setChatMessages] = useState<ChatMessageItem[]>([]);
+  const [chatInput, setChatInput] = useState("");
+  const [chatLoading, setChatLoading] = useState(false);
+  const [conversationId, setConversationId] = useState<string | undefined>(undefined);
+  const chatBottomRef = useRef<HTMLDivElement>(null);
+
+  // Inicialización de Tema y Sesión
   useEffect(() => {
+    const savedTheme = (window.localStorage.getItem("sanzu_theme") as "dark" | "light") || "dark";
+    setTheme(savedTheme);
+    document.documentElement.setAttribute("data-theme", savedTheme);
+
     const token = window.localStorage.getItem("sanzu_token");
     if (token) loadWorkspace(token);
+
     fetch("/api/methodologies")
-      .then((response) => response.json())
+      .then((res) => res.json())
       .then((payload) => setMethodologies(payload.data || []))
       .catch(() => undefined);
   }, []);
 
+  function toggleTheme() {
+    const nextTheme = theme === "dark" ? "light" : "dark";
+    setTheme(nextTheme);
+    window.localStorage.setItem("sanzu_theme", nextTheme);
+    document.documentElement.setAttribute("data-theme", nextTheme);
+  }
+
   async function loadWorkspace(token: string) {
     const headers = { Authorization: `Bearer ${token}` };
-    const [profileResponse, projectsResponse] = await Promise.all([
-      fetch("/api/users/me", { headers }),
-      fetch("/api/projects", { headers }),
-    ]);
-    if (!profileResponse.ok || !projectsResponse.ok) {
+    try {
+      const [profileRes, projectsRes] = await Promise.all([
+        fetch("/api/users/me", { headers }),
+        fetch("/api/projects", { headers }),
+      ]);
+
+      if (!profileRes.ok || !projectsRes.ok) {
+        window.localStorage.removeItem("sanzu_token");
+        setProfile(null);
+        return;
+      }
+
+      const profilePayload = await profileRes.json();
+      const projectsPayload = await projectsRes.json();
+      const userProjects: Project[] = projectsPayload.data || [];
+
+      setProfile(profilePayload.data);
+      setProjects(userProjects);
+
+      if (userProjects.length > 0 && !selectedProjectId) {
+        selectProject(userProjects[0].id, token);
+      }
+    } catch {
       window.localStorage.removeItem("sanzu_token");
-      return;
+      setProfile(null);
     }
-    const profilePayload = await profileResponse.json();
-    const projectsPayload = await projectsResponse.json();
-    setProfile(profilePayload.data);
-    setProjects(projectsPayload.data || []);
+  }
+
+  async function selectProject(projectId: string, existingToken?: string) {
+    setSelectedProjectId(projectId);
+    const token = existingToken || window.localStorage.getItem("sanzu_token");
+    if (!token) return;
+
+    setAnalysisLoading(true);
+    const headers = { Authorization: `Bearer ${token}` };
+
+    try {
+      const [analysisRes, tasksRes] = await Promise.all([
+        fetch(`/api/projects/${projectId}/analysis`, { headers }),
+        fetch(`/api/projects/${projectId}/tasks`, { headers }),
+      ]);
+
+      if (analysisRes.ok) {
+        const payload = await analysisRes.json();
+        setAnalysis(payload.data);
+      }
+      if (tasksRes.ok) {
+        const payload = await tasksRes.json();
+        setTasks(payload.data || []);
+      }
+    } catch {
+      // Manejo silencioso en carga secundaria
+    } finally {
+      setAnalysisLoading(false);
+    }
   }
 
   function updateField(field: keyof typeof form, value: string) {
@@ -100,7 +220,7 @@ export default function HomePage() {
       setStatus(response.ok ? "success" : "error");
     } catch {
       setStatus("error");
-      setResult({ error: { message: "No se pudo conectar con Sanzu." } });
+      setResult({ error: { message: "Ejecución interrumpida. No se pudo conectar con el servidor." } });
     }
   }
 
@@ -123,7 +243,7 @@ export default function HomePage() {
       setStatus(response.ok ? "success" : "error");
     } catch {
       setStatus("error");
-      setResult({ error: { message: "No se pudo conectar con Sanzu." } });
+      setResult({ error: { message: "Ejecución interrumpida. Credenciales no autorizadas." } });
     }
   }
 
@@ -148,9 +268,11 @@ export default function HomePage() {
       });
       const payload = await response.json();
       if (!response.ok) {
-        throw new Error(payload.error?.message || "No se pudo crear el proyecto.");
+        throw new Error(payload.error?.message || "Ejecución interrumpida al registrar la operación.");
       }
-      setProjects((current) => [payload.data, ...current]);
+      const newProj: Project = payload.data;
+      setProjects((current) => [newProj, ...current]);
+      setSelectedProjectId(newProj.id);
       setProjectForm({
         name: "",
         description: "",
@@ -158,11 +280,107 @@ export default function HomePage() {
         startDate: "",
         endDate: "",
       });
-      setProjectMessage("Proyecto registrado correctamente.");
+      setProjectMessage("Operación completada. Nueva directiva desplegada en el registro.");
       setProjectStatus("success");
+      selectProject(newProj.id, token);
     } catch (error) {
-      setProjectMessage(error instanceof Error ? error.message : "No se pudo crear el proyecto.");
+      setProjectMessage(error instanceof Error ? error.message : "Error al registrar la operación.");
       setProjectStatus("error");
+    }
+  }
+
+  async function createTask(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (!selectedProjectId) return;
+    const token = window.localStorage.getItem("sanzu_token");
+    if (!token) return;
+
+    setTaskSubmitting(true);
+    try {
+      const response = await fetch(`/api/projects/${selectedProjectId}/tasks`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(taskForm),
+      });
+      if (response.ok) {
+        const payload = await response.json();
+        setTasks((prev) => [payload.data, ...prev]);
+        setTaskForm({ title: "", priority: "MEDIUM", status: "TODO" });
+        selectProject(selectedProjectId, token);
+      }
+    } catch {
+      // Manejo de error
+    } finally {
+      setTaskSubmitting(false);
+    }
+  }
+
+  async function sendChatMessage(promptText?: string) {
+    const textToSend = promptText || chatInput;
+    if (!textToSend.trim() || !selectedProjectId) return;
+    const token = window.localStorage.getItem("sanzu_token");
+    if (!token) return;
+
+    const userMsg: ChatMessageItem = {
+      id: "u-" + Date.now(),
+      role: "user",
+      content: textToSend,
+      timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+    };
+
+    setChatMessages((prev) => [...prev, userMsg]);
+    if (!promptText) setChatInput("");
+    setChatLoading(true);
+
+    try {
+      const response = await fetch("/api/chatbot/message", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          projectId: selectedProjectId,
+          message: textToSend,
+          conversationId: conversationId || undefined,
+        }),
+      });
+
+      const payload = await response.json();
+      if (response.ok && payload.data) {
+        if (payload.data.conversationId) setConversationId(payload.data.conversationId);
+
+        const assistantMsg: ChatMessageItem = {
+          id: "a-" + Date.now(),
+          role: "assistant",
+          content: payload.data.response,
+          recommendations: payload.data.recommendations?.map((r: { description?: string; suggestedAction?: string } | string) =>
+            typeof r === "string" ? r : r.suggestedAction || r.description || ""
+          ),
+          warnings: payload.data.warnings?.map((w: { description?: string } | string) =>
+            typeof w === "string" ? w : w.description || ""
+          ),
+          timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+        };
+
+        setChatMessages((prev) => [...prev, assistantMsg]);
+      } else {
+        throw new Error(payload.error?.message || "Inteligencia no disponible");
+      }
+    } catch (err) {
+      const errorMsg: ChatMessageItem = {
+        id: "err-" + Date.now(),
+        role: "assistant",
+        content: "Ejecución interrumpida: El canal táctico no pudo procesar la solicitud en este momento.",
+        timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+      };
+      setChatMessages((prev) => [...prev, errorMsg]);
+    } finally {
+      setChatLoading(false);
+      setTimeout(() => chatBottomRef.current?.scrollIntoView({ behavior: "smooth" }), 100);
     }
   }
 
@@ -170,6 +388,10 @@ export default function HomePage() {
     window.localStorage.removeItem("sanzu_token");
     setProfile(null);
     setProjects([]);
+    setSelectedProjectId(null);
+    setAnalysis(null);
+    setTasks([]);
+    setChatMessages([]);
     setStatus("idle");
     setMode("login");
   }
@@ -187,37 +409,73 @@ export default function HomePage() {
     if (nextMode === "login") setForm((current) => ({ ...current, name: "" }));
   }
 
-  /* -------------------------------------------------------------
-     WORKSPACE VIEW (Logged In)
-     ------------------------------------------------------------- */
+  const activeProject = projects.find((p) => p.id === selectedProjectId) || projects[0];
+
+  /* =========================================================================
+     VISTA AUTENTICADA (CENTRO DE COMANDO BONTEN)
+     ========================================================================= */
   if (profile) {
     return (
       <main className="workspace-shell">
-        <header className="steep-nav">
+        {/* Barra Superior Táctica */}
+        <header className="bonten-nav">
           <div className="nav-brand">
-            <div className="brand-mark">
+            <div className="brand-mark" aria-label="Logo Sanzu">
               <img src="/sanzu.png" alt="Sanzu Logo" className="brand-logo-img" />
             </div>
             <div className="nav-brand-title">
-              <strong>SANZU</strong>
-              <small>Workspace · Command Center</small>
+              <strong>HARUCHIYO / SANZU</strong>
+              <small>Centro de Comando · Protocolo Ejecutivo</small>
             </div>
           </div>
 
-          <div className="nav-right">
-            <div className="profile-chip">
-              <span className="profile-avatar">
+          <div className="nav-actions">
+            <span className="status-pill">
+              <span className="status-dot-pulse" />
+              SISTEMA EN LÍNEA
+            </span>
+
+            <button
+              type="button"
+              className="theme-toggle-btn"
+              onClick={toggleTheme}
+              aria-label={theme === "dark" ? "Cambiar a modo claro" : "Cambiar a modo oscuro"}
+              title="Alternar tema"
+            >
+              {theme === "dark" ? "☼" : "☾"}
+            </button>
+
+            <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+              <span
+                style={{
+                  width: "36px",
+                  height: "36px",
+                  borderRadius: "50%",
+                  background: "var(--bg-elevated)",
+                  border: "1px solid var(--border-accent)",
+                  color: "var(--rose-sanzu)",
+                  display: "grid",
+                  placeItems: "center",
+                  fontFamily: "var(--font-serif)",
+                  fontSize: "17px",
+                  fontWeight: 600,
+                }}
+              >
                 {profile.name.slice(0, 1).toUpperCase()}
               </span>
-              <span className="profile-meta">
-                <b>{profile.name}</b>
-                <small>{profile.email}</small>
-              </span>
-              <span className="role-badge">{profile.role.replace("_", " ")}</span>
+
+              <div style={{ display: "flex", flexDirection: "column" }}>
+                <b style={{ fontSize: "13px", lineHeight: 1.1, color: "var(--text-primary)" }}>{profile.name}</b>
+                <span className="kicker-tag" style={{ fontSize: "9px" }}>
+                  {profile.role.replace("_", " ")}
+                </span>
+              </div>
+
               <button
                 type="button"
                 className="btn-pill btn-pill-sm btn-pill-ghost"
                 onClick={logout}
+                style={{ marginLeft: "6px" }}
               >
                 Cerrar sesión
               </button>
@@ -226,229 +484,568 @@ export default function HomePage() {
         </header>
 
         <section className="workspace-content">
-          <div className="workspace-intro">
+          {/* Encabezado del Centro de Comando */}
+          <div className="workspace-hero">
             <div>
-              <p className="eyebrow">CENTRO DE MANDO</p>
+              <span className="kicker-tag">CENTRO DE COMANDO // BONTEN EXECUTIVE</span>
               <h2>
-                Hola, <em>{profile.name.split(" ")[0]}</em>.
+                Bienvenido, <em>{profile.name.split(" ")[0]}</em>.
               </h2>
-              <p>Monitorea y crea proyectos con directrices metodológicas ágiles.</p>
-            </div>
-          </div>
-
-          {/* Quick Metrics Floating Artifacts Bar */}
-          <div className="workspace-kpi-bar">
-            <div className="kpi-artifact-card">
-              <div>
-                <div className="kpi-label">Proyectos Registrados</div>
-                <div className="kpi-val">{projects.length}</div>
-              </div>
-              <span className="kpi-badge teal">Activo</span>
-            </div>
-
-            <div className="kpi-artifact-card">
-              <div>
-                <div className="kpi-label">Metodología Base</div>
-                <div className="kpi-val" style={{ fontSize: "22px" }}>
-                  {methodologies.length > 0 ? "Scrum & Kanban" : "Ágil"}
-                </div>
-              </div>
-              <span className="kpi-badge blush">Estandarizado</span>
-            </div>
-
-            <div className="kpi-artifact-card">
-              <div>
-                <div className="kpi-label">Motor de Inteligencia</div>
-                <div className="kpi-val" style={{ fontSize: "22px" }}>
-                  Sanzu AI
-                </div>
-              </div>
-              <span className="status-dot">Online</span>
-            </div>
-          </div>
-
-          <div className="workspace-grid">
-            {/* Left Card: Form */}
-            <section className="project-form-card">
-              <div className="section-kicker">
-                <span>NUEVO PROYECTO</span>
-                <span>01</span>
-              </div>
-              <h3>Registra tu proyecto</h3>
-              <p className="card-copy">
-                La metodología define las reglas, métricas y recomendaciones automáticas de Sanzu.
+              <p style={{ color: "var(--text-secondary)", margin: "6px 0 0", fontSize: "15px" }}>
+                Supervisión de operaciones activas, control de contingencias y análisis táctico en tiempo real.
               </p>
+            </div>
 
-              <form onSubmit={createProject}>
-                <div className="input-field">
-                  <label htmlFor="project-name">Nombre del proyecto</label>
-                  <input
-                    id="project-name"
-                    value={projectForm.name}
-                    onChange={(event) =>
-                      setProjectForm({ ...projectForm, name: event.target.value })
-                    }
-                    placeholder="Ej. Plataforma de pagos global"
-                    required
-                  />
-                </div>
-
-                <div className="input-field">
-                  <label htmlFor="methodology">Metodología</label>
-                  <select
-                    id="methodology"
-                    value={projectForm.methodologyId}
-                    onChange={(event) =>
-                      setProjectForm({ ...projectForm, methodologyId: event.target.value })
-                    }
-                  >
-                    {(methodologies.length
-                      ? methodologies
-                      : [
-                          { id: "SCRUM", name: "Scrum", description: "" },
-                          { id: "KANBAN", name: "Kanban", description: "" },
-                        ]
-                    ).map((methodology) => (
-                      <option key={methodology.id} value={methodology.id}>
-                        {methodology.name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                <div className="input-field">
-                  <label htmlFor="project-description">
-                    Descripción <span className="optional">(OPCIONAL)</span>
-                  </label>
-                  <textarea
-                    id="project-description"
-                    value={projectForm.description}
-                    onChange={(event) =>
-                      setProjectForm({ ...projectForm, description: event.target.value })
-                    }
-                    placeholder="¿Cuáles son los objetivos y alcances clave?"
-                    rows={3}
-                  />
-                </div>
-
-                <div className="date-grid">
-                  <div className="input-field">
-                    <label htmlFor="start-date">
-                      Inicio <span className="optional">(OPCIONAL)</span>
-                    </label>
-                    <input
-                      id="start-date"
-                      type="date"
-                      value={projectForm.startDate}
-                      onChange={(event) =>
-                        setProjectForm({ ...projectForm, startDate: event.target.value })
-                      }
-                    />
-                  </div>
-                  <div className="input-field">
-                    <label htmlFor="end-date">
-                      Entrega <span className="optional">(OPCIONAL)</span>
-                    </label>
-                    <input
-                      id="end-date"
-                      type="date"
-                      value={projectForm.endDate}
-                      onChange={(event) =>
-                        setProjectForm({ ...projectForm, endDate: event.target.value })
-                      }
-                    />
-                  </div>
-                </div>
-
-                <button
-                  className="submit-button"
-                  type="submit"
-                  disabled={projectStatus === "loading"}
+            {/* Selector de Proyecto Activo */}
+            {projects.length > 0 && (
+              <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                <span className="kicker-tag violet">OPERACIÓN EN FOCO:</span>
+                <select
+                  value={selectedProjectId || ""}
+                  onChange={(e) => selectProject(e.target.value)}
+                  style={{
+                    padding: "8px 14px",
+                    borderRadius: "var(--radius-pills)",
+                    border: "1px solid var(--border-accent)",
+                    background: "var(--bg-elevated)",
+                    color: "var(--text-primary)",
+                    fontFamily: "var(--font-mono)",
+                    fontSize: "12px",
+                    fontWeight: 600,
+                    cursor: "pointer",
+                    maxWidth: "240px",
+                  }}
                 >
-                  {projectStatus === "loading" ? "REGISTRANDO..." : "REGISTRAR PROYECTO  →"}
-                </button>
-              </form>
-
-              {projectMessage && (
-                <div
-                  className={`feedback ${projectStatus}`}
-                  role={projectStatus === "error" ? "alert" : "status"}
-                >
-                  {projectMessage}
-                </div>
-              )}
-            </section>
-
-            {/* Right Card: Projects List */}
-            <section className="projects-card">
-              <div className="section-kicker">
-                <span>PORTAFOLIO</span>
-                <span>{String(projects.length).padStart(2, "0")}</span>
-              </div>
-              <h3>Proyectos registrados</h3>
-              <p className="card-copy">
-                Gestiona y consulta identificadores de tus proyectos activos.
-              </p>
-
-              {projects.length === 0 ? (
-                <div className="empty-projects">
-                  <div className="empty-projects-icon">＋</div>
-                  <p>
-                    Aún no tienes proyectos registrados.
-                    <br />
-                    Comienza definiendo tu primera iniciativa.
-                  </p>
-                </div>
-              ) : (
-                <div className="project-list">
-                  {projects.map((project) => (
-                    <article className="project-row" key={project.id}>
-                      <div className="project-icon" aria-hidden="true">
-                        {project.name.slice(0, 1).toUpperCase()}
-                      </div>
-                      <div className="project-info">
-                        <strong>{project.name}</strong>
-                        <span className="project-methodology-tag">
-                          {project.methodology?.name || project.status}
-                        </span>
-                      </div>
-                      <div className="project-id-actions">
-                        <span className="project-id-code" title={project.id}>
-                          ID: {project.id}
-                        </span>
-                        <button
-                          type="button"
-                          className={`copy-pill-btn ${
-                            copiedProjectId === project.id ? "copied" : ""
-                          }`}
-                          onClick={() => copyProjectId(project.id)}
-                          aria-label={`Copiar ID del proyecto ${project.name}`}
-                        >
-                          {copiedProjectId === project.id ? "Copiado ✓" : "Copiar ID"}
-                        </button>
-                      </div>
-                    </article>
+                  {projects.map((proj) => (
+                    <option key={proj.id} value={proj.id}>
+                      {proj.name} ({proj.methodology?.name || proj.status})
+                    </option>
                   ))}
-                </div>
-              )}
-            </section>
+                </select>
+              </div>
+            )}
           </div>
 
-          {/* Steep Editorial Kraft Accent Card (Rare, exactly one per page) */}
-          <aside className="steep-accent-card" aria-label="Nota editorial Sanzu">
-            <div className="accent-card-inner">
-              <span className="tag-label">CONSEJO METODOLÓGICO</span>
-              <p className="accent-quote">
-                “La disciplina ágil no consiste en añadir reuniones, sino en acortar el bucle de retroalimentación.”
-              </p>
-              <p style={{ margin: 0, fontSize: "14px", lineHeight: "1.6", color: "var(--ink)" }}>
-                Al asignar una metodología como Scrum o Kanban a tu proyecto, el motor de Sanzu supervisa
-                automáticamente los límites de trabajo en curso (WIP) y evalúa los entregables según listas de control
-                verificables.
-              </p>
-              <div className="accent-attribution" style={{ marginTop: "12px" }}>
-                — Sanzu Project Framework & Intelligence
+          {/* Barra de KPIs Tácticos */}
+          <div className="kpi-grid">
+            <div className="kpi-card corner-accent">
+              <span className="kpi-label">Operaciones Activas</span>
+              <div className="kpi-number">{projects.length}</div>
+              <span className="kpi-badge rose">Desplegadas</span>
+            </div>
+
+            <div className="kpi-card">
+              <span className="kpi-label">Índice de Salud (Foco)</span>
+              <div className="kpi-number" style={{ color: analysis && analysis.health < 60 ? "var(--status-error)" : "var(--text-primary)" }}>
+                {analysis ? `${analysis.health}%` : "100%"}
               </div>
+              <span className="kpi-badge cyan">
+                {analysis?.compliance.status || "Óptimo"}
+              </span>
+            </div>
+
+            <div className="kpi-card">
+              <span className="kpi-label">Amenazas Detectadas</span>
+              <div className="kpi-number" style={{ color: analysis && analysis.problems.length > 0 ? "var(--status-warning)" : "var(--status-success)" }}>
+                {analysis ? analysis.problems.length : 0}
+              </div>
+              <span className="kpi-badge green">Bajo Control</span>
+            </div>
+
+            <div className="kpi-card">
+              <span className="kpi-label">Inteligencia Estratégica</span>
+              <div className="kpi-number" style={{ fontSize: "20px", marginTop: "4px" }}>
+                Sanzu AI Core
+              </div>
+              <span className="kpi-badge rose">Determinístico</span>
+            </div>
+          </div>
+
+          {/* Pestañas de Navegación del Panel */}
+          <nav className="view-tabs" aria-label="Vistas del centro de comando">
+            <button
+              type="button"
+              className={`view-tab-btn ${activeTab === "operations" ? "active" : ""}`}
+              onClick={() => setActiveTab("operations")}
+            >
+              <span>📁</span> Operaciones Activas ({projects.length})
+            </button>
+            <button
+              type="button"
+              className={`view-tab-btn ${activeTab === "inspection" ? "active" : ""}`}
+              onClick={() => setActiveTab("inspection")}
+            >
+              <span>⚡</span> Inspección Táctica & Tareas ({tasks.length})
+            </button>
+            <button
+              type="button"
+              className={`view-tab-btn ${activeTab === "ai" ? "active" : ""}`}
+              onClick={() => setActiveTab("ai")}
+            >
+              <span>⚔</span> Inteligencia Estratégica (Copiloto)
+            </button>
+          </nav>
+
+          {/* ===============================================================
+              PESTAÑA 1: OPERACIONES ACTIVAS & REGISTRO DE NUEVA DIRECTIVA
+              =============================================================== */}
+          {activeTab === "operations" && (
+            <div className="operations-grid">
+              {/* Formulario: Nueva Operación */}
+              <section className="tactical-card corner-accent" aria-label="Registrar nueva operación">
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "14px" }}>
+                  <span className="kicker-tag">NUEVA OPERACIÓN // DIRECTIVA 01</span>
+                  <span className="code-mono" style={{ color: "var(--rose-sanzu)" }}>BONTEN-OPS</span>
+                </div>
+                <h3>Registra tu operación</h3>
+                <p style={{ color: "var(--text-secondary)", fontSize: "14px", margin: "6px 0 20px" }}>
+                  Define el marco de trabajo, alcance y plazos. La metodología determina las reglas y métricas automáticas.
+                </p>
+
+                <form onSubmit={createProject}>
+                  <div className="form-group">
+                    <label htmlFor="project-name">Nombre de la operación</label>
+                    <input
+                      id="project-name"
+                      value={projectForm.name}
+                      onChange={(e) => setProjectForm({ ...projectForm, name: e.target.value })}
+                      placeholder="Ej. Reestructuración de infraestructura core"
+                      required
+                    />
+                  </div>
+
+                  <div className="form-group">
+                    <label htmlFor="methodology">Marco de trabajo metodológico</label>
+                    <select
+                      id="methodology"
+                      value={projectForm.methodologyId}
+                      onChange={(e) => setProjectForm({ ...projectForm, methodologyId: e.target.value })}
+                    >
+                      {(methodologies.length
+                        ? methodologies
+                        : [
+                            { id: "SCRUM", name: "Scrum (Iterativo y sprints)", description: "" },
+                            { id: "KANBAN", name: "Kanban (Flujo continuo y WIP)", description: "" },
+                          ]
+                      ).map((methodology) => (
+                        <option key={methodology.id} value={methodology.id}>
+                          {methodology.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div className="form-group">
+                    <label htmlFor="project-description">
+                      Directivas & Alcance <span style={{ color: "var(--text-tertiary)", fontSize: "11px" }}>(OPCIONAL)</span>
+                    </label>
+                    <textarea
+                      id="project-description"
+                      value={projectForm.description}
+                      onChange={(e) => setProjectForm({ ...projectForm, description: e.target.value })}
+                      placeholder="¿Cuáles son los objetivos estratégicos y condiciones de éxito?"
+                      rows={3}
+                    />
+                  </div>
+
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "14px" }}>
+                    <div className="form-group">
+                      <label htmlFor="start-date">Despliegue</label>
+                      <input
+                        id="start-date"
+                        type="date"
+                        value={projectForm.startDate}
+                        onChange={(e) => setProjectForm({ ...projectForm, startDate: e.target.value })}
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label htmlFor="end-date">Plazo límite</label>
+                      <input
+                        id="end-date"
+                        type="date"
+                        value={projectForm.endDate}
+                        onChange={(e) => setProjectForm({ ...projectForm, endDate: e.target.value })}
+                      />
+                    </div>
+                  </div>
+
+                  <button className="submit-button" type="submit" disabled={projectStatus === "loading"}>
+                    {projectStatus === "loading" ? "DESPLEGANDO DIRECTIVA..." : "REGISTRAR OPERACIÓN  →"}
+                  </button>
+                </form>
+
+                {projectMessage && (
+                  <div
+                    className={`feedback-box ${projectStatus}`}
+                    role={projectStatus === "error" ? "alert" : "status"}
+                  >
+                    <strong>{projectStatus === "success" ? "Operación completada" : "Ejecución interrumpida"}</strong>
+                    <span>{projectMessage}</span>
+                  </div>
+                )}
+              </section>
+
+              {/* Lista: Operaciones Registradas */}
+              <section className="tactical-card" aria-label="Listado de operaciones">
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "14px" }}>
+                  <span className="kicker-tag">REGISTRO DE OPERACIONES</span>
+                  <span className="code-mono" style={{ color: "var(--text-secondary)" }}>
+                    TOTAL: {String(projects.length).padStart(2, "0")}
+                  </span>
+                </div>
+                <h3>Operaciones activas</h3>
+                <p style={{ color: "var(--text-secondary)", fontSize: "14px", margin: "6px 0 20px" }}>
+                  Selecciona una operación para inspeccionar sus métricas, tareas e inteligencia estratégica.
+                </p>
+
+                {projects.length === 0 ? (
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      minHeight: "240px",
+                      border: "1px dashed var(--border-subtle)",
+                      borderRadius: "var(--radius-cards)",
+                      padding: "32px",
+                      textAlign: "center",
+                    }}
+                  >
+                    <span style={{ fontSize: "32px", color: "var(--rose-sanzu)", marginBottom: "10px" }}>⚔</span>
+                    <p style={{ fontFamily: "var(--font-serif)", fontSize: "18px", color: "var(--text-primary)", margin: 0 }}>
+                      No hay operaciones activas.
+                      <br />
+                      <em style={{ color: "var(--rose-sanzu)" }}>Define tu siguiente movimiento.</em>
+                    </p>
+                  </div>
+                ) : (
+                  <div>
+                    {projects.map((project) => {
+                      const isSelected = project.id === selectedProjectId;
+                      return (
+                        <article
+                          key={project.id}
+                          className={`operation-row ${isSelected ? "selected" : ""}`}
+                          onClick={() => selectProject(project.id)}
+                          role="button"
+                          tabIndex={0}
+                          aria-label={`Seleccionar operación ${project.name}`}
+                        >
+                          <div className="operation-monogram" aria-hidden="true">
+                            {project.name.slice(0, 1).toUpperCase()}
+                          </div>
+                          <div className="operation-meta">
+                            <strong>{project.name}</strong>
+                            <span className="operation-tag">
+                              {project.methodology?.name || project.status}
+                            </span>
+                          </div>
+                          <div className="operation-actions">
+                            <span className="code-mono" style={{ fontSize: "10px", color: "var(--text-tertiary)" }}>
+                              ID: {project.id.slice(-6)}
+                            </span>
+                            <button
+                              type="button"
+                              className={`copy-token-btn ${copiedProjectId === project.id ? "copied" : ""}`}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                copyProjectId(project.id);
+                              }}
+                            >
+                              {copiedProjectId === project.id ? "Copiado ✓" : "Copiar ID"}
+                            </button>
+                          </div>
+                        </article>
+                      );
+                    })}
+                  </div>
+                )}
+              </section>
+            </div>
+          )}
+
+          {/* ===============================================================
+              PESTAÑA 2: INSPECCIÓN TÁCTICA & MOVIMIENTOS (TAREAS)
+              =============================================================== */}
+          {activeTab === "inspection" && (
+            <div className="operations-grid">
+              {/* Desglose de Análisis de Salud */}
+              <section className="tactical-card corner-accent" aria-label="Diagnóstico de operación">
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px" }}>
+                  <span className="kicker-tag">DIAGNÓSTICO // {activeProject?.name || "OPERACIÓN"}</span>
+                  <span className="status-pill">
+                    SALUD: {analysis ? `${analysis.health}%` : "100%"}
+                  </span>
+                </div>
+                <h3>Diagnóstico de cumplimiento</h3>
+                <p style={{ color: "var(--text-secondary)", fontSize: "14px", margin: "6px 0 20px" }}>
+                  Evaluación determinística basada en las reglas y cadencias de {activeProject?.methodology?.name || "la metodología activa"}.
+                </p>
+
+                {analysisLoading ? (
+                  <div style={{ padding: "40px", textAlign: "center", color: "var(--rose-sanzu)", fontFamily: "var(--font-mono)" }}>
+                    ANALIZANDO CONTINGENCIAS Y FLUJO TÁCTICO...
+                  </div>
+                ) : analysis ? (
+                  <div>
+                    {/* Barra de progreso de cumplimiento */}
+                    <div style={{ marginBottom: "20px" }}>
+                      <div style={{ display: "flex", justifyContent: "space-between", fontSize: "12px", marginBottom: "6px" }}>
+                        <span>Cumplimiento Metodológico</span>
+                        <b style={{ color: "var(--rose-sanzu)" }}>{analysis.compliance.score}% ({analysis.compliance.status})</b>
+                      </div>
+                      <div style={{ width: "100%", height: "6px", background: "var(--bg-base)", borderRadius: "3px", overflow: "hidden" }}>
+                        <div
+                          style={{
+                            width: `${analysis.compliance.score}%`,
+                            height: "100%",
+                            background: "linear-gradient(90deg, var(--violet-somber), var(--rose-sanzu))",
+                          }}
+                        />
+                      </div>
+                    </div>
+
+                    {/* Amenazas Detectadas */}
+                    <div style={{ marginBottom: "20px" }}>
+                      <span className="kicker-tag" style={{ color: analysis.problems.length > 0 ? "var(--status-warning)" : "var(--status-success)" }}>
+                        {analysis.problems.length > 0 ? "⚠️ AMENAZAS DETECTADAS" : "✓ SIN AMENAZAS INMEDIATAS"}
+                      </span>
+                      {analysis.problems.length === 0 ? (
+                        <p style={{ fontSize: "13px", color: "var(--text-secondary)", marginTop: "6px" }}>
+                          No se han identificado bloqueos ni desviaciones críticas en este ciclo.
+                        </p>
+                      ) : (
+                        <ul style={{ paddingLeft: "20px", margin: "8px 0", fontSize: "13px", color: "var(--text-primary)" }}>
+                          {analysis.problems.map((prob, idx) => (
+                            <li key={idx} style={{ marginBottom: "4px" }}>{prob.description}</li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+
+                    {/* Recomendaciones Estratégicas */}
+                    {analysis.recommendations && analysis.recommendations.length > 0 && (
+                      <div style={{ background: "var(--bg-elevated)", padding: "16px", borderRadius: "var(--radius-inputs)", border: "1px solid var(--border-subtle)" }}>
+                        <span className="kicker-tag violet">DIRECTIVA ESTRATÉGICA RECOMENDADA:</span>
+                        <p style={{ fontSize: "13px", color: "var(--text-primary)", margin: "6px 0 0" }}>
+                          {analysis.recommendations[0]?.suggestedAction || analysis.recommendations[0]?.description || "Mantén la cadencia y revisa el backlog priorizado."}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <p style={{ color: "var(--text-secondary)", fontSize: "13px" }}>
+                    Selecciona una operación para ejecutar el diagnóstico en tiempo real.
+                  </p>
+                )}
+              </section>
+
+              {/* Tareas / Movimientos Tácticos */}
+              <section className="tactical-card" aria-label="Movimientos tácticos">
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px" }}>
+                  <span className="kicker-tag">MOVIMIENTOS TÁCTICOS ({tasks.length})</span>
+                  <span className="code-mono" style={{ color: "var(--status-cyan)" }}>EJECUCIÓN</span>
+                </div>
+                <h3>Movimientos pendientes</h3>
+                <p style={{ color: "var(--text-secondary)", fontSize: "14px", margin: "6px 0 18px" }}>
+                  Asigna y gestiona tareas con prioridad y trazabilidad directa en la operación.
+                </p>
+
+                {/* Formulario rápido para nueva tarea */}
+                <form onSubmit={createTask} style={{ marginBottom: "22px", display: "grid", gap: "10px" }}>
+                  <div style={{ display: "flex", gap: "10px" }}>
+                    <input
+                      placeholder="Nuevo movimiento táctico (ej. Validar cifrado JWT)"
+                      value={taskForm.title}
+                      onChange={(e) => setTaskForm({ ...taskForm, title: e.target.value })}
+                      required
+                      style={{ flex: 1 }}
+                    />
+                    <select
+                      value={taskForm.priority}
+                      onChange={(e) => setTaskForm({ ...taskForm, priority: e.target.value as "LOW" | "MEDIUM" | "HIGH" | "CRITICAL" })}
+                      style={{ width: "130px" }}
+                    >
+                      <option value="LOW">Baja</option>
+                      <option value="MEDIUM">Media</option>
+                      <option value="HIGH">Alta</option>
+                      <option value="CRITICAL">Crítica</option>
+                    </select>
+                    <button
+                      type="submit"
+                      disabled={taskSubmitting}
+                      className="btn-pill btn-pill-rose btn-pill-sm"
+                    >
+                      {taskSubmitting ? "..." : "+ Añadir"}
+                    </button>
+                  </div>
+                </form>
+
+                {/* Lista de Tareas */}
+                {tasks.length === 0 ? (
+                  <div style={{ padding: "24px", textAlign: "center", color: "var(--text-tertiary)", border: "1px dashed var(--border-subtle)", borderRadius: "var(--radius-inputs)" }}>
+                    No hay movimientos registrados para esta operación. Define el primer paso.
+                  </div>
+                ) : (
+                  <div className="task-list-panel">
+                    {tasks.map((task) => (
+                      <div key={task.id} className="task-item-card">
+                        <div>
+                          <strong style={{ fontSize: "14px", color: "var(--text-primary)", display: "block" }}>
+                            {task.title}
+                          </strong>
+                          <span className="code-mono" style={{ fontSize: "11px", color: "var(--text-tertiary)" }}>
+                            ESTADO: {task.status}
+                          </span>
+                        </div>
+                        <span className={`priority-pill ${task.priority}`}>
+                          {task.priority}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </section>
+            </div>
+          )}
+
+          {/* ===============================================================
+              PESTAÑA 3: ASISTENTE DE INTELIGENCIA ESTRATÉGICA (SANZU AI)
+              =============================================================== */}
+          {activeTab === "ai" && (
+            <div className="chat-console-shell corner-accent">
+              <div className="chat-console-header">
+                <div>
+                  <span className="kicker-tag">CONSOLA DE INTELIGENCIA // SANZU CORE</span>
+                  <div style={{ fontSize: "13px", color: "var(--text-secondary)", marginTop: "2px" }}>
+                    Operación conectada: <b>{activeProject?.name || "Ninguna"}</b> ({activeProject?.methodology?.name || "Ágil"})
+                  </div>
+                </div>
+                <span className="status-pill">
+                  <span className="status-dot-pulse" />
+                  RESPUESTA DETERMINÍSTICA
+                </span>
+              </div>
+
+              {/* Mensajes del Asistente */}
+              <div className="chat-console-messages">
+                {chatMessages.length === 0 && (
+                  <div style={{ margin: "auto", textAlign: "center", maxWidth: "520px", padding: "30px 20px" }}>
+                    <div style={{ width: "48px", height: "48px", margin: "0 auto 16px", borderRadius: "var(--radius-chips)", background: "var(--bg-elevated)", border: "1px solid var(--border-accent)", display: "grid", placeItems: "center" }}>
+                      <img src="/sanzu.png" alt="Sanzu Logo" style={{ width: "28px", height: "28px", objectFit: "contain" }} />
+                    </div>
+                    <h3 style={{ fontSize: "22px", marginBottom: "8px" }}>Inteligencia Estratégica Lista</h3>
+                    <p style={{ color: "var(--text-secondary)", fontSize: "14px", lineHeight: "1.5" }}>
+                      «El caos no se tolera: se domina. Consulta sobre cuellos de botella, riesgos abiertos, cadencias de entrega o directivas metodológicas de esta operación.»
+                    </p>
+                  </div>
+                )}
+
+                {chatMessages.map((msg) => (
+                  <div key={msg.id} className={`chat-bubble ${msg.role}`}>
+                    {msg.role === "assistant" && (
+                      <div className="assistant-badge">
+                        <span>⚔</span> SANZU AI // RESPUESTA ESTRATÉGICA
+                      </div>
+                    )}
+                    <div>{msg.content}</div>
+
+                    {msg.recommendations && msg.recommendations.length > 0 && (
+                      <div className="chat-recommendation-list">
+                        <b style={{ color: "var(--rose-sanzu)", display: "block", marginBottom: "4px" }}>Acciones sugeridas:</b>
+                        <ul>
+                          {msg.recommendations.map((rec, i) => (
+                            <li key={i}>{rec}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
+                    <div style={{ textAlign: "right", fontSize: "10px", color: "var(--text-tertiary)", marginTop: "6px", fontFamily: "var(--font-mono)" }}>
+                      {msg.timestamp}
+                    </div>
+                  </div>
+                ))}
+
+                {chatLoading && (
+                  <div className="chat-bubble assistant">
+                    <div className="assistant-badge">
+                      <span className="status-dot-pulse" /> PROCESANDO MATRIZ DE RIESGOS...
+                    </div>
+                    <span style={{ color: "var(--text-secondary)", fontStyle: "italic", fontSize: "13px" }}>
+                      Analizando tareas, métricas y reglas del proyecto...
+                    </span>
+                  </div>
+                )}
+
+                <div ref={chatBottomRef} />
+              </div>
+
+              {/* Barra de entrada y sugerencias rápidas */}
+              <div className="chat-console-input-bar">
+                <div className="quick-prompts-bar">
+                  <button
+                    type="button"
+                    className="quick-prompt-btn"
+                    onClick={() => sendChatMessage("¿Cuáles son los principales riesgos de este proyecto?")}
+                  >
+                    ⚡ Identificar riesgos
+                  </button>
+                  <button
+                    type="button"
+                    className="quick-prompt-btn"
+                    onClick={() => sendChatMessage("¿Cómo optimizar el flujo de trabajo según la metodología?")}
+                  >
+                    📋 Sugerir plantillas y procesos
+                  </button>
+                  <button
+                    type="button"
+                    className="quick-prompt-btn"
+                    onClick={() => sendChatMessage("¿Por qué tenemos tareas bloqueadas o retrasos?")}
+                  >
+                    ⚠️ Diagnosticar bloqueos
+                  </button>
+                </div>
+
+                <div className="chat-input-row">
+                  <input
+                    value={chatInput}
+                    onChange={(e) => setChatInput(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" && !e.shiftKey) {
+                        e.preventDefault();
+                        sendChatMessage();
+                      }
+                    }}
+                    placeholder="Escribe tu consulta estratégica (ej. ¿Qué tareas tienen mayor impacto?)..."
+                    disabled={chatLoading || !selectedProjectId}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => sendChatMessage()}
+                    disabled={chatLoading || !chatInput.trim() || !selectedProjectId}
+                    className="btn-pill btn-pill-rose btn-pill-sm"
+                  >
+                    Consultar →
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Expediente Editorial Confidencial */}
+          <aside className="dossier-card corner-accent" style={{ marginTop: "40px" }} aria-label="Directiva de marca">
+            <span className="kicker-tag">DIRECTIVA EJECUTIVA // SANZU</span>
+            <p className="dossier-quote">
+              “El progreso empieza cuando el siguiente paso es evidente. El caos no se tolera: se domina.”
+            </p>
+            <p style={{ color: "var(--text-secondary)", fontSize: "14px", margin: "0 0 12px", lineHeight: "1.6" }}>
+              Cada iniciativa en Sanzu se evalúa bajo un régimen de estricta visibilidad. Las métricas eliminan la ambigüedad,
+              las alertas señalan contingencias antes de que se vuelvan irreversibles y la estrategia gobierna cada decisión.
+            </p>
+            <div className="dossier-attribution">
+              — BONTEN STRATEGIC FRAMEWORK · DIVISIÓN DE GOBERNANZA
             </div>
           </aside>
         </section>
@@ -456,146 +1053,150 @@ export default function HomePage() {
     );
   }
 
-  /* -------------------------------------------------------------
-     PUBLIC LANDING VIEW (Steep Editorial Collage)
-     ------------------------------------------------------------- */
+  /* =========================================================================
+     VISTA PÚBLICA / LANDING (IDENTIDAD BONTEN EXECUTIVE)
+     ========================================================================= */
   return (
     <div className="landing-shell">
-      {/* Top Editorial Nav */}
-      <header className="steep-nav">
+      {/* Barra Superior Táctica */}
+      <header className="bonten-nav">
         <div className="nav-brand">
-          <div className="brand-mark">
+          <div className="brand-mark" aria-label="Logo Sanzu">
             <img src="/sanzu.png" alt="Sanzu Logo" className="brand-logo-img" />
           </div>
           <div className="nav-brand-title">
-            <strong>SANZU</strong>
-            <small>Project Command Center</small>
+            <strong>HARUCHIYO / SANZU</strong>
+            <small>Centro de Comando Estratégico</small>
           </div>
         </div>
 
-        <nav className="nav-center" aria-label="Navegación principal">
-          <a href="#features">Metodologías</a>
+        <nav className="nav-center-links" aria-label="Navegación principal">
+          <a href="#capacidades">Capacidades</a>
           <a href="#manifiesto">Manifiesto</a>
           <a href="/api/health" target="_blank" rel="noreferrer">
             Estado API
           </a>
         </nav>
 
-        <div className="nav-right">
-          <span className="status-dot">API ONLINE</span>
+        <div className="nav-actions">
+          <span className="status-pill">
+            <span className="status-dot-pulse" />
+            ONLINE
+          </span>
+
           <button
             type="button"
-            className="btn-pill btn-pill-sm btn-pill-filled"
+            className="theme-toggle-btn"
+            onClick={toggleTheme}
+            aria-label={theme === "dark" ? "Cambiar a modo claro" : "Cambiar a modo oscuro"}
+            title="Alternar tema"
+          >
+            {theme === "dark" ? "☼" : "☾"}
+          </button>
+
+          <button
+            type="button"
+            className="btn-pill btn-pill-sm btn-pill-rose"
             onClick={() => switchMode(mode === "register" ? "login" : "register")}
           >
-            {mode === "register" ? "Entrar" : "Crear cuenta"}
+            {mode === "register" ? "Acceso Ejecutivo" : "Registrarse"}
           </button>
         </div>
       </header>
 
-      {/* Hero Section with Editorial Collage */}
-      <main className="landing-hero">
+      {/* Hero Principal con Eslogan Oficial */}
+      <main className="hero-section">
         <div className="page-container">
-          <div className="hero-layout">
-            {/* Left: Editorial Content & Floating Artifacts */}
-            <section className="hero-editorial" aria-label="Introducción">
-              <p className="eyebrow">PROJECT COMMAND CENTER · v1.0</p>
+          <div className="hero-grid">
+            {/* Columna Izquierda: Mensaje de Marca & Artefactos Flotantes */}
+            <section className="hero-copy" aria-label="Presentación de Sanzu">
+              <span className="kicker-tag">BONTEN EXECUTIVE PROTOCOL · INTELIGENCIA OPERATIVA</span>
               <h1>
-                Organiza el caos.
+                EL CAOS OBEDECE.
                 <br />
-                <em>Dirige con claridad.</em>
+                <em>LA ESTRATEGIA DECIDE.</em>
               </h1>
               <p className="hero-lead">
-                Tu espacio inteligente para estructurar, auditar y ejecutar iniciativas bajo metodologías
-                ágiles comprobadas y asistencia contextual en tiempo real.
+                Tu centro de comando inteligente para transformar iniciativas complejas en proyectos bajo control.
+                Planifica con metodologías ágiles, anticipa riesgos y ejecuta cada movimiento con precisión estratégica,
+                respaldado por inteligencia contextual en tiempo real.
               </p>
 
-              {/* Matched Pill Buttons Pair */}
-              <div className="hero-actions">
+              <div className="hero-btn-row">
                 <button
                   type="button"
-                  className="btn-pill btn-pill-filled"
+                  className="btn-pill btn-pill-rose"
                   onClick={() => switchMode("register")}
                 >
-                  Empezar ahora →
+                  Desplegar Operación →
                 </button>
                 <button
                   type="button"
                   className="btn-pill btn-pill-ghost"
                   onClick={() => switchMode("login")}
                 >
-                  Iniciar sesión
+                  Acceso Ejecutivo
                 </button>
               </div>
 
-              {/* Floating Product Artifacts Collage (Steep signature) */}
-              <div className="artifacts-collage">
-                {/* Artifact 1: Stat with Sparkline Line */}
-                <div className="floating-artifact">
-                  <div className="artifact-kicker">
-                    <span>Métrica de Salud</span>
-                    <span style={{ color: "var(--hair)" }}>● EN VIVO</span>
+              {/* Artefactos Tácticos Flotantes */}
+              <div className="hero-artifacts-row">
+                {/* Artefacto 1: Radar de Salud */}
+                <div className="artifact-box corner-accent">
+                  <div className="artifact-header">
+                    <span className="kicker-tag" style={{ fontSize: "10px" }}>RADAR DE SALUD</span>
+                    <span className="status-pill" style={{ fontSize: "9px" }}>ACTIVO</span>
                   </div>
-                  <div className="artifact-metric">98.4%</div>
-                  <div className="artifact-delta">↑ +14.2% vs ciclo anterior</div>
-                  <svg
-                    className="artifact-sparkline"
-                    viewBox="0 0 200 40"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true"
-                  >
+                  <div className="artifact-metric-val">98.4%</div>
+                  <div className="artifact-sub">+14.2% Eficiencia táctica</div>
+                  <svg className="sparkline-svg" viewBox="0 0 200 40" fill="none" aria-hidden="true">
                     <path
-                      d="M2 34 Q 30 30, 60 22 T 110 26 T 150 10 T 198 4"
-                      stroke="var(--hair)"
+                      d="M2 34 Q 35 30, 65 20 T 115 24 T 155 10 T 198 4"
+                      stroke="var(--rose-sanzu)"
                       strokeWidth="2.5"
                       strokeLinecap="round"
                     />
                     <path
-                      d="M2 34 Q 30 30, 60 22 T 110 26 T 150 10 T 198 4 V 40 H 2 Z"
-                      fill="url(#sparkline-grad)"
-                      opacity="0.18"
+                      d="M2 34 Q 35 30, 65 20 T 115 24 T 155 10 T 198 4 V 40 H 2 Z"
+                      fill="url(#sanzu-glow)"
+                      opacity="0.25"
                     />
                     <defs>
-                      <linearGradient id="sparkline-grad" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor="var(--hair)" />
-                        <stop offset="100%" stopColor="var(--hair)" stopOpacity="0" />
+                      <linearGradient id="sanzu-glow" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor="var(--rose-sanzu)" />
+                        <stop offset="100%" stopColor="var(--rose-sanzu)" stopOpacity="0" />
                       </linearGradient>
                     </defs>
                   </svg>
                 </div>
 
-                {/* Artifact 2: AI Composer fragment & Presence */}
-                <div className="floating-artifact composer-artifact">
-                  <div>
-                    <div className="artifact-kicker">
-                      <span>Asistente Sanzu</span>
-                      <span style={{ color: "var(--teal)" }}>IA Contextual</span>
-                    </div>
-                    <div className="composer-fake-input">
-                      <span>Pregúntale al copiloto…</span>
-                      <div className="composer-send-btn">→</div>
-                    </div>
+                {/* Artefacto 2: Consola de IA Contextual */}
+                <div className="artifact-box">
+                  <div className="artifact-header">
+                    <span className="kicker-tag violet" style={{ fontSize: "10px" }}>IA CONTEXTUAL</span>
+                    <span className="code-mono" style={{ fontSize: "10px", color: "var(--rose-sanzu)" }}>SANZU-CORE</span>
                   </div>
-
-                  <div className="avatar-presence">
-                    <span className="avatar-circle">CL</span>
-                    <span className="avatar-cursor-tag">Modo Scrum activo</span>
+                  <div style={{ background: "var(--bg-elevated)", padding: "10px 12px", borderRadius: "var(--radius-sm)", border: "1px solid var(--border-subtle)", margin: "8px 0" }}>
+                    <span style={{ fontSize: "12px", color: "var(--text-secondary)" }}>«Evaluando cadencia de sprint...»</span>
+                  </div>
+                  <div style={{ display: "flex", alignItems: "center", gap: "8px", marginTop: "10px" }}>
+                    <span style={{ width: "22px", height: "22px", borderRadius: "50%", background: "var(--rose-muted)", color: "var(--rose-sanzu)", display: "grid", placeItems: "center", fontSize: "10px", fontWeight: "bold" }}>S</span>
+                    <span className="code-mono" style={{ fontSize: "11px", color: "var(--text-tertiary)" }}>Nivel: Ejecutivo Bonten</span>
                   </div>
                 </div>
               </div>
             </section>
 
-            {/* Right: Auth Card (Steep Elevated Soft Card) */}
-            <div className="auth-card-wrap">
-              <section className="auth-card" aria-label="Acceso al sistema">
-                <div className="auth-topline">
-                  <span className="tag-label">ACCESO SEGURO</span>
-                  <span className="status-dot">LISTO</span>
+            {/* Columna Derecha: Tarjeta de Acceso Seguro */}
+            <div className="auth-panel-wrap">
+              <section className="auth-card corner-accent" aria-label="Portal de acceso seguro">
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px" }}>
+                  <span className="kicker-tag">PORTAL DE AUTENTICACIÓN</span>
+                  <span className="status-pill">SEGURO</span>
                 </div>
 
-                {/* Mode Switch Pill */}
-                <div className="mode-switch-pill" role="tablist">
+                {/* Pestañas de Cambio de Modo */}
+                <div className="mode-tab-pills" role="tablist">
                   <button
                     type="button"
                     className={mode === "register" ? "active" : ""}
@@ -603,7 +1204,7 @@ export default function HomePage() {
                     role="tab"
                     aria-selected={mode === "register"}
                   >
-                    Registro
+                    REGISTRO DE AGENTE
                   </button>
                   <button
                     type="button"
@@ -612,84 +1213,76 @@ export default function HomePage() {
                     role="tab"
                     aria-selected={mode === "login"}
                   >
-                    Iniciar Sesión
+                    ACCESO EJECUTIVO
                   </button>
                 </div>
 
-                <h2>{mode === "register" ? "Crea tu cuenta" : "Entra a Sanzu"}</h2>
-                <p className="auth-subtitle">
+                <h2>{mode === "register" ? "Crea tu cuenta" : "Inicia sesión"}</h2>
+                <p className="auth-desc">
                   {mode === "register"
-                    ? "Empieza a darle dirección y estructura a tus proyectos."
-                    : "Continúa supervisando tus iniciativas en progreso."}
+                    ? "Toma el control de tus iniciativas con rigor y claridad metodológica."
+                    : "Accede al centro de comando para supervisar tus operaciones activas."}
                 </p>
 
                 <form onSubmit={mode === "register" ? register : login}>
                   {mode === "register" && (
-                    <div className="input-field">
+                    <div className="form-group">
                       <label htmlFor="name">Nombre completo</label>
                       <input
                         id="name"
                         name="name"
                         autoComplete="name"
-                        placeholder="Tu nombre y apellido"
+                        placeholder="Ej. Haruchiyo Sanzu"
                         value={form.name}
-                        onChange={(event) => updateField("name", event.target.value)}
+                        onChange={(e) => updateField("name", e.target.value)}
                         required
                         minLength={2}
                       />
                     </div>
                   )}
 
-                  <div className="input-field">
-                    <label htmlFor="email">Correo electrónico</label>
+                  <div className="form-group">
+                    <label htmlFor="email">Correo electrónico de mando</label>
                     <input
                       id="email"
                       name="email"
                       type="email"
                       autoComplete="email"
-                      placeholder="nombre@empresa.com"
+                      placeholder="agente@bonten.ops"
                       value={form.email}
-                      onChange={(event) => updateField("email", event.target.value)}
+                      onChange={(e) => updateField("email", e.target.value)}
                       required
                     />
                   </div>
 
-                  <div className="input-field">
-                    <label htmlFor="password">Contraseña</label>
-                    <div className="password-field">
+                  <div className="form-group">
+                    <label htmlFor="password">Clave de acceso</label>
+                    <div className="password-input-wrap">
                       <input
                         id="password"
                         name="password"
                         type={showPassword ? "text" : "password"}
-                        autoComplete={
-                          mode === "register" ? "new-password" : "current-password"
-                        }
-                        placeholder={
-                          mode === "register" ? "Mínimo 8 caracteres" : "Tu clave de acceso"
-                        }
+                        autoComplete={mode === "register" ? "new-password" : "current-password"}
+                        placeholder={mode === "register" ? "Mínimo 8 caracteres confidenciales" : "Clave de acceso"}
                         value={form.password}
-                        onChange={(event) => updateField("password", event.target.value)}
+                        onChange={(e) => updateField("password", e.target.value)}
                         required
                         minLength={mode === "register" ? 8 : undefined}
                       />
                       <button
                         type="button"
-                        className="show-password"
-                        onClick={() => setShowPassword((visible) => !visible)}
-                        aria-label={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
+                        className="reveal-btn"
+                        onClick={() => setShowPassword(!showPassword)}
+                        aria-label={showPassword ? "Ocultar clave" : "Mostrar clave"}
                       >
                         {showPassword ? "OCULTAR" : "MOSTRAR"}
                       </button>
                     </div>
                   </div>
 
-                  <button
-                    className="submit-button"
-                    type="submit"
-                    disabled={status === "loading"}
-                  >
+                  <button className="submit-button" type="submit" disabled={status === "loading"}>
                     {status === "loading"
-                      ? "CONECTANDO..."
+                      ? "VERIFICANDO CREDENCIALES..."
                       : mode === "register"
                       ? "CREAR CUENTA  →"
                       : "INICIAR SESIÓN  →"}
@@ -697,104 +1290,88 @@ export default function HomePage() {
                 </form>
 
                 {status === "success" && (
-                  <div className="feedback success" role="status">
-                    <strong>
-                      {mode === "register"
-                        ? `Cuenta creada, ${result?.data?.user?.name}.`
-                        : `Bienvenido, ${result?.data?.user?.name || result?.data?.user?.email}.`}
-                    </strong>
-                    <span>Token generado con éxito para el entorno de trabajo.</span>
+                  <div className="feedback-box success" role="status">
+                    <strong>Operación completada</strong>
+                    <span>Credenciales autorizadas. Accediendo al entorno de mando...</span>
                     <code>{result?.data?.token}</code>
                   </div>
                 )}
 
                 {status === "error" && (
-                  <div className="feedback error" role="alert">
-                    {result?.error?.message || "Revisa los datos e inténtalo de nuevo."}
+                  <div className="feedback-box error" role="alert">
+                    <strong>Ejecución interrumpida</strong>
+                    <span>{result?.error?.message || "Revisa los datos e inténtalo de nuevo."}</span>
                   </div>
                 )}
 
-                <p className="login-note">
-                  {mode === "register" ? "¿Ya tienes una cuenta?" : "¿Todavía no tienes cuenta?"}{" "}
+                <div style={{ marginTop: "20px", textAlign: "center", fontSize: "13px", color: "var(--text-secondary)" }}>
+                  {mode === "register" ? "¿Ya posees credenciales activas?" : "¿Aún no estás registrado en el sistema?"}{" "}
                   <button
                     type="button"
-                    className="text-button"
                     onClick={() => switchMode(mode === "register" ? "login" : "register")}
+                    style={{
+                      background: "none",
+                      border: "none",
+                      color: "var(--rose-sanzu)",
+                      fontWeight: 600,
+                      cursor: "pointer",
+                      textDecoration: "underline",
+                      textUnderlineOffset: "3px",
+                    }}
                   >
-                    {mode === "register" ? "Inicia sesión" : "Regístrate"}
+                    {mode === "register" ? "Inicia sesión" : "Crea tu cuenta"}
                   </button>
-                </p>
-
-                <p className="legal">
-                  Al continuar aceptas las condiciones operativas de Sanzu.
-                </p>
+                </div>
               </section>
             </div>
           </div>
 
-          {/* Steep Editorial Accent Card (Single rare highlight) */}
-          <aside className="steep-accent-card" id="manifiesto" aria-label="Manifiesto">
-            <div className="accent-card-inner">
-              <span className="tag-label">MANIFIESTO EDITORIAL</span>
-              <p className="accent-quote">
-                “El progreso empieza cuando el siguiente paso es evidente.”
-              </p>
-              <p style={{ margin: 0, fontSize: "15px", lineHeight: "1.6", color: "var(--ink)" }}>
-                Sanzu concibe la gestión de proyectos no como un tablero saturado de tareas, sino como un libro
-                de decisiones claras. Unimos la certeza de Scrum y Kanban con la asistencia contextual de la IA
-                para que tu equipo se concentre exclusivamente en entregar valor con cadencia sostenida.
-              </p>
-              <div className="accent-attribution" style={{ marginTop: "16px" }}>
-                — Dirección y Filosofía Sanzu
-              </div>
+          {/* Expediente Editorial Confidencial */}
+          <aside className="dossier-card corner-accent" id="manifiesto" style={{ marginTop: "50px" }} aria-label="Manifiesto">
+            <span className="kicker-tag">MANIFIESTO // LA DOCTRINA DE CONTROL</span>
+            <p className="dossier-quote">
+              “El progreso empieza cuando el siguiente paso es evidente. El caos no se tolera: se domina.”
+            </p>
+            <p style={{ color: "var(--text-secondary)", fontSize: "15px", margin: "0 0 16px", lineHeight: "1.65" }}>
+              Sanzu no concibe la gestión de proyectos como una lista desordenada de tareas, sino como un tablero
+              de decisiones inequívocas. Unificamos la exactitud de Scrum y Kanban con la asistencia contextual
+              para que tu equipo ejecute con cadencia implacable.
+            </p>
+            <div className="dossier-attribution">
+              — BONTEN EXECUTIVE DIRECTIVE · PROTOCOLO HARUCHIYO
             </div>
           </aside>
 
-          {/* Feature Grid - Neutral Cards (24px radius) */}
-          <section className="features-section" id="features" aria-label="Características clave">
-            <div className="features-header">
-              <span className="eyebrow">CAPACIDADES NATIVAS</span>
-              <h2>Estructura diseñada para la agilidad real.</h2>
+          {/* Capacidades Nativas / Grid */}
+          <section id="capacidades" style={{ marginTop: "60px", paddingBottom: "40px" }} aria-label="Capacidades">
+            <div style={{ textAlign: "center", maxWidth: "600px", margin: "0 auto 40px" }}>
+              <span className="kicker-tag">ARQUITECTURA DE MANDO</span>
+              <h2 style={{ marginTop: "8px" }}>Estructura diseñada para la precisión real.</h2>
             </div>
 
-            <div className="features-grid">
-              <article className="neutral-card">
-                <div>
-                  <div className="feature-num">01 / MARCOS DE TRABAJO</div>
-                  <h4>Metodologías con Criterio</h4>
-                  <p>
-                    Scrum, Kanban y reglas ágiles adaptativas integradas para alinear metas de sprint y ritmos de entrega.
-                  </p>
-                </div>
-                <a href="#features" className="text-link">
-                  Conocer marcos →
-                </a>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "24px" }}>
+              <article className="tactical-card">
+                <span className="kicker-tag" style={{ color: "var(--rose-sanzu)", marginBottom: "12px" }}>01 // MARCOS DE TRABAJO</span>
+                <h4>Metodologías con Criterio</h4>
+                <p style={{ color: "var(--text-secondary)", fontSize: "14px", lineHeight: "1.55", margin: "8px 0" }}>
+                  Scrum, Kanban, XP y Lean adaptativos para asegurar metas de sprint inviolables y cadencias predecibles.
+                </p>
               </article>
 
-              <article className="neutral-card">
-                <div>
-                  <div className="feature-num">02 / DIAGNÓSTICO</div>
-                  <h4>Salud en Tiempo Real</h4>
-                  <p>
-                    Detección proactiva de cuellos de botella, desviaciones de velocidad y evaluación de cumplimiento.
-                  </p>
-                </div>
-                <a href="#features" className="text-link">
-                  Ver analíticas →
-                </a>
+              <article className="tactical-card">
+                <span className="kicker-tag" style={{ color: "var(--status-cyan)", marginBottom: "12px" }}>02 // DIAGNÓSTICO EN VIVO</span>
+                <h4>Detección de Amenazas</h4>
+                <p style={{ color: "var(--text-secondary)", fontSize: "14px", lineHeight: "1.55", margin: "8px 0" }}>
+                  Métricas determinísticas de salud que detectan cuellos de botella antes de que afecten la entrega.
+                </p>
               </article>
 
-              <article className="neutral-card">
-                <div>
-                  <div className="feature-num">03 / COPILOTO IA</div>
-                  <h4>Asistente Contextual</h4>
-                  <p>
-                    Recomendaciones inteligentes que entienden tus tareas, bloqueos y dependencias directas en cada ciclo.
-                  </p>
-                </div>
-                <a href="#features" className="text-link">
-                  Descubrir IA →
-                </a>
+              <article className="tactical-card">
+                <span className="kicker-tag" style={{ color: "var(--violet-somber)", marginBottom: "12px" }}>03 // COPILOTO ESTRATÉGICO</span>
+                <h4>Inteligencia Contextual</h4>
+                <p style={{ color: "var(--text-secondary)", fontSize: "14px", lineHeight: "1.55", margin: "8px 0" }}>
+                  Asistente IA analítico que evalúa las tareas, dependencias y riesgos del proyecto sin divagaciones.
+                </p>
               </article>
             </div>
           </section>
