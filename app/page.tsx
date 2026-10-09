@@ -412,20 +412,20 @@ export default function HomePage() {
   const activeProject = projects.find((p) => p.id === selectedProjectId) || projects[0];
 
   /* =========================================================================
-     VISTA AUTENTICADA (CENTRO DE COMANDO BONTEN)
+     VISTA AUTENTICADA (CENTRO DE COMANDO ESTRATÉGICO)
      ========================================================================= */
   if (profile) {
     return (
       <main className="workspace-shell">
         {/* Barra Superior Táctica */}
-        <header className="bonten-nav">
+        <header className="command-nav">
           <div className="nav-brand">
             <div className="brand-mark" aria-label="Logo Sanzu">
               <img src="/sanzu.png" alt="Sanzu Logo" className="brand-logo-img" />
             </div>
             <div className="nav-brand-title">
               <strong>HARUCHIYO / SANZU</strong>
-              <small>Centro de Comando · Protocolo Ejecutivo</small>
+              <small>Centro de Comando Estratégico</small>
             </div>
           </div>
 
@@ -487,7 +487,7 @@ export default function HomePage() {
           {/* Encabezado del Centro de Comando */}
           <div className="workspace-hero">
             <div>
-              <span className="kicker-tag">CENTRO DE COMANDO // BONTEN EXECUTIVE</span>
+              <span className="kicker-tag">CENTRO DE COMANDO // CONTROL ESTRATÉGICO</span>
               <h2>
                 Bienvenido, <em>{profile.name.split(" ")[0]}</em>.
               </h2>
@@ -595,7 +595,7 @@ export default function HomePage() {
               <section className="tactical-card corner-accent" aria-label="Registrar nueva operación">
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "14px" }}>
                   <span className="kicker-tag">NUEVA OPERACIÓN // DIRECTIVA 01</span>
-                  <span className="code-mono" style={{ color: "var(--rose-sanzu)" }}>BONTEN-OPS</span>
+                  <span className="code-mono" style={{ color: "var(--rose-sanzu)" }}>SANZU-OPS</span>
                 </div>
                 <h3>Registra tu operación</h3>
                 <p style={{ color: "var(--text-secondary)", fontSize: "14px", margin: "6px 0 20px" }}>
@@ -1045,7 +1045,7 @@ export default function HomePage() {
               las alertas señalan contingencias antes de que se vuelvan irreversibles y la estrategia gobierna cada decisión.
             </p>
             <div className="dossier-attribution">
-              — BONTEN STRATEGIC FRAMEWORK · DIVISIÓN DE GOBERNANZA
+              — PROTOCOLO ESTRATÉGICO SANZU · DIVISIÓN DE GOBERNANZA
             </div>
           </aside>
         </section>
@@ -1054,12 +1054,12 @@ export default function HomePage() {
   }
 
   /* =========================================================================
-     VISTA PÚBLICA / LANDING (IDENTIDAD BONTEN EXECUTIVE)
+     VISTA PÚBLICA / LANDING (IDENTIDAD ESTRATÉGICA)
      ========================================================================= */
   return (
     <div className="landing-shell">
       {/* Barra Superior Táctica */}
-      <header className="bonten-nav">
+      <header className="command-nav">
         <div className="nav-brand">
           <div className="brand-mark" aria-label="Logo Sanzu">
             <img src="/sanzu.png" alt="Sanzu Logo" className="brand-logo-img" />
@@ -1099,7 +1099,7 @@ export default function HomePage() {
             className="btn-pill btn-pill-sm btn-pill-rose"
             onClick={() => switchMode(mode === "register" ? "login" : "register")}
           >
-            {mode === "register" ? "Acceso Ejecutivo" : "Registrarse"}
+            {mode === "register" ? "Iniciar sesión" : "Registro"}
           </button>
         </div>
       </header>
@@ -1110,7 +1110,7 @@ export default function HomePage() {
           <div className="hero-grid">
             {/* Columna Izquierda: Mensaje de Marca & Artefactos Flotantes */}
             <section className="hero-copy" aria-label="Presentación de Sanzu">
-              <span className="kicker-tag">BONTEN EXECUTIVE PROTOCOL · INTELIGENCIA OPERATIVA</span>
+              <span className="kicker-tag">CENTRO DE COMANDO · INTELIGENCIA OPERATIVA</span>
               <h1>
                 EL CAOS OBEDECE.
                 <br />
@@ -1128,14 +1128,14 @@ export default function HomePage() {
                   className="btn-pill btn-pill-rose"
                   onClick={() => switchMode("register")}
                 >
-                  Desplegar Operación →
+                  Registro →
                 </button>
                 <button
                   type="button"
                   className="btn-pill btn-pill-ghost"
                   onClick={() => switchMode("login")}
                 >
-                  Acceso Ejecutivo
+                  Iniciar sesión
                 </button>
               </div>
 
@@ -1181,7 +1181,7 @@ export default function HomePage() {
                   </div>
                   <div style={{ display: "flex", alignItems: "center", gap: "8px", marginTop: "10px" }}>
                     <span style={{ width: "22px", height: "22px", borderRadius: "50%", background: "var(--rose-muted)", color: "var(--rose-sanzu)", display: "grid", placeItems: "center", fontSize: "10px", fontWeight: "bold" }}>S</span>
-                    <span className="code-mono" style={{ fontSize: "11px", color: "var(--text-tertiary)" }}>Nivel: Ejecutivo Bonten</span>
+                    <span className="code-mono" style={{ fontSize: "11px", color: "var(--text-tertiary)" }}>Nivel: Estratégico</span>
                   </div>
                 </div>
               </div>
@@ -1204,7 +1204,7 @@ export default function HomePage() {
                     role="tab"
                     aria-selected={mode === "register"}
                   >
-                    REGISTRO DE AGENTE
+                    REGISTRO
                   </button>
                   <button
                     type="button"
@@ -1213,11 +1213,11 @@ export default function HomePage() {
                     role="tab"
                     aria-selected={mode === "login"}
                   >
-                    ACCESO EJECUTIVO
+                    INICIAR SESIÓN
                   </button>
                 </div>
 
-                <h2>{mode === "register" ? "Crea tu cuenta" : "Inicia sesión"}</h2>
+                <h2>{mode === "register" ? "Registro" : "Iniciar sesión"}</h2>
                 <p className="auth-desc">
                   {mode === "register"
                     ? "Toma el control de tus iniciativas con rigor y claridad metodológica."
@@ -1242,13 +1242,13 @@ export default function HomePage() {
                   )}
 
                   <div className="form-group">
-                    <label htmlFor="email">Correo electrónico de mando</label>
+                    <label htmlFor="email">Correo electrónico</label>
                     <input
                       id="email"
                       name="email"
                       type="email"
                       autoComplete="email"
-                      placeholder="agente@bonten.ops"
+                      placeholder="nombre@empresa.com"
                       value={form.email}
                       onChange={(e) => updateField("email", e.target.value)}
                       required
@@ -1263,7 +1263,7 @@ export default function HomePage() {
                         name="password"
                         type={showPassword ? "text" : "password"}
                         autoComplete={mode === "register" ? "new-password" : "current-password"}
-                        placeholder={mode === "register" ? "Mínimo 8 caracteres confidenciales" : "Clave de acceso"}
+                        placeholder={mode === "register" ? "Mínimo 8 caracteres" : "Clave de acceso"}
                         value={form.password}
                         onChange={(e) => updateField("password", e.target.value)}
                         required
@@ -1284,7 +1284,7 @@ export default function HomePage() {
                     {status === "loading"
                       ? "VERIFICANDO CREDENCIALES..."
                       : mode === "register"
-                      ? "CREAR CUENTA  →"
+                      ? "REGISTRARSE  →"
                       : "INICIAR SESIÓN  →"}
                   </button>
                 </form>
@@ -1305,7 +1305,7 @@ export default function HomePage() {
                 )}
 
                 <div style={{ marginTop: "20px", textAlign: "center", fontSize: "13px", color: "var(--text-secondary)" }}>
-                  {mode === "register" ? "¿Ya posees credenciales activas?" : "¿Aún no estás registrado en el sistema?"}{" "}
+                  {mode === "register" ? "¿Ya tienes una cuenta?" : "¿Todavía no tienes cuenta?"}{" "}
                   <button
                     type="button"
                     onClick={() => switchMode(mode === "register" ? "login" : "register")}
@@ -1319,7 +1319,7 @@ export default function HomePage() {
                       textUnderlineOffset: "3px",
                     }}
                   >
-                    {mode === "register" ? "Inicia sesión" : "Crea tu cuenta"}
+                    {mode === "register" ? "Inicia sesión" : "Regístrate"}
                   </button>
                 </div>
               </section>
@@ -1338,7 +1338,7 @@ export default function HomePage() {
               para que tu equipo ejecute con cadencia implacable.
             </p>
             <div className="dossier-attribution">
-              — BONTEN EXECUTIVE DIRECTIVE · PROTOCOLO HARUCHIYO
+              — DIRECTIVA ESTRATÉGICA · PROTOCOLO HARUCHIYO SANZU
             </div>
           </aside>
 

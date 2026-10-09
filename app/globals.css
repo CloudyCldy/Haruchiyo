@@ -1,13 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap');
 
 /* ==========================================================================
-   HARUCHIYO / SANZU — SISTEMA DE DISEÑO BONTEN EXECUTIVE
+   HARUCHIYO / SANZU — SISTEMA DE DISEÑO ESTRATÉGICO
    "EL CAOS OBEDECE. LA ESTRATEGIA DECIDE."
    ========================================================================== */
 
 :root,
 [data-theme="dark"] {
-  /* Paleta Principal — Nivel Ejecutivo Bonten (Modo Oscuro) */
+  /* Paleta Principal — Nivel Estratégico (Modo Oscuro) */
   --bg-base: #09090D;          /* Negro absoluto */
   --bg-surface: #111117;       /* Negro de superficie */
   --bg-elevated: #191922;      /* Superficie elevada */
@@ -230,10 +230,10 @@ h4 {
 }
 
 /* ==========================================================================
-   NAVEGACIÓN SUPERIOR (BONTEN COMMAND NAV)
+   NAVEGACIÓN SUPERIOR (COMMAND NAV)
    ========================================================================== */
 
-.bonten-nav {
+.command-nav {
   position: sticky;
   top: 0;
   z-index: 60;
@@ -248,7 +248,7 @@ h4 {
   transition: border-color 0.2s, background-color 0.2s;
 }
 
-[data-theme="light"] .bonten-nav {
+[data-theme="light"] .command-nav {
   background: rgba(244, 239, 232, 0.9);
 }
 
@@ -1236,7 +1236,7 @@ input::placeholder, textarea::placeholder {
 }
 
 @media (max-width: 768px) {
-  .bonten-nav {
+  .command-nav {
     padding: 12px 18px;
   }
   .nav-center-links {
@@ -1255,7 +1255,7 @@ input::placeholder, textarea::placeholder {
 }
 
 @media (max-width: 480px) {
-  .bonten-nav {
+  .command-nav {
     padding: 10px 14px;
   }
   .brand-mark {
