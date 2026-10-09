@@ -195,8 +195,8 @@ export default function HomePage() {
       <main className="workspace-shell">
         <header className="steep-nav">
           <div className="nav-brand">
-            <div className="brand-mark" aria-hidden="true">
-              <span>S</span>
+            <div className="brand-mark">
+              <img src="/sanzu.png" alt="Sanzu Logo" className="brand-logo-img" />
             </div>
             <div className="nav-brand-title">
               <strong>SANZU</strong>
@@ -464,8 +464,8 @@ export default function HomePage() {
       {/* Top Editorial Nav */}
       <header className="steep-nav">
         <div className="nav-brand">
-          <div className="brand-mark" aria-hidden="true">
-            <span>S</span>
+          <div className="brand-mark">
+            <img src="/sanzu.png" alt="Sanzu Logo" className="brand-logo-img" />
           </div>
           <div className="nav-brand-title">
             <strong>SANZU</strong>
