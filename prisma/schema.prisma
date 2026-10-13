@@ -132,8 +132,12 @@ model ApiClient {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   name      String
   keyHash   String   @unique
+  rawKey    String?
+  userId    String?  @db.ObjectId
   active    Boolean  @default(true)
   createdAt DateTime @default(now())
+
+  @@index([userId])
 }
 
 model Methodology {

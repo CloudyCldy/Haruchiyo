@@ -1279,6 +1279,185 @@ input::placeholder, textarea::placeholder {
 }
 
 /* ==========================================================================
+   PANEL DE CREDENCIALES Y ACCESO API
+   ========================================================================== */
+
+.credentials-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.credentials-hero-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-cards);
+  padding: 28px;
+  position: relative;
+  box-shadow: var(--shadow-tactical);
+}
+
+.credentials-items-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.credential-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-cards);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+  position: relative;
+  box-shadow: var(--shadow-tactical);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.credential-card:hover {
+  border-color: var(--border-accent);
+}
+
+.credential-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.credential-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.credential-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg-base);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-inputs);
+  padding: 12px 14px;
+  gap: 10px;
+}
+
+.credential-val {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-primary);
+  word-break: break-all;
+  user-select: all;
+}
+
+.credential-val.masked {
+  letter-spacing: 2px;
+  color: var(--text-tertiary);
+}
+
+.credential-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.copy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: var(--radius-pills);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  border: 1px solid var(--border-accent);
+  background: var(--bg-elevated);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.copy-btn:hover {
+  background: var(--rose-muted);
+  border-color: var(--rose-sanzu);
+  color: var(--rose-sanzu);
+}
+
+.copy-btn.copied {
+  background: var(--status-success-bg);
+  border-color: var(--status-success);
+  color: var(--status-success);
+}
+
+.code-snippet-box {
+  background: var(--bg-base);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-inputs);
+  padding: 16px;
+  position: relative;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--text-silver);
+  overflow-x: auto;
+}
+
+.code-snippet-box pre {
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.endpoint-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  margin-top: 10px;
+}
+
+.endpoint-table th,
+.endpoint-table td {
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.endpoint-table th {
+  color: var(--text-tertiary);
+  font-size: 11px;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+}
+
+.endpoint-method {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: var(--radius-xs);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.endpoint-method.get {
+  background: var(--status-cyan-bg);
+  color: var(--status-cyan);
+}
+
+.endpoint-method.post {
+  background: var(--rose-muted);
+  color: var(--rose-sanzu);
+}
+
+.endpoint-method.put {
+  background: var(--status-warning-bg);
+  color: var(--status-warning);
+}
+
+/* ==========================================================================
    PREFERS REDUCED MOTION (ACCESIBILIDAD)
    ========================================================================== */
 

@@ -18,6 +18,18 @@ type Profile = {
   role: string;
 };
 
+type ApiCredentials = {
+  url: string;
+  baseUrl: string;
+  token: string;
+  apiKey: string;
+  endpoints: { method: string; path: string; description: string; auth: string }[];
+  curlExamples?: {
+    withToken?: string;
+    withApiKey?: string;
+  };
+};
+
 type Project = {
   id: string;
   name: string;
@@ -88,7 +100,16 @@ export default function HomePage() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [methodologies, setMethodologies] = useState<Methodology[]>([]);
   const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<"operations" | "inspection" | "ai">("operations");
+  const [activeTab, setActiveTab] = useState<"operations" | "inspection" | "ai" | "credentials">("operations");
+
+  // Credenciales y Acceso API
+  const [credentials, setCredentials] = useState<ApiCredentials | null>(null);
+  const [credentialsLoading, setCredentialsLoading] = useState(false);
+  const [showApiKey, setShowApiKey] = useState(false);
+  const [showToken, setShowToken] = useState(false);
+  const [copiedField, setCopiedField] = useState<string | null>(null);
+  const [rotateLoading, setRotateLoading] = useState(false);
+  const [rotateSuccess, setRotateSuccess] = useState(false);
 
   // Formulario de Nueva Operación
   const [projectForm, setProjectForm] = useState({
@@ -141,9 +162,10 @@ export default function HomePage() {
   async function loadWorkspace(token: string) {
     const headers = { Authorization: `Bearer ${token}` };
     try {
-      const [profileRes, projectsRes] = await Promise.all([
+      const [profileRes, projectsRes, credsRes] = await Promise.all([
         fetch("/api/users/me", { headers }),
         fetch("/api/projects", { headers }),
+        fetch("/api/users/me/credentials", { headers }),
       ]);
 
       if (!profileRes.ok || !projectsRes.ok) {
@@ -159,12 +181,80 @@ export default function HomePage() {
       setProfile(profilePayload.data);
       setProjects(userProjects);
 
+      if (credsRes.ok) {
+        const credsPayload = await credsRes.json();
+        setCredentials(credsPayload.data);
+      }
+
       if (userProjects.length > 0 && !selectedProjectId) {
         selectProject(userProjects[0].id, token);
       }
     } catch {
       window.localStorage.removeItem("sanzu_token");
       setProfile(null);
+    }
+  }
+
+  async function loadCredentials(token?: string) {
+    const activeToken = token || window.localStorage.getItem("sanzu_token");
+    if (!activeToken) return;
+    setCredentialsLoading(true);
+    try {
+      const res = await fetch("/api/users/me/credentials", {
+        headers: { Authorization: `Bearer ${activeToken}` },
+      });
+      if (res.ok) {
+        const payload = await res.json();
+        setCredentials(payload.data);
+      }
+    } catch {
+      // error
+    } finally {
+      setCredentialsLoading(false);
+    }
+  }
+
+  async function copyToClipboard(text: string, fieldId: string) {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopiedField(fieldId);
+      window.setTimeout(() => setCopiedField(null), 2000);
+    } catch {
+      // fallback
+    }
+  }
+
+  async function rotateApiKey() {
+    const token = window.localStorage.getItem("sanzu_token");
+    if (!token) return;
+    setRotateLoading(true);
+    setRotateSuccess(false);
+    try {
+      const res = await fetch("/api/users/me/credentials", {
+        method: "POST",
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (res.ok) {
+        const payload = await res.json();
+        if (credentials) {
+          setCredentials({
+            ...credentials,
+            apiKey: payload.data.apiKey,
+            curlExamples: {
+              ...credentials.curlExamples,
+              withApiKey: `curl -X POST "${credentials.url}/projects/PROYECTO_ID/context" -H "X-Api-Key: ${payload.data.apiKey}" -H "Content-Type: application/json" -d '{"project":{"name":"Test","methodology":"SCRUM"}}'`,
+            },
+          });
+        } else {
+          await loadCredentials(token);
+        }
+        setRotateSuccess(true);
+        window.setTimeout(() => setRotateSuccess(false), 3000);
+      }
+    } catch {
+      // error
+    } finally {
+      setRotateLoading(false);
     }
   }
 
@@ -445,6 +535,15 @@ export default function HomePage() {
               {theme === "dark" ? "☼" : "☾"}
             </button>
 
+            <button
+              type="button"
+              className={`btn-pill btn-pill-sm ${activeTab === "credentials" ? "btn-pill-rose" : "btn-pill-ghost"}`}
+              onClick={() => setActiveTab("credentials")}
+              title="Obtener API Key, URL base y Token de acceso"
+            >
+              🔑 Acceso API
+            </button>
+
             <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
               <span
                 style={{
@@ -583,6 +682,13 @@ export default function HomePage() {
               onClick={() => setActiveTab("ai")}
             >
               <span>⚔</span> Inteligencia Estratégica (Copiloto)
+            </button>
+            <button
+              type="button"
+              className={`view-tab-btn ${activeTab === "credentials" ? "active" : ""}`}
+              onClick={() => setActiveTab("credentials")}
+            >
+              <span>🔑</span> Credenciales y Acceso API
             </button>
           </nav>
 
@@ -1034,6 +1140,274 @@ export default function HomePage() {
             </div>
           )}
 
+          {/* ===============================================================
+              PESTAÑA 4: CREDENCIALES Y ACCESO API (URL, TOKEN, API KEY)
+              =============================================================== */}
+          {activeTab === "credentials" && (
+            <div className="credentials-grid">
+              {/* Header Táctico de Credenciales */}
+              <section className="credentials-hero-card corner-accent" aria-label="Credenciales de API">
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "16px", marginBottom: "10px" }}>
+                  <div>
+                    <span className="kicker-tag rose">CREDENCIALES Y PROTOCOLO // ACCESO PROGRAMÁTICO</span>
+                    <h2 style={{ margin: "8px 0 6px", fontFamily: "var(--font-serif)", fontSize: "28px", color: "var(--text-primary)" }}>
+                      Credenciales de Integración API
+                    </h2>
+                    <p style={{ color: "var(--text-secondary)", fontSize: "14px", margin: 0, maxWidth: "780px", lineHeight: 1.6 }}>
+                      Aquí puedes obtener tu <strong>URL base</strong>, tu <strong>Token de sesión (Bearer JWT)</strong> y tu <strong>API Key</strong> personal para conectar servicios, automatizar operaciones o realizar peticiones directas desde herramientas como Postman, cURL o tus propios microservicios.
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    className="btn-pill btn-pill-sm btn-pill-ghost"
+                    onClick={() => loadCredentials()}
+                    disabled={credentialsLoading}
+                  >
+                    {credentialsLoading ? "Sincronizando..." : "🔄 Actualizar credenciales"}
+                  </button>
+                </div>
+              </section>
+
+              {/* Grid de las 3 Credenciales Principales */}
+              <div className="credentials-items-grid">
+                {/* 1. URL BASE DE LA API */}
+                <div className="credential-card corner-accent">
+                  <div className="credential-body">
+                    <div className="credential-header">
+                      <span className="kicker-tag cyan">CONEXIÓN // HOST ACTIVO</span>
+                      <span className="code-mono" style={{ fontSize: "11px", color: "var(--status-cyan)" }}>HTTP REST</span>
+                    </div>
+                    <h3 style={{ margin: "4px 0 6px", fontSize: "18px" }}>1. URL Base de la API</h3>
+                    <p style={{ color: "var(--text-secondary)", fontSize: "13px", margin: "0 0 10px", lineHeight: 1.5 }}>
+                      Punto de entrada para el consumo de recursos REST (proyectos, tareas, sprints, IA y contexto).
+                    </p>
+
+                    <div className="credential-box">
+                      <span className="credential-val">
+                        {credentials?.url || (typeof window !== "undefined" ? `${window.location.origin}/api` : "http://localhost:3000/api")}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="credential-actions">
+                    <button
+                      type="button"
+                      className={`copy-btn ${copiedField === "url" ? "copied" : ""}`}
+                      onClick={() => {
+                        const u = credentials?.url || `${window.location.origin}/api`;
+                        copyToClipboard(u, "url");
+                      }}
+                    >
+                      {copiedField === "url" ? "✓ URL Copiada" : "📋 Copiar URL (/api)"}
+                    </button>
+                    <button
+                      type="button"
+                      className={`copy-btn ${copiedField === "baseUrl" ? "copied" : ""}`}
+                      onClick={() => {
+                        const h = credentials?.baseUrl || window.location.origin;
+                        copyToClipboard(h, "baseUrl");
+                      }}
+                    >
+                      {copiedField === "baseUrl" ? "✓ Host Copiado" : "📋 Copiar Host Base"}
+                    </button>
+                  </div>
+                </div>
+
+                {/* 2. TOKEN DE SESIÓN (JWT BEARER) */}
+                <div className="credential-card corner-accent">
+                  <div className="credential-body">
+                    <div className="credential-header">
+                      <span className="kicker-tag violet">AUTENTICACIÓN // SESIÓN</span>
+                      <span className="code-mono" style={{ fontSize: "11px", color: "var(--violet-somber)" }}>JWT · HS256</span>
+                    </div>
+                    <h3 style={{ margin: "4px 0 6px", fontSize: "18px" }}>2. Token de Sesión (JWT)</h3>
+                    <p style={{ color: "var(--text-secondary)", fontSize: "13px", margin: "0 0 10px", lineHeight: 1.5 }}>
+                      Token temporal firmado para tus peticiones como usuario autenticado. Se envía como <code>Authorization: Bearer &lt;token&gt;</code>.
+                    </p>
+
+                    <div className="credential-box">
+                      <span className={`credential-val ${!showToken ? "masked" : ""}`}>
+                        {showToken
+                          ? (credentials?.token || (typeof window !== "undefined" ? window.localStorage.getItem("sanzu_token") : "") || "No disponible")
+                          : "••••••••••••••••••••••••••••••••••••••••••••••••••••••••"}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="credential-actions">
+                    <button
+                      type="button"
+                      className="copy-btn"
+                      onClick={() => setShowToken(!showToken)}
+                    >
+                      {showToken ? "🙈 Ocultar" : "👁 Mostrar Token"}
+                    </button>
+                    <button
+                      type="button"
+                      className={`copy-btn ${copiedField === "token" ? "copied" : ""}`}
+                      onClick={() => {
+                        const t = credentials?.token || window.localStorage.getItem("sanzu_token") || "";
+                        copyToClipboard(t, "token");
+                      }}
+                    >
+                      {copiedField === "token" ? "✓ Token Copiado" : "📋 Copiar Token"}
+                    </button>
+                    <button
+                      type="button"
+                      className={`copy-btn ${copiedField === "authHeader" ? "copied" : ""}`}
+                      onClick={() => {
+                        const t = credentials?.token || window.localStorage.getItem("sanzu_token") || "";
+                        copyToClipboard(`Authorization: Bearer ${t}`, "authHeader");
+                      }}
+                    >
+                      {copiedField === "authHeader" ? "✓ Header Copiado" : "📋 Copiar Header"}
+                    </button>
+                  </div>
+                </div>
+
+                {/* 3. API KEY PERSONAL (X-API-KEY) */}
+                <div className="credential-card corner-accent">
+                  <div className="credential-body">
+                    <div className="credential-header">
+                      <span className="kicker-tag rose">SERVICIO A SERVICIO // FIJA</span>
+                      <span className="code-mono" style={{ fontSize: "11px", color: "var(--rose-sanzu)" }}>X-API-KEY</span>
+                    </div>
+                    <h3 style={{ margin: "4px 0 6px", fontSize: "18px" }}>3. API Key Personal</h3>
+                    <p style={{ color: "var(--text-secondary)", fontSize: "13px", margin: "0 0 10px", lineHeight: 1.5 }}>
+                      Clave secreta permanente para sincronización entre sistemas y servicios externos. Se envía en el encabezado <code>X-Api-Key</code>.
+                    </p>
+
+                    <div className="credential-box">
+                      <span className={`credential-val ${!showApiKey ? "masked" : ""}`}>
+                        {showApiKey
+                          ? (credentials?.apiKey || "sz_live_...")
+                          : "sz_live_••••••••••••••••••••••••••••••••"}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="credential-actions">
+                    <button
+                      type="button"
+                      className="copy-btn"
+                      onClick={() => setShowApiKey(!showApiKey)}
+                    >
+                      {showApiKey ? "🙈 Ocultar" : "👁 Mostrar Key"}
+                    </button>
+                    <button
+                      type="button"
+                      className={`copy-btn ${copiedField === "apiKey" ? "copied" : ""}`}
+                      onClick={() => copyToClipboard(credentials?.apiKey || "", "apiKey")}
+                    >
+                      {copiedField === "apiKey" ? "✓ Key Copiada" : "📋 Copiar API Key"}
+                    </button>
+                    <button
+                      type="button"
+                      className={`copy-btn ${rotateSuccess ? "copied" : ""}`}
+                      onClick={rotateApiKey}
+                      disabled={rotateLoading}
+                      title="Generar una nueva API Key y revocar la anterior"
+                    >
+                      {rotateLoading ? "Generando..." : rotateSuccess ? "✓ Clave Renovada" : "🔄 Regenerar Key"}
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Guía Rápida cURL y Catálogo de Endpoints */}
+              <div className="tactical-card corner-accent">
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px", flexWrap: "wrap", gap: "10px" }}>
+                  <div>
+                    <span className="kicker-tag">EJECUCIÓN TÁCTICA // COMANDOS DE PRUEBA</span>
+                    <h3 style={{ margin: "4px 0", fontSize: "20px" }}>Comandos de Ejecución Inmediata (cURL)</h3>
+                  </div>
+                </div>
+
+                <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+                  <div>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px" }}>
+                      <b style={{ fontSize: "13px", color: "var(--rose-sanzu)" }}>Ejemplo 1: Petición con Bearer Token</b>
+                      <button
+                        type="button"
+                        className={`copy-btn ${copiedField === "curlToken" ? "copied" : ""}`}
+                        onClick={() => {
+                          const cmd = credentials?.curlExamples?.withToken ||
+                            `curl -X GET "${credentials?.url || `${window.location.origin}/api`}/projects" -H "Authorization: Bearer ${credentials?.token || window.localStorage.getItem("sanzu_token") || "<TOKEN>"}"`;
+                          copyToClipboard(cmd, "curlToken");
+                        }}
+                      >
+                        {copiedField === "curlToken" ? "✓ Comando Copiado" : "📋 Copiar cURL"}
+                      </button>
+                    </div>
+                    <div className="code-snippet-box">
+                      <pre>{credentials?.curlExamples?.withToken || `curl -X GET "${credentials?.url || "http://localhost:3000/api"}/projects" \\\n  -H "Authorization: Bearer ${credentials?.token || window.localStorage.getItem("sanzu_token") || "<TOKEN>"}"`}</pre>
+                    </div>
+                  </div>
+
+                  <div>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px" }}>
+                      <b style={{ fontSize: "13px", color: "var(--status-cyan)" }}>Ejemplo 2: Petición con API Key (Servicio a Servicio)</b>
+                      <button
+                        type="button"
+                        className={`copy-btn ${copiedField === "curlApiKey" ? "copied" : ""}`}
+                        onClick={() => {
+                          const cmd = credentials?.curlExamples?.withApiKey ||
+                            `curl -X POST "${credentials?.url || `${window.location.origin}/api`}/projects/${selectedProjectId || "PROYECTO_ID"}/context" -H "X-Api-Key: ${credentials?.apiKey || "<API_KEY>"}" -H "Content-Type: application/json" -d '{"project":{"name":"Demo","methodology":"SCRUM"}}'`;
+                          copyToClipboard(cmd, "curlApiKey");
+                        }}
+                      >
+                        {copiedField === "curlApiKey" ? "✓ Comando Copiado" : "📋 Copiar cURL"}
+                      </button>
+                    </div>
+                    <div className="code-snippet-box">
+                      <pre>{credentials?.curlExamples?.withApiKey || `curl -X POST "${credentials?.url || "http://localhost:3000/api"}/projects/${selectedProjectId || "PROYECTO_ID"}/context" \\\n  -H "X-Api-Key: ${credentials?.apiKey || "<API_KEY>"}" \\\n  -H "Content-Type: application/json" \\\n  -d '{"project":{"name":"Demo","methodology":"SCRUM"}}'`}</pre>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Directorio de Endpoints */}
+                <div style={{ marginTop: "24px" }}>
+                  <h4 style={{ fontSize: "15px", marginBottom: "10px", color: "var(--text-silver)" }}>Directorio de Endpoints Clave</h4>
+                  <div style={{ overflowX: "auto" }}>
+                    <table className="endpoint-table">
+                      <thead>
+                        <tr>
+                          <th>Método</th>
+                          <th>Ruta</th>
+                          <th>Descripción</th>
+                          <th>Seguridad Requerida</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {(credentials?.endpoints || [
+                          { method: "GET", path: "/api/projects", description: "Listado de operaciones y proyectos", auth: "Bearer Token" },
+                          { method: "POST", path: "/api/projects", description: "Crear una nueva operación", auth: "Bearer Token" },
+                          { method: "GET", path: "/api/projects/:id/analysis", description: "Análisis táctico y cumplimiento", auth: "Bearer Token" },
+                          { method: "POST", path: "/api/projects/:id/context", description: "Evaluación contextual estratégica", auth: "Token o X-Api-Key" },
+                          { method: "POST", path: "/api/chat", description: "Asistente de Inteligencia Estratégica Sanzu", auth: "Bearer Token" },
+                          { method: "GET", path: "/api/partner/projects/:externalRef", description: "Sincronización entre plataformas", auth: "X-Api-Key" },
+                        ]).map((ep, idx) => (
+                          <tr key={idx}>
+                            <td>
+                              <span className={`endpoint-method ${ep.method.toLowerCase()}`}>{ep.method}</span>
+                            </td>
+                            <td>
+                              <code className="code-mono" style={{ fontSize: "12px", color: "var(--rose-sanzu)" }}>{ep.path}</code>
+                            </td>
+                            <td style={{ color: "var(--text-secondary)" }}>{ep.description}</td>
+                            <td>
+                              <span className="kicker-tag" style={{ fontSize: "10px" }}>{ep.auth}</span>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* Expediente Editorial Confidencial */}
           <aside className="dossier-card corner-accent" style={{ marginTop: "40px" }} aria-label="Directiva de marca">
             <span className="kicker-tag">DIRECTIVA EJECUTIVA // SANZU</span>
@@ -1073,6 +1447,9 @@ export default function HomePage() {
         <nav className="nav-center-links" aria-label="Navegación principal">
           <a href="#capacidades">Capacidades</a>
           <a href="#manifiesto">Manifiesto</a>
+          <a href="#acceso-api" onClick={(e) => { e.preventDefault(); switchMode("login"); }}>
+            Acceso API (Key, Token, URL)
+          </a>
           <a href="/api/health" target="_blank" rel="noreferrer">
             Estado API
           </a>
@@ -1137,6 +1514,12 @@ export default function HomePage() {
                 >
                   Iniciar sesión
                 </button>
+              </div>
+
+              <div style={{ marginTop: "12px", display: "flex", alignItems: "center", gap: "8px" }}>
+                <span className="code-mono" style={{ fontSize: "11px", color: "var(--text-tertiary)" }}>
+                  🔑 Acceso programático REST: obtén tu API Key, URL y Token de sesión en el Centro de Comando.
+                </span>
               </div>
 
               {/* Artefactos Tácticos Flotantes */}

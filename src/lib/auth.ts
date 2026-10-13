@@ -2,7 +2,7 @@ import { jwtVerify, SignJWT } from "jose";
 import { NextRequest } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { assertObjectId, AuthenticationError, AuthorizationError } from "@/lib/errors";
-import { createHash } from "node:crypto";
+import { createHash, randomBytes } from "node:crypto";
 
 function jwtSecret() {
   const value = process.env.JWT_SECRET;
@@ -37,6 +37,96 @@ export async function getAuthClient(request: NextRequest) {
   const client = await prisma.apiClient.findFirst({ where: { keyHash, active: true } });
   if (!client) throw new AuthenticationError("Invalid API key");
   return client;
+}
+
+export function generateApiKeyString() {
+  return `sz_live_${randomBytes(24).toString("base64url")}`;
+}
+
+export function hashApiKey(key: string) {
+  return createHash("sha256").update(key).digest("hex");
+}
+
+export async function getOrCreateUserApiKey(userId: string, email: string) {
+  let client = await prisma.apiClient.findFirst({
+    where: {
+      OR: [
+        { userId, active: true },
+        { name: `User:${userId}`, active: true },
+        { name: `User:${email}`, active: true },
+      ],
+    },
+  });
+
+  if (client && client.rawKey) {
+    return client.rawKey;
+  }
+
+  const rawKey = generateApiKeyString();
+  const keyHash = hashApiKey(rawKey);
+
+  if (client) {
+    client = await prisma.apiClient.update({
+      where: { id: client.id },
+      data: {
+        keyHash,
+        rawKey,
+        userId,
+        active: true,
+      },
+    });
+  } else {
+    client = await prisma.apiClient.create({
+      data: {
+        name: `User:${userId}`,
+        keyHash,
+        rawKey,
+        userId,
+        active: true,
+      },
+    });
+  }
+
+  return rawKey;
+}
+
+export async function rotateUserApiKey(userId: string, email: string) {
+  const rawKey = generateApiKeyString();
+  const keyHash = hashApiKey(rawKey);
+
+  const existing = await prisma.apiClient.findFirst({
+    where: {
+      OR: [
+        { userId, active: true },
+        { name: `User:${userId}`, active: true },
+        { name: `User:${email}`, active: true },
+      ],
+    },
+  });
+
+  if (existing) {
+    await prisma.apiClient.update({
+      where: { id: existing.id },
+      data: {
+        keyHash,
+        rawKey,
+        userId,
+        active: true,
+      },
+    });
+  } else {
+    await prisma.apiClient.create({
+      data: {
+        name: `User:${userId}`,
+        keyHash,
+        rawKey,
+        userId,
+        active: true,
+      },
+    });
+  }
+
+  return rawKey;
 }
 
 export function publicUser(user: { id: string; name: string; email: string; role: string; createdAt: Date; updatedAt: Date }) {
