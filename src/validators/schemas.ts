@@ -17,3 +17,7 @@ export const chatSchema = z.object({ projectId: objectIdSchema, message: z.strin
 export const partnerProjectSchema = z.object({ externalRef: z.string().trim().min(1), name: z.string().trim().min(1), methodologyId: z.string().trim().min(1), requirements: z.unknown() });
 export const partnerChatSchema = z.object({ externalRef: z.string().trim().min(1), message: z.string().trim().min(1).max(4000), conversationId: objectIdSchema.optional(), requirements: z.unknown().optional() });
 export function parse<S extends z.ZodTypeAny>(schema: S, value: unknown): z.output<S> { const result = schema.safeParse(value); if (!result.success) { const error = new Error(result.error.issues.map(i => `${i.path.join(".")}: ${i.message}`).join(", ")); error.name = "ValidationError"; throw error; } return result.data; }
+/** ST054: búsqueda de documentación (?q, ?methodology, ?category, ?limit). */
+export const documentationSearchSchema = z.object({ q: z.string().trim().min(2, "q must have at least 2 characters").max(200), methodology: z.string().trim().max(30).optional(), category: z.string().trim().max(60).optional(), limit: z.coerce.number().int().min(1).max(25).optional() });
+/** ST055: recomendación de documentos (?phase=INICIO|EJECUCION|CIERRE, ?q, ?limit). */
+export const documentRecommendationSchema = z.object({ phase: z.string().trim().optional(), q: z.string().trim().max(200).optional(), limit: z.coerce.number().int().min(1).max(15).optional() });
