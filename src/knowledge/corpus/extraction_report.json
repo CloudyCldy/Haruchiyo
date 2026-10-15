@@ -1,0 +1,630 @@
+{
+  "generated_at": "2026-10-15T04:53:34+00:00",
+  "pipeline_version": "1.0.0",
+  "source_archive": "sanzu.zip",
+  "tool_versions": {
+    "pymupdf": "1.28.2:",
+    "python": "3.12.3",
+    "tesseract": "tesseract 5.3.4"
+  },
+  "files_found": 9,
+  "directories_found": 1,
+  "files_processed": 9,
+  "files_failed": 0,
+  "files_skipped": 0,
+  "documents_extracted": 9,
+  "documents_in_retrieval_index": 8,
+  "documents_excluded_from_chunking": [
+    {
+      "document_id": "doc_0007",
+      "filename": "lean4.pdf",
+      "reason": "FUERA DE DOMINIO: trata del demostrador de teoremas y lenguaje de programación 'Lean', no de Lean Software Development ni de gestión de proyectos. Se inventaría y se conserva el texto, pero no se fragmenta para RAG."
+    }
+  ],
+  "chunk_count": 390,
+  "formats_not_processed": [],
+  "formats_seen": [
+    "pdf"
+  ],
+  "duplicates_detected": 0,
+  "duplicates": {
+    "exact_chunk_duplicates": [],
+    "near_duplicates": [],
+    "similar_cross_document": [
+      {
+        "chunk_a": "chunk_000343",
+        "chunk_b": "chunk_000350",
+        "jaccard_5gram": 0.32,
+        "same_document": true
+      }
+    ]
+  },
+  "inventory": [
+    {
+      "document_id": "doc_0001",
+      "filename": "07_Scrum.pdf",
+      "original_path": "sanzu/07_Scrum.pdf",
+      "format": "pdf",
+      "size_bytes": 183189,
+      "sha256": "ac7a37783890bc2b2855b767988527c10cafbdaba6d624f7d6b6b9d03286ddf9",
+      "extraction_status": "success_with_limitations",
+      "approx_content_recovered": "10916 palabras / 63156 caracteres / 24 páginas",
+      "page_count": 24
+    },
+    {
+      "document_id": "doc_0002",
+      "filename": "9780321278654.pdf",
+      "original_path": "sanzu/9780321278654.pdf",
+      "format": "pdf",
+      "size_bytes": 524061,
+      "sha256": "dc21a762c87b7a3dce68551c90e3a650320030eb19c8c66f37f9d5de8d11cc47",
+      "extraction_status": "success_with_limitations",
+      "approx_content_recovered": "9116 palabras / 59385 caracteres / 46 páginas",
+      "page_count": 46
+    },
+    {
+      "document_id": "doc_0003",
+      "filename": "AGILE METHODOLOGIES(1).pdf",
+      "original_path": "sanzu/AGILE METHODOLOGIES(1).pdf",
+      "format": "pdf",
+      "size_bytes": 2423061,
+      "sha256": "3d3884a57d12d751bb5ce8f76e1b09c8610eecba07554493ce843df8dac50345",
+      "extraction_status": "success_with_limitations",
+      "approx_content_recovered": "18877 palabras / 125291 caracteres / 54 páginas",
+      "page_count": 54
+    },
+    {
+      "document_id": "doc_0004",
+      "filename": "Agile-Project-Management-Best-Practices-and-Methodologies-Whitepaper.pdf",
+      "original_path": "sanzu/Agile-Project-Management-Best-Practices-and-Methodologies-Whitepaper.pdf",
+      "format": "pdf",
+      "size_bytes": 4549811,
+      "sha256": "e8273c448e6fe66faaf999a2f37be8b40f3861efe97206b67567a5ec3c6843af",
+      "extraction_status": "success_with_limitations",
+      "approx_content_recovered": "5833 palabras / 38087 caracteres / 23 páginas",
+      "page_count": 23
+    },
+    {
+      "document_id": "doc_0005",
+      "filename": "The Complete Software Project Manager_ Mastering Technology from Planning to Launch and Beyond ( PDFDrive ).pdf",
+      "original_path": "sanzu/The Complete Software Project Manager_ Mastering Technology from Planning to Launch and Beyond ( PDFDrive ).pdf",
+      "format": "pdf",
+      "size_bytes": 1380627,
+      "sha256": "234bd95876692fca3aa4b47abe58442b5b174be12f0619e5bd33e2e170149bc6",
+      "extraction_status": "success_with_limitations",
+      "approx_content_recovered": "78870 palabras / 479889 caracteres / 259 páginas",
+      "page_count": 259
+    },
+    {
+      "document_id": "doc_0006",
+      "filename": "kanban-guide.v2020.12.en.pdf",
+      "original_path": "sanzu/kanban-guide.v2020.12.en.pdf",
+      "format": "pdf",
+      "size_bytes": 157097,
+      "sha256": "7237107dfd5a55efd1f52742cf9471b8a3ef0a86ccbe8b97e6e394c754370c23",
+      "extraction_status": "success_with_limitations",
+      "approx_content_recovered": "2411 palabras / 15549 caracteres / 9 páginas",
+      "page_count": 9
+    },
+    {
+      "document_id": "doc_0007",
+      "filename": "lean4.pdf",
+      "original_path": "sanzu/lean4.pdf",
+      "format": "pdf",
+      "size_bytes": 361568,
+      "sha256": "2b907e98552f5ff4fe77be717f9423311a4d6bf4ac866b143d99f34e83f39c4d",
+      "extraction_status": "success_off_topic_not_chunked",
+      "approx_content_recovered": "4156 palabras / 27028 caracteres / 11 páginas",
+      "page_count": 11
+    },
+    {
+      "document_id": "doc_0008",
+      "filename": "scrum_guide_2025.v1.0_-_europeanscrum.org.pdf",
+      "original_path": "sanzu/scrum_guide_2025.v1.0_-_europeanscrum.org.pdf",
+      "format": "pdf",
+      "size_bytes": 428944,
+      "sha256": "bcbc716c6a10379f965f0d96672310d8022e8b8b8b022418cdeb770e8b838dd3",
+      "extraction_status": "success_with_limitations",
+      "approx_content_recovered": "7656 palabras / 48188 caracteres / 19 páginas",
+      "page_count": 19
+    },
+    {
+      "document_id": "doc_0009",
+      "filename": "waterfall.pdf",
+      "original_path": "sanzu/waterfall.pdf",
+      "format": "pdf",
+      "size_bytes": 204301,
+      "sha256": "a41f8cc177fe80a333f8791920788f8fcbe03c97bf8157654eec1214ac2ea671",
+      "extraction_status": "success_with_limitations",
+      "approx_content_recovered": "3257 palabras / 21753 caracteres / 6 páginas",
+      "page_count": 6
+    }
+  ],
+  "per_document": [
+    {
+      "document_id": "doc_0001",
+      "filename": "07_Scrum.pdf",
+      "status": "success_with_limitations",
+      "pages": 24,
+      "words": 10916,
+      "chunks": 35,
+      "page_role_counts": {
+        "front_matter": 1,
+        "body": 23
+      },
+      "heading_detection": "outline",
+      "outline_entries": 76,
+      "outline_matched": 76,
+      "outline_unmatched": [],
+      "dropped_lines": {
+        "repeated_header_footer": 92,
+        "toc_dot_leader": 21
+      },
+      "dehyphenated_words": 0,
+      "hyphen_preserved": 0,
+      "toc_elements_excluded": 4,
+      "figures_ocr": 0,
+      "coverage_check": {
+        "content_elements": 150,
+        "covered": 150,
+        "missing": [],
+        "complete": true
+      },
+      "limitations": [
+        "Documento generado con ayuda de IA: sirve como material de estudio secundario, no como fuente normativa.",
+        "Contiene un caso práctico integral (PlanIt) con datos ficticios declarados por el propio documento; sus fragmentos se marcan con fictional_data=true.",
+        "El Anexo A indica que varias referencias están parcialmente verificadas o no verificadas."
+      ]
+    },
+    {
+      "document_id": "doc_0002",
+      "filename": "9780321278654.pdf",
+      "status": "success_with_limitations",
+      "pages": 46,
+      "words": 9116,
+      "chunks": 10,
+      "page_role_counts": {
+        "front_matter": 11,
+        "toc": 4,
+        "body": 16,
+        "index": 15
+      },
+      "heading_detection": "outline",
+      "outline_entries": 30,
+      "outline_matched": 29,
+      "outline_unmatched": [
+        {
+          "level": 1,
+          "title": "Chapter 1 What is XP?",
+          "page": 24
+        }
+      ],
+      "dropped_lines": {
+        "page_number": 27,
+        "toc_dot_leader": 98,
+        "repeated_running_head_small_font": 9,
+        "repeated_header_footer": 19
+      },
+      "dehyphenated_words": 82,
+      "hyphen_preserved": 9,
+      "toc_elements_excluded": 0,
+      "figures_ocr": 4,
+      "coverage_check": {
+        "content_elements": 82,
+        "covered": 82,
+        "missing": [],
+        "complete": true
+      },
+      "limitations": [
+        "Es un extracto: solo contiene prólogos, prefacio, Capítulo 1 (págs. 24-31 del PDF) e índice analítico; los capítulos sobre valores, principios y prácticas no están en el archivo.",
+        "Las páginas del índice analítico (32-46) se conservan en el texto completo pero no se fragmentan para RAG (listas de términos y números de página).",
+        "1 entradas del outline del PDF no se localizaron en el texto; se anclaron al inicio de su página.",
+        "82 palabras partidas por guion de fin de línea se unieron automáticamente (heurística; posibles falsos positivos)."
+      ]
+    },
+    {
+      "document_id": "doc_0003",
+      "filename": "AGILE METHODOLOGIES(1).pdf",
+      "status": "success_with_limitations",
+      "pages": 54,
+      "words": 18877,
+      "chunks": 71,
+      "page_role_counts": {
+        "front_matter": 3,
+        "administrative": 2,
+        "body": 49
+      },
+      "heading_detection": "rule",
+      "outline_entries": null,
+      "outline_matched": null,
+      "outline_unmatched": [],
+      "dropped_lines": {
+        "repeated_header_footer": 52,
+        "page_number": 2
+      },
+      "dehyphenated_words": 4,
+      "hyphen_preserved": 7,
+      "toc_elements_excluded": 0,
+      "figures_ocr": 6,
+      "coverage_check": {
+        "content_elements": 498,
+        "covered": 498,
+        "missing": [],
+        "complete": true
+      },
+      "limitations": [
+        "Pág. 6 del PDF de origen: la viñeta sobre 2001 (firma del Manifiesto Ágil) aparece truncada ('In 2001, seventeen') también en la imagen renderizada; el contenido no es recuperable y no se ha inventado.",
+        "Los apuntes tienen secciones de tabla sin rejilla que se extraen como texto lineal (p. ej. tablas de LSD vs Agile, págs. 7-8).",
+        "El autor procede únicamente de los metadatos del PDF (no del texto).",
+        "Estructura de encabezados inferida con reglas tipográficas (el PDF no tiene marcadores utilizables): puede haber errores de jerarquía.",
+        "4 palabras partidas por guion de fin de línea se unieron automáticamente (heurística; posibles falsos positivos).",
+        "2 figuras descartadas del OCR por baja calidad o muy poco texto."
+      ]
+    },
+    {
+      "document_id": "doc_0004",
+      "filename": "Agile-Project-Management-Best-Practices-and-Methodologies-Whitepaper.pdf",
+      "status": "success_with_limitations",
+      "pages": 23,
+      "words": 5833,
+      "chunks": 18,
+      "page_role_counts": {
+        "front_matter": 1,
+        "toc": 1,
+        "body": 20,
+        "back_matter": 1
+      },
+      "heading_detection": "rule",
+      "outline_entries": null,
+      "outline_matched": null,
+      "outline_unmatched": [],
+      "dropped_lines": {
+        "repeated_header_footer": 23,
+        "page_number": 27
+      },
+      "dehyphenated_words": 7,
+      "hyphen_preserved": 2,
+      "toc_elements_excluded": 0,
+      "figures_ocr": 1,
+      "coverage_check": {
+        "content_elements": 225,
+        "covered": 225,
+        "missing": [],
+        "complete": true
+      },
+      "limitations": [
+        "Los diagramas del whitepaper (p. ej. ciclo ágil, tablero Kanban) son gráficos vectoriales: solo se recupera el texto que contienen, no su estructura visual.",
+        "Última página (datos corporativos de AltexSoft) excluida de los fragmentos.",
+        "Estructura de encabezados inferida con reglas tipográficas (el PDF no tiene marcadores utilizables): puede haber errores de jerarquía.",
+        "7 palabras partidas por guion de fin de línea se unieron automáticamente (heurística; posibles falsos positivos).",
+        "1 figuras descartadas del OCR por baja calidad o muy poco texto."
+      ]
+    },
+    {
+      "document_id": "doc_0005",
+      "filename": "The Complete Software Project Manager_ Mastering Technology from Planning to Launch and Beyond ( PDFDrive ).pdf",
+      "status": "success_with_limitations",
+      "pages": 259,
+      "words": 78870,
+      "chunks": 208,
+      "page_role_counts": {
+        "front_matter": 10,
+        "toc": 12,
+        "body": 228,
+        "index": 8,
+        "legal": 1
+      },
+      "heading_detection": "outline",
+      "outline_entries": 338,
+      "outline_matched": 327,
+      "outline_unmatched": [
+        {
+          "level": 1,
+          "title": "Cover",
+          "page": 1
+        },
+        {
+          "level": 1,
+          "title": "Title Page",
+          "page": 3
+        },
+        {
+          "level": 1,
+          "title": "Copyright",
+          "page": 4
+        },
+        {
+          "level": 1,
+          "title": "Chapter 3 Project Approaches; Off-the-Shelf and Custom Development; One Comprehensive Tool and Specialized Tools; Phased Launches and Pilots",
+          "page": 45
+        },
+        {
+          "level": 1,
+          "title": "Chapter 5 Project Research and Technology Choice; Conflicts at the Start of Projects; Four Additional Project Delays; Initial Pitfalls",
+          "page": 83
+        },
+        {
+          "level": 3,
+          "title": "Choosing Technology and What tNOT to Consider: The Future",
+          "page": 98
+        },
+        {
+          "level": 1,
+          "title": "Chapter 7 Budgeting: The Budgeting Methods; Comparative, Bottom-Up, Top-Down, and Blends; Accurate Estimating",
+          "page": 129
+        },
+        {
+          "level": 2,
+          "title": "The Best Thing You Can Ever Hear: \"Wait. tWhat Was It Supposed to Do?\"",
+          "page": 174
+        },
+        {
+          "level": 1,
+          "title": "Chapter 12 Problems: Identifying and Troubleshooting the Three Most Serious Project Problems; Criteria for Cancellation",
+          "page": 197
+        },
+        {
+          "level": 1,
+          "title": "Chapter 13 Launch and Post-Launch: UAT, Security Testing, Performance Testing, Go Live, Rollback Criteria, and Support Mode",
+          "page": 211
+        },
+        {
+          "level": 1,
+          "title": "EULA",
+          "page": 259
+        }
+      ],
+      "dropped_lines": {
+        "repeated_running_head_small_font": 117,
+        "page_number": 219,
+        "repeated_header_footer": 96
+      },
+      "dehyphenated_words": 496,
+      "hyphen_preserved": 7,
+      "toc_elements_excluded": 0,
+      "figures_ocr": 0,
+      "coverage_check": {
+        "content_elements": 1673,
+        "covered": 1673,
+        "missing": [],
+        "complete": true
+      },
+      "limitations": [
+        "Los números de página impresos del libro no coinciden con el índice de página del PDF; las citas usan el índice de página del PDF (1-based).",
+        "Algunos títulos de sección del outline no se localizaron en el texto (ver extraction_report.json); en esos casos el encabezado se ancla al inicio de la página.",
+        "Las figuras/capturas de pantalla se procesan con OCR cuando contienen texto reconocible; el resultado se guarda aparte (figure_ocr) y se marca para revisión.",
+        "11 entradas del outline del PDF no se localizaron en el texto; se anclaron al inicio de su página.",
+        "496 palabras partidas por guion de fin de línea se unieron automáticamente (heurística; posibles falsos positivos).",
+        "2 figuras descartadas del OCR por baja calidad o muy poco texto."
+      ]
+    },
+    {
+      "document_id": "doc_0006",
+      "filename": "kanban-guide.v2020.12.en.pdf",
+      "status": "success_with_limitations",
+      "pages": 9,
+      "words": 2411,
+      "chunks": 12,
+      "page_role_counts": {
+        "front_matter": 1,
+        "body": 7,
+        "toc": 1
+      },
+      "heading_detection": "outline",
+      "outline_entries": 14,
+      "outline_matched": 14,
+      "outline_unmatched": [],
+      "dropped_lines": {
+        "page_number": 8,
+        "toc_dot_leader": 14
+      },
+      "dehyphenated_words": 8,
+      "hyphen_preserved": 0,
+      "toc_elements_excluded": 1,
+      "figures_ocr": 0,
+      "coverage_check": {
+        "content_elements": 49,
+        "covered": 49,
+        "missing": [],
+        "complete": true
+      },
+      "limitations": [
+        "Licencia inconsistente dentro del documento (CC BY-SA 4.0 en pág. 2; CC BY 4.0 en pág. 9).",
+        "8 palabras partidas por guion de fin de línea se unieron automáticamente (heurística; posibles falsos positivos)."
+      ]
+    },
+    {
+      "document_id": "doc_0007",
+      "filename": "lean4.pdf",
+      "status": "success_off_topic_not_chunked",
+      "pages": 11,
+      "words": 4156,
+      "chunks": 0,
+      "page_role_counts": {
+        "off_topic": 11
+      },
+      "heading_detection": "rule",
+      "outline_entries": null,
+      "outline_matched": null,
+      "outline_unmatched": [],
+      "dropped_lines": {
+        "toc_dot_leader": 2
+      },
+      "dehyphenated_words": 41,
+      "hyphen_preserved": 4,
+      "toc_elements_excluded": 0,
+      "figures_ocr": 0,
+      "coverage_check": null,
+      "limitations": [
+        "Fuera de dominio (demostrador de teoremas Lean 4). No se fragmenta ni se clasifica; se conserva el texto completo por trazabilidad.",
+        "Estructura de encabezados inferida con reglas tipográficas (el PDF no tiene marcadores utilizables): puede haber errores de jerarquía.",
+        "41 palabras partidas por guion de fin de línea se unieron automáticamente (heurística; posibles falsos positivos)."
+      ]
+    },
+    {
+      "document_id": "doc_0008",
+      "filename": "scrum_guide_2025.v1.0_-_europeanscrum.org.pdf",
+      "status": "success_with_limitations",
+      "pages": 19,
+      "words": 7656,
+      "chunks": 23,
+      "page_role_counts": {
+        "front_matter": 1,
+        "toc": 1,
+        "body": 17
+      },
+      "heading_detection": "rule",
+      "outline_entries": null,
+      "outline_matched": null,
+      "outline_unmatched": [],
+      "dropped_lines": {
+        "repeated_header_footer": 26,
+        "page_number": 18,
+        "toc_dot_leader": 25
+      },
+      "dehyphenated_words": 0,
+      "hyphen_preserved": 2,
+      "toc_elements_excluded": 0,
+      "figures_ocr": 0,
+      "coverage_check": {
+        "content_elements": 76,
+        "covered": 76,
+        "missing": [],
+        "complete": true
+      },
+      "limitations": [
+        "No es la Scrum Guide oficial (scrumguides.org): terminología y roles pueden diferir de la versión 2020 (p. ej. usa 'Development Team').",
+        "Estructura de encabezados inferida con reglas tipográficas (el PDF no tiene marcadores utilizables): puede haber errores de jerarquía."
+      ]
+    },
+    {
+      "document_id": "doc_0009",
+      "filename": "waterfall.pdf",
+      "status": "success_with_limitations",
+      "pages": 6,
+      "words": 3257,
+      "chunks": 13,
+      "page_role_counts": {
+        "body": 6
+      },
+      "heading_detection": "rule",
+      "outline_entries": null,
+      "outline_matched": null,
+      "outline_unmatched": [],
+      "dropped_lines": {
+        "repeated_header_footer": 5
+      },
+      "dehyphenated_words": 0,
+      "hyphen_preserved": 0,
+      "toc_elements_excluded": 0,
+      "figures_ocr": 0,
+      "coverage_check": {
+        "content_elements": 66,
+        "covered": 66,
+        "missing": [],
+        "complete": true
+      },
+      "limitations": [
+        "Artículo con erratas e inconsistencias internas (p. ej. dos descripciones distintas de las fases de Waterfall).",
+        "Estructura de encabezados inferida con reglas tipográficas (el PDF no tiene marcadores utilizables): puede haber errores de jerarquía."
+      ]
+    }
+  ],
+  "chunk_statistics": {
+    "count": 390,
+    "tokens_min": 37,
+    "tokens_p10": 221,
+    "tokens_median": 484,
+    "tokens_p90": 761,
+    "tokens_max": 815,
+    "below_300": 57,
+    "between_300_800": 327,
+    "above_800": 6,
+    "token_estimation": "Aproximación sin tokenizador: max(palabras*1.3, caracteres/4) en inglés; max(palabras*1.5, caracteres/4) en español. Sustituir por el tokenizador del modelo de embeddings real.",
+    "overlap_policy": "Sin solape textual entre chunks (límites por sección/párrafo); se enlazan con prev_chunk_id/next_chunk_id. Solo al dividir un párrafo >800 tokens se solapa 1 frase.",
+    "short_chunk_note": "Los chunks <300 tokens corresponden a secciones breves/documentos cortos; no se fusionan a través de encabezados de nivel 1-2 para no mezclar temas."
+  },
+  "categories_without_content": [
+    "Gobernanza y estándares (PMBOK, PRINCE2, ITIL, COBIT, CMMI)"
+  ],
+  "glossary_entries": 157,
+  "references_extracted": 34,
+  "relationships": 70,
+  "contradictions_identified": 7,
+  "transformations": [
+    "Ligaduras tipográficas (ﬁ, ﬂ…) → letras sueltas; caracteres nulos y guiones blandos eliminados.",
+    "Encabezados/pies repetidos y números de página eliminados (reglas por posición y repetición); líneas de puntos de índices eliminadas.",
+    "Palabras partidas por guion de fin de línea reunidas (con lista de prefijos que conservan el guion).",
+    "Viñetas normalizadas a '- ' y agrupadas en listas; numeraciones se conservan tal cual.",
+    "Tablas con rejilla convertidas a markdown y también conservadas como estructura (header/rows) en cada chunk.",
+    "Índices internos (TOC) excluidos de los chunks; el texto completo se conserva en documents_text/*.md.",
+    "Sin traducción: cada fragmento conserva su idioma original (es/en)."
+  ],
+  "warnings": [
+    "lean4.pdf trata del demostrador de teoremas Lean 4: fuera de dominio; no se fragmenta ni se indexa.",
+    "07_Scrum.pdf es un documento generado con ayuda de IA y contiene datos ficticios (caso PlanIt).",
+    "scrum_guide_2025 (europeanscrum.org) NO es la guía oficial de Schwaber/Sutherland.",
+    "9780321278654.pdf es un extracto del libro de XP (Cap. 1 + índice): faltan valores, principios y prácticas.",
+    "Los PDFs de Beck (Pearson) y Murray (Wiley, fuente 'PDFDrive') son obras con copyright: verifique derechos antes de redistribuir texto.",
+    "Summary de chunks = null: los resúmenes deben generarse con un LLM y marcarse como texto generado (no fuente original).",
+    "Clasificación temática, palabras clave y entidades son heurísticas deterministas (palabras clave/diccionario), no comprensión semántica; revisar muestras.",
+    "Relaciones: criterio de dominio + co-ocurrencia en el mismo chunk (evidencia débil).",
+    "Embeddings NO generados (no se dispone de modelo en el entorno): ver api_integration_guide.md.",
+    "Categorías sin contenido omitidas: Gobernanza y estándares (PMBOK, PRINCE2, ITIL, COBIT, CMMI)"
+  ],
+  "ocr": {
+    "engine": "tesseract",
+    "figures_recognized": 11,
+    "note": "Solo figuras grandes en páginas de contenido; el texto OCR se guarda en 'figure_ocr' y no se mezcla con 'content'."
+  },
+  "coverage_check": {
+    "doc_0001": {
+      "content_elements": 150,
+      "covered": 150,
+      "missing": [],
+      "complete": true
+    },
+    "doc_0002": {
+      "content_elements": 82,
+      "covered": 82,
+      "missing": [],
+      "complete": true
+    },
+    "doc_0003": {
+      "content_elements": 498,
+      "covered": 498,
+      "missing": [],
+      "complete": true
+    },
+    "doc_0004": {
+      "content_elements": 225,
+      "covered": 225,
+      "missing": [],
+      "complete": true
+    },
+    "doc_0005": {
+      "content_elements": 1673,
+      "covered": 1673,
+      "missing": [],
+      "complete": true
+    },
+    "doc_0006": {
+      "content_elements": 49,
+      "covered": 49,
+      "missing": [],
+      "complete": true
+    },
+    "doc_0008": {
+      "content_elements": 76,
+      "covered": 76,
+      "missing": [],
+      "complete": true
+    },
+    "doc_0009": {
+      "content_elements": 66,
+      "covered": 66,
+      "missing": [],
+      "complete": true
+    }
+  }
+}

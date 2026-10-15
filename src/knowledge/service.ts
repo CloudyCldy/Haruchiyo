@@ -7,6 +7,7 @@ import {
   ProcessDefinition,
   TemplateDefinition
 } from "./types";
+import { corpusService } from "./corpus.service";
 
 export const KnowledgeService = {
   // Documentation
@@ -130,5 +131,34 @@ export const KnowledgeService = {
       recommendations,
       sectionBreakdown
     };
+  },
+
+  // Corpus & AI Knowledge Base
+  searchCorpus(options: Parameters<typeof corpusService.searchChunks>[0]) {
+    return corpusService.searchChunks(options);
+  },
+
+  getProjectKnowledge(options: Parameters<typeof corpusService.getKnowledgeForProject>[0]) {
+    return corpusService.getKnowledgeForProject(options);
+  },
+
+  listCorpusDocuments() {
+    return corpusService.listDocuments();
+  },
+
+  getCorpusDocument(id: string) {
+    return corpusService.getDocument(id);
+  },
+
+  getCorpusChunk(id: string) {
+    return corpusService.getChunk(id);
+  },
+
+  getCorpusGlossaryTerm(term: string) {
+    return corpusService.getGlossaryTerm(term);
+  },
+
+  getCorpusContradictions() {
+    return corpusService.getContradictions();
   }
 };

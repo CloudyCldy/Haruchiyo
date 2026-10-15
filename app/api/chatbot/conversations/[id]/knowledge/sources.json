@@ -1,0 +1,833 @@
+{
+  "count": 9,
+  "sources": [
+    {
+      "source_id": "src_0001",
+      "document_id": "doc_0001",
+      "filename": "07_Scrum.pdf",
+      "original_path": "sanzu/07_Scrum.pdf",
+      "title": "Scrum: marco de trabajo para proyectos de TI",
+      "authors": [],
+      "corporate_authors": [
+        "Biblioteca IT Project Management (elaboración asistida por IA)"
+      ],
+      "publisher": null,
+      "publication_date": null,
+      "publication_date_note": "Sin fecha de publicación; el propio documento indica fecha de consulta 2026-10-08.",
+      "isbn": null,
+      "language": "es",
+      "doc_type": "study_guide",
+      "source_reliability": "secondary_ai_assisted",
+      "reliability_note": "El documento declara 'Documento generado con ayuda de IA: verifique las fuentes' y contiene un caso práctico con datos ficticios (PlanIt). Su anexo A marca varias referencias como parcialmente verificadas o no verificadas. Tratar como fuente secundaria; contrastar con fuentes primarias.",
+      "license": null,
+      "usage_note": "Sin licencia declarada.",
+      "page_count": 24,
+      "citation_text": "Biblioteca IT Project Management (elaboración asistida por IA). Scrum: marco de trabajo para proyectos de TI. s.f..",
+      "citation_note": "Generada automáticamente a partir de metadatos del documento; no es una cita bibliográfica normalizada verificada.",
+      "location_scheme": "Índice de página del PDF (1-based); 'page_label' se incluye solo si el PDF define etiquetas de página.",
+      "urls_found_in_document": [
+        "https://agilemanifesto.org/",
+        "https://dora.dev/guides/dora-metrics/",
+        "https://scrumguides.org/docs/scrumguide/v2020/2020-Scrum-Guide-US.pdf",
+        "https://www.Scrumguides.org/docs/scrumguide/v2020/2020-Scrum-Guide-Spanish-European.pdf",
+        "https://www.ics.hub.hit-u.ac.jp/research/business_magazine/1986",
+        "https://www.scrum.org/resources/new-new-product-development-game",
+        "https://www.scruminc.com/?p=632"
+      ],
+      "reference_ids": [
+        "ref_0001",
+        "ref_0002",
+        "ref_0003",
+        "ref_0004",
+        "ref_0005",
+        "ref_0006",
+        "ref_0007",
+        "ref_0008"
+      ],
+      "in_retrieval_index": true
+    },
+    {
+      "source_id": "src_0002",
+      "document_id": "doc_0002",
+      "filename": "9780321278654.pdf",
+      "original_path": "sanzu/9780321278654.pdf",
+      "title": "Extreme Programming Explained: Embrace Change (2nd ed.) — extracto",
+      "authors": [
+        "Kent Beck",
+        "Cynthia Andres"
+      ],
+      "corporate_authors": [],
+      "publisher": "Addison-Wesley (Pearson Education)",
+      "publication_date": "2005",
+      "publication_date_note": "Copyright del texto © 2005; registro LoC 2004. ISBN 0-321-27865-8.",
+      "isbn": "0-321-27865-8",
+      "language": "en",
+      "doc_type": "book_excerpt",
+      "source_reliability": "primary_book_excerpt",
+      "reliability_note": "Fuente primaria (autor del método), pero SOLO un extracto: el contenido de las prácticas, principios y valores desarrollados en los capítulos 2-24 NO está incluido (solo aparecen como entradas del índice).",
+      "license": "All rights reserved (Pearson Education)",
+      "usage_note": "Obra con copyright. Verifique que dispone de derechos antes de redistribuir fragmentos textuales extensos mediante una API pública.",
+      "page_count": 46,
+      "citation_text": "Kent Beck; Cynthia Andres. Extreme Programming Explained: Embrace Change (2nd ed.) — extracto. Addison-Wesley (Pearson Education) 2005.",
+      "citation_note": "Generada automáticamente a partir de metadatos del documento; no es una cita bibliográfica normalizada verificada.",
+      "location_scheme": "Índice de página del PDF (1-based); 'page_label' se incluye solo si el PDF define etiquetas de página.",
+      "urls_found_in_document": [],
+      "reference_ids": [],
+      "in_retrieval_index": true
+    },
+    {
+      "source_id": "src_0003",
+      "document_id": "doc_0003",
+      "filename": "AGILE METHODOLOGIES(1).pdf",
+      "original_path": "sanzu/AGILE METHODOLOGIES(1).pdf",
+      "title": "Agile Methodologies (R20A6607) — Lecture Notes",
+      "authors": [
+        "venkateswararaju sarikonda"
+      ],
+      "corporate_authors": [
+        "Malla Reddy College of Engineering and Technology (MRCET)"
+      ],
+      "publisher": "MRCET",
+      "publication_date": "2024-07-10",
+      "publication_date_note": "Fecha de creación del PDF (metadatos); el documento indica curso 2024-2025. El autor proviene solo de metadatos del PDF: verificar.",
+      "isbn": null,
+      "language": "en",
+      "doc_type": "lecture_notes",
+      "source_reliability": "secondary_educational",
+      "reliability_note": "Apuntes universitarios: material secundario, redacción simplificada. Contiene al menos un pasaje truncado en el PDF de origen (pág. 6, viñeta sobre 2001/Manifiesto Ágil).",
+      "license": null,
+      "usage_note": "Sin licencia declarada.",
+      "page_count": 54,
+      "citation_text": "venkateswararaju sarikonda. Agile Methodologies (R20A6607) — Lecture Notes. MRCET 2024-07-10.",
+      "citation_note": "Generada automáticamente a partir de metadatos del documento; no es una cita bibliográfica normalizada verificada.",
+      "location_scheme": "Índice de página del PDF (1-based); 'page_label' se incluye solo si el PDF define etiquetas de página.",
+      "urls_found_in_document": [],
+      "reference_ids": [],
+      "in_retrieval_index": true
+    },
+    {
+      "source_id": "src_0004",
+      "document_id": "doc_0004",
+      "filename": "Agile-Project-Management-Best-Practices-and-Methodologies-Whitepaper.pdf",
+      "original_path": "sanzu/Agile-Project-Management-Best-Practices-and-Methodologies-Whitepaper.pdf",
+      "title": "Agile Project Management: Best Practices and Methodologies",
+      "authors": [],
+      "corporate_authors": [
+        "AltexSoft"
+      ],
+      "publisher": "AltexSoft",
+      "publication_date": null,
+      "publication_date_note": "Sin fecha en el texto; el PDF fue creado el 2017-11-20 (metadatos, no necesariamente fecha de publicación).",
+      "isbn": null,
+      "language": "en",
+      "doc_type": "vendor_whitepaper",
+      "source_reliability": "secondary_vendor",
+      "reliability_note": "Whitepaper de una empresa de consultoría; contiene secciones con títulos duplicados/erróneos en el índice (p. ej. '8.1 When to use Lean', '9.1 When to use Hybrid').",
+      "license": null,
+      "usage_note": "Sin licencia declarada.",
+      "page_count": 23,
+      "citation_text": "AltexSoft. Agile Project Management: Best Practices and Methodologies. AltexSoft s.f..",
+      "citation_note": "Generada automáticamente a partir de metadatos del documento; no es una cita bibliográfica normalizada verificada.",
+      "location_scheme": "Índice de página del PDF (1-based); 'page_label' se incluye solo si el PDF define etiquetas de página.",
+      "urls_found_in_document": [
+        "http://blogs.gartner.com/it-glossary/project-management/",
+        "http://ptgmedia.pearsoncmg.com/images/9780321150783/samplepages/0321150783.pdf",
+        "http://www.agilemanifesto.org/",
+        "http://www.cs.umd.edu/class/spring2003/cmsc838p/Process/waterfall.pdf",
+        "http://www.cs.utah.edu/~lwilliam/Papers/ieeeSoftware.PDF",
+        "http://www.extremeprogramming.org/index.html",
+        "http://www.pmi.org/-/media/pmi/documents/public/pdf/learning/thought-leadership/pulse/pulse-of-the-profession-2017.",
+        "http://www.poppendieck.com/",
+        "http://www.scrumguides.org/docs/scrumguide/v2016/2016-Scrum-Guide-US.pdf#zoom=100",
+        "http://www.sigplan.org/Conferences/OOPSLA/",
+        "http://www.toyota-global.com/company/vision_philosophy/toyota_production_system/",
+        "https://explore.versionone.com/state-of-agile/versionone-11th-annual-state-of-agile-report-2",
+        "https://hbr.org/1986/01/the-new-new-product-development-game",
+        "https://msdn.microsoft.com/en-us/library/aa730844(v=vs.80",
+        "https://www.cs.umd.edu/~basili/publications/journals/J90.pdf",
+        "https://www.gartner.com/it-glossary/bimodal/",
+        "https://www.ibm.com/devops/method/content/code/practice_pair_programming/",
+        "https://www.scrumalliance.org/scrum/media/ScrumAllianceMedia/Files%20and%20PDFs/State%20of%20Scrum/",
+        "https://www.softwareag.com/corporate/images/SAG_Bimodal_IT_8PG_WP_Aug16-Web_tcm16-143391.pdf"
+      ],
+      "reference_ids": [
+        "ref_0009",
+        "ref_0010",
+        "ref_0011",
+        "ref_0012",
+        "ref_0013",
+        "ref_0014",
+        "ref_0015",
+        "ref_0016",
+        "ref_0017",
+        "ref_0018",
+        "ref_0019",
+        "ref_0020",
+        "ref_0021",
+        "ref_0022",
+        "ref_0023",
+        "ref_0024",
+        "ref_0025",
+        "ref_0026",
+        "ref_0027",
+        "ref_0028"
+      ],
+      "in_retrieval_index": true
+    },
+    {
+      "source_id": "src_0005",
+      "document_id": "doc_0005",
+      "filename": "The Complete Software Project Manager_ Mastering Technology from Planning to Launch and Beyond ( PDFDrive ).pdf",
+      "original_path": "sanzu/The Complete Software Project Manager_ Mastering Technology from Planning to Launch and Beyond ( PDFDrive ).pdf",
+      "title": "The Complete Software Project Manager: Mastering Technology from Planning to Launch and Beyond",
+      "authors": [
+        "Anna P. Murray"
+      ],
+      "corporate_authors": [],
+      "publisher": "John Wiley & Sons, Inc.",
+      "publication_date": "2016",
+      "publication_date_note": "Copyright © 2016.",
+      "isbn": null,
+      "language": "en",
+      "doc_type": "book",
+      "source_reliability": "primary_book",
+      "reliability_note": "Libro completo (259 págs.). Perspectiva práctica de una autora; no es un estándar normativo.",
+      "license": "All rights reserved (John Wiley & Sons)",
+      "usage_note": "Obra con copyright; el archivo procede de 'PDFDrive' (origen de distribución no verificado). Confirme que dispone de derechos antes de redistribuir fragmentos textuales extensos.",
+      "page_count": 259,
+      "citation_text": "Anna P. Murray. The Complete Software Project Manager: Mastering Technology from Planning to Launch and Beyond. John Wiley & Sons, Inc. 2016.",
+      "citation_note": "Generada automáticamente a partir de metadatos del documento; no es una cita bibliográfica normalizada verificada.",
+      "location_scheme": "Índice de página del PDF (1-based); 'page_label' se incluye solo si el PDF define etiquetas de página.",
+      "urls_found_in_document": [
+        "http://booksupport.wiley.com.",
+        "http://emediaweb",
+        "http://emediaweb.com/completesoftwarepm.",
+        "http://lccn.loc.gov/2015036771",
+        "http://www.cert",
+        "http://www.emediaweb",
+        "http://www.emediaweb.com/",
+        "http://www.gartner.com/technology/research/methodologies/hype-cycle",
+        "http://www.gartner.com/technology/research/methodologies/hypecycle.jsp.",
+        "http://www.wiley.com/go/permissions.",
+        "https://creativecommons.org/licenses/by-sa/3.0/",
+        "https://www.owasp.org,"
+      ],
+      "reference_ids": [],
+      "in_retrieval_index": true
+    },
+    {
+      "source_id": "src_0006",
+      "document_id": "doc_0006",
+      "filename": "kanban-guide.v2020.12.en.pdf",
+      "original_path": "sanzu/kanban-guide.v2020.12.en.pdf",
+      "title": "The Kanban Guide",
+      "authors": [],
+      "corporate_authors": [
+        "Orderly Disruption Limited",
+        "Daniel S. Vacanti, Inc."
+      ],
+      "publisher": null,
+      "publication_date": "2020-12",
+      "publication_date_note": "Portada: 'December 2020'.",
+      "isbn": null,
+      "language": "en",
+      "doc_type": "official_guide",
+      "source_reliability": "primary_official",
+      "reliability_note": "Guía de referencia de la comunidad Kanban (conjunto mínimo de reglas). Inconsistencia interna: pág. 2 indica CC BY-SA 4.0 y pág. 9 indica CC BY 4.0.",
+      "license": "Creative Commons (CC BY-SA 4.0 según pág. 2; CC BY 4.0 según pág. 9 — inconsistente)",
+      "usage_note": "Reutilizable con atribución; verificar la variante de licencia en la fuente oficial.",
+      "page_count": 9,
+      "citation_text": "Orderly Disruption Limited; Daniel S. Vacanti, Inc.. The Kanban Guide. 2020-12.",
+      "citation_note": "Generada automáticamente a partir de metadatos del documento; no es una cita bibliográfica normalizada verificada.",
+      "location_scheme": "Índice de página del PDF (1-based); 'page_label' se incluye solo si el PDF define etiquetas de página.",
+      "urls_found_in_document": [
+        "http://creativecommons.org/licenses/by-sa/4.0/,",
+        "http://creativecommons.org/licenses/bysa/4.0/legalcode"
+      ],
+      "reference_ids": [],
+      "in_retrieval_index": true
+    },
+    {
+      "source_id": "src_0007",
+      "document_id": "doc_0007",
+      "filename": "lean4.pdf",
+      "original_path": "sanzu/lean4.pdf",
+      "title": "The Lean 4 Theorem Prover and Programming Language (System Description)",
+      "authors": [
+        "Leonardo de Moura",
+        "Sebastian Ullrich"
+      ],
+      "corporate_authors": [],
+      "publisher": null,
+      "publication_date": null,
+      "publication_date_note": "Sin fecha explícita; PDF creado 2021-08-10 (metadatos). El texto indica que Lean 4 se publicó a comienzos de 2021.",
+      "isbn": null,
+      "language": "en",
+      "doc_type": "academic_paper",
+      "source_reliability": "primary_but_off_topic",
+      "reliability_note": "FUERA DE DOMINIO: trata del demostrador de teoremas y lenguaje de programación 'Lean', no de Lean Software Development ni de gestión de proyectos. Se inventaría y se conserva el texto, pero no se fragmenta para RAG.",
+      "license": null,
+      "usage_note": "Sin licencia declarada.",
+      "page_count": 11,
+      "citation_text": "Leonardo de Moura; Sebastian Ullrich. The Lean 4 Theorem Prover and Programming Language (System Description). s.f..",
+      "citation_note": "Generada automáticamente a partir de metadatos del documento; no es una cita bibliográfica normalizada verificada.",
+      "location_scheme": "Índice de página del PDF (1-based); 'page_label' se incluye solo si el PDF define etiquetas de página.",
+      "urls_found_in_document": [
+        "http://github.com/leanprover/lean4",
+        "http://leanprover.github.io",
+        "http://leanprover.github.io/lean4/doc",
+        "https://arxiv.",
+        "https://arxiv.org/abs/2101.02602",
+        "https://doi.org/10.",
+        "https://doi.org/10.1145/3372885.",
+        "https://doi.org/10.1145/3372885.3373824,",
+        "https://doi.org/10.1145/3372885.3373830,",
+        "https://doi.org/10.14778/3236187.3236200",
+        "https://doi.org/10.14778/3236187.3236200,",
+        "https://doi.org/http://dx.doi.org/10.1145/3110278",
+        "https://github.com/GaloisInc/lean4-balance-car",
+        "https://github.com/GaloisInc/reopt-vcg",
+        "https://github.com/javra/iit",
+        "https://github.com/leanprover/",
+        "https://github.com/leanprover/lean4/blob/cade21/src/Lean/Compiler/IR/",
+        "https://github.com/leanprover/lean4/blob/cade21/src/Lean/Meta/",
+        "https://github.com/leanprover/lean4/blob/cade21/src/Lean/Meta/Tactic/",
+        "https://xenaproject.wordpress.com/"
+      ],
+      "reference_ids": [],
+      "in_retrieval_index": false
+    },
+    {
+      "source_id": "src_0008",
+      "document_id": "doc_0008",
+      "filename": "scrum_guide_2025.v1.0_-_europeanscrum.org.pdf",
+      "original_path": "sanzu/scrum_guide_2025.v1.0_-_europeanscrum.org.pdf",
+      "title": "Scrum Guide 2025 v1.0 (European Scrum)",
+      "authors": [
+        "Yvonne Agnes",
+        "David Marti"
+      ],
+      "corporate_authors": [
+        "europeanscrum.org"
+      ],
+      "publisher": "europeanscrum.org",
+      "publication_date": "2025",
+      "publication_date_note": "Título 'Scrum Guide 2025 v1.0'; PDF creado 2025-05-13 (metadatos).",
+      "isbn": null,
+      "language": "en",
+      "doc_type": "community_guide",
+      "source_reliability": "secondary_community",
+      "reliability_note": "NO es la Scrum Guide oficial de Schwaber y Sutherland (scrumguides.org, versión vigente 2020). Es una guía de una organización independiente (europeanscrum.org) y su terminología puede diferir de la oficial.",
+      "license": null,
+      "usage_note": "Sin licencia declarada.",
+      "page_count": 19,
+      "citation_text": "Yvonne Agnes; David Marti. Scrum Guide 2025 v1.0 (European Scrum). europeanscrum.org 2025.",
+      "citation_note": "Generada automáticamente a partir de metadatos del documento; no es una cita bibliográfica normalizada verificada.",
+      "location_scheme": "Índice de página del PDF (1-based); 'page_label' se incluye solo si el PDF define etiquetas de página.",
+      "urls_found_in_document": [],
+      "reference_ids": [],
+      "in_retrieval_index": true
+    },
+    {
+      "source_id": "src_0009",
+      "document_id": "doc_0009",
+      "filename": "waterfall.pdf",
+      "original_path": "sanzu/waterfall.pdf",
+      "title": "The Waterfall Model-Software Engineering",
+      "authors": [
+        "Rais Abdul Hamid Khan",
+        "Patil Raj Gopal",
+        "Patil Bhavesh Yogesh",
+        "Patil Vaishnavi Nitin",
+        "Khairnar Shekhar Sahebrao",
+        "Parkhe Nilesh Sharad",
+        "Patil Vivek Santosh"
+      ],
+      "corporate_authors": [
+        "Sandip University, Nashik"
+      ],
+      "publisher": "International Journal of Research Publication and Reviews (IJRPR), Vol 5, No 4, pp 7825-7830",
+      "publication_date": "2024-04",
+      "publication_date_note": "Cabecera: 'April 2024'. ISSN 2582-7421.",
+      "isbn": null,
+      "language": "en",
+      "doc_type": "journal_article",
+      "source_reliability": "secondary_academic",
+      "reliability_note": "Artículo de revista de bajo rigor editorial. Inconsistencia interna: describe las fases de Waterfall de dos formas distintas (5 fases de Royce vs. 'business analysis, design, implementation, testing, maintenance').",
+      "license": null,
+      "usage_note": "Sin licencia declarada.",
+      "page_count": 6,
+      "citation_text": "Rais Abdul Hamid Khan; Patil Raj Gopal; Patil Bhavesh Yogesh; Patil Vaishnavi Nitin; Khairnar Shekhar Sahebrao; Parkhe Nilesh Sharad; Patil Vivek Santosh. The Waterfall Model-Software Engineering. International Journal of Research Publication and Reviews (IJRPR), Vol 5, No 4, pp 7825-7830 2024-04.",
+      "citation_note": "Generada automáticamente a partir de metadatos del documento; no es una cita bibliográfica normalizada verificada.",
+      "location_scheme": "Índice de página del PDF (1-based); 'page_label' se incluye solo si el PDF define etiquetas de página.",
+      "urls_found_in_document": [
+        "https://study.com/academy/lesson/concurrent-"
+      ],
+      "reference_ids": [
+        "ref_0029",
+        "ref_0030",
+        "ref_0031",
+        "ref_0032",
+        "ref_0033",
+        "ref_0034"
+      ],
+      "in_retrieval_index": true
+    }
+  ],
+  "references": [
+    {
+      "document_id": "doc_0001",
+      "page": 23,
+      "raw_text": "[1] (Oficial) Schwaber, K. y Sutherland, J. (2020). The Scrum Guide: The Definitive Guide to Scrum: The Rules of the Game. Noviembre de 2020. Licencia CC BY-SA 4.0. https://scrumguides.org/docs/scrumguide/v2020/2020-Scrum-Guide-US.pdf Estado: Verificada: PDF descargado y leído completo (8-oct-2026).",
+      "urls": [
+        "https://scrumguides.org/docs/scrumguide/v2020/2020-Scrum-Guide-US.pdf"
+      ],
+      "years": [
+        "2020",
+        "2026"
+      ],
+      "source_label": 1,
+      "source_class": "Oficial",
+      "citation": "Schwaber, K. y Sutherland, J. (2020). The Scrum Guide: The Definitive Guide to Scrum: The Rules of the Game. Noviembre de 2020. Licencia CC BY-SA 4.0. https://scrumguides.org/docs/scrumguide/v2020/2020-Scrum-Guide-US.pdf",
+      "verification_status": "Verificada: PDF descargado y leído completo (8-oct-2026).",
+      "reference_id": "ref_0001",
+      "source_location": "sanzu/07_Scrum.pdf#page=23",
+      "verified_by_pipeline": false
+    },
+    {
+      "document_id": "doc_0001",
+      "page": 23,
+      "raw_text": "[2] (Oficial) Schwaber, K. y Sutherland, J. (2020). La Guía Scrum (versión en español de España). Noviembre de 2020. https://www.Scrumguides.org/docs/scrumguide/v2020/2020-Scrum-Guide-Spanish-European.pdf Estado: Parcial: aparece en resultados de búsqueda del sitio oficial; no se leyó completa.",
+      "urls": [
+        "https://www.Scrumguides.org/docs/scrumguide/v2020/2020-Scrum-Guide-Spanish-European.pdf"
+      ],
+      "years": [
+        "2020"
+      ],
+      "source_label": 2,
+      "source_class": "Oficial",
+      "citation": "Schwaber, K. y Sutherland, J. (2020). La Guía Scrum (versión en español de España). Noviembre de 2020. https://www.Scrumguides.org/docs/scrumguide/v2020/2020-Scrum-Guide-Spanish-European.pdf",
+      "verification_status": "Parcial: aparece en resultados de búsqueda del sitio oficial; no se leyó completa.",
+      "reference_id": "ref_0002",
+      "source_location": "sanzu/07_Scrum.pdf#page=23",
+      "verified_by_pipeline": false
+    },
+    {
+      "document_id": "doc_0001",
+      "page": 23,
+      "raw_text": "[3] (Oficial/comunidad) Beck, K. et al. (2001). Manifesto for Agile Software Development. https://agilemanifesto.org/ Estado: Verificada: contenido de la página consultado (valores y firmantes).",
+      "urls": [
+        "https://agilemanifesto.org/"
+      ],
+      "years": [
+        "2001"
+      ],
+      "source_label": 3,
+      "source_class": "Oficial/comunidad",
+      "citation": "Beck, K. et al. (2001). Manifesto for Agile Software Development. https://agilemanifesto.org/",
+      "verification_status": "Verificada: contenido de la página consultado (valores y firmantes).",
+      "reference_id": "ref_0003",
+      "source_location": "sanzu/07_Scrum.pdf#page=23",
+      "verified_by_pipeline": false
+    },
+    {
+      "document_id": "doc_0001",
+      "page": 23,
+      "raw_text": "[4] (Académica/prensa de negocios) Takeuchi, H. y Nonaka, I. (1986). The New New Product Development Game. Harvard Business Review, enero–febrero de 1986. https://www.scrum.org/resources/new-new-product-development-game Estado: Parcial: página que enlaza al artículo y resumen en el repositorio de Hitotsubashi ICS (https://www.ics.hub.hit-u.ac.jp/research/business_magazine/1986). El texto completo del artículo no fue leído; requiere suscripción o compra en HBR.",
+      "urls": [
+        "https://www.scrum.org/resources/new-new-product-development-game",
+        "https://www.ics.hub.hit-u.ac.jp/research/business_magazine/1986"
+      ],
+      "years": [
+        "1986"
+      ],
+      "source_label": 4,
+      "source_class": "Académica/prensa de negocios",
+      "citation": "Takeuchi, H. y Nonaka, I. (1986). The New New Product Development Game. Harvard Business Review, enero–febrero de 1986. https://www.scrum.org/resources/new-new-product-development-game",
+      "verification_status": "Parcial: página que enlaza al artículo y resumen en el repositorio de Hitotsubashi ICS (https://www.ics.hub.hit-u.ac.jp/research/business_magazine/1986). El texto completo del artículo no fue leído; requiere suscripción o compra en HBR.",
+      "reference_id": "ref_0004",
+      "source_location": "sanzu/07_Scrum.pdf#page=23",
+      "verified_by_pipeline": false
+    },
+    {
+      "document_id": "doc_0001",
+      "page": 23,
+      "raw_text": "[5] (Investigación/institucional) DORA (Google Cloud). DORA’s software delivery performance metrics (guía en línea). https://dora.dev/guides/dora-metrics/ Estado: Parcial: extracto consultado en resultados de búsqueda (tres factores de flujo y dos de inestabilidad; fecha de publicación no determinada).",
+      "urls": [
+        "https://dora.dev/guides/dora-metrics/"
+      ],
+      "years": [],
+      "source_label": 5,
+      "source_class": "Investigación/institucional",
+      "citation": "DORA (Google Cloud). DORA’s software delivery performance metrics (guía en línea). https://dora.dev/guides/dora-metrics/",
+      "verification_status": "Parcial: extracto consultado en resultados de búsqueda (tres factores de flujo y dos de inestabilidad; fecha de publicación no determinada).",
+      "reference_id": "ref_0005",
+      "source_location": "sanzu/07_Scrum.pdf#page=23",
+      "verified_by_pipeline": false
+    },
+    {
+      "document_id": "doc_0001",
+      "page": 23,
+      "raw_text": "[6] (Comercial / testimonio de especialista) Scrum Inc. (s. f.). Entrada de blog de Jeff Sutherland sobre Takeuchi y Nonaka. https://www.scruminc.com/?p=632 Estado: Parcial: extracto consultado; opinión de uno de los creadores de Scrum; fecha no determinada.",
+      "urls": [
+        "https://www.scruminc.com/?p=632"
+      ],
+      "years": [],
+      "source_label": 6,
+      "source_class": "Comercial / testimonio de especialista",
+      "citation": "Scrum Inc. (s. f.). Entrada de blog de Jeff Sutherland sobre Takeuchi y Nonaka. https://www.scruminc.com/?p=632",
+      "verification_status": "Parcial: extracto consultado; opinión de uno de los creadores de Scrum; fecha no determinada.",
+      "reference_id": "ref_0006",
+      "source_location": "sanzu/07_Scrum.pdf#page=23",
+      "verified_by_pipeline": false
+    },
+    {
+      "document_id": "doc_0001",
+      "page": 23,
+      "raw_text": "[7] (Libro (comercial)) Cohn, M. (2004). User Stories Applied: For Agile Software Development. Addison-Wesley. — Estado: No verificada en esta sesión; sin ISBN ni URL. Cita de memoria; confirmar antes de uso formal.",
+      "urls": [],
+      "years": [
+        "2004"
+      ],
+      "source_label": 7,
+      "source_class": "Libro (comercial",
+      "citation": ") Cohn, M. (2004). User Stories Applied: For Agile Software Development. Addison-Wesley. —",
+      "verification_status": "No verificada en esta sesión; sin ISBN ni URL. Cita de memoria; confirmar antes de uso formal.",
+      "reference_id": "ref_0007",
+      "source_location": "sanzu/07_Scrum.pdf#page=23",
+      "verified_by_pipeline": false
+    },
+    {
+      "document_id": "doc_0001",
+      "page": 23,
+      "raw_text": "[8] (Libro (comercial)) Sutherland, J. (2014). Scrum: The Art of Doing Twice the Work in Half the Time. Crown Business. — Estado: Parcial: el título se confirmó en un resultado de búsqueda; editorial y año no verificados; sin ISBN. Referencias a herramientas Las herramientas citadas en §14 (Jira, Azure DevOps, GitHub Projects, GitLab, Trello, Microsoft Project, GanttProject, GitHub Actions) se mencionan como ejemplos de categorías y no figuran en la bibliografía porque no se verificaron sus páginas oficiales en esta elaboración. Consulte la documentación vigente de cada proveedor.",
+      "urls": [],
+      "years": [
+        "2014"
+      ],
+      "source_label": 8,
+      "source_class": "Libro (comercial",
+      "citation": ") Sutherland, J. (2014). Scrum: The Art of Doing Twice the Work in Half the Time. Crown Business. —",
+      "verification_status": "Parcial: el título se confirmó en un resultado de búsqueda; editorial y año no verificados; sin ISBN. Referencias a herramientas Las herramientas citadas en §14 (Jira, Azure DevOps, GitHub Projects, GitLab, Trello, Microsoft Project, GanttProject, GitHub Actions) se mencionan como ejemplos de categorías y no figuran en la bibliografía porque no se verificaron sus páginas oficiales en esta elaboración. Consulte la documentación vigente de cada proveedor.",
+      "reference_id": "ref_0008",
+      "source_location": "sanzu/07_Scrum.pdf#page=23",
+      "verified_by_pipeline": false
+    },
+    {
+      "document_id": "doc_0004",
+      "page": 22,
+      "raw_text": "1. http://www.pmi.org/-/media/pmi/documents/public/pdf/learning/thought-leadership/pulse/pulse-of-the-profession-2017.",
+      "urls": [
+        "http://www.pmi.org/-/media/pmi/documents/public/pdf/learning/thought-leadership/pulse/pulse-of-the-profession-2017."
+      ],
+      "years": [
+        "2017"
+      ],
+      "reference_id": "ref_0009",
+      "source_location": "sanzu/Agile-Project-Management-Best-Practices-and-Methodologies-Whitepaper.pdf#page=22",
+      "verified_by_pipeline": false
+    },
+    {
+      "document_id": "doc_0004",
+      "page": 22,
+      "raw_text": "2. http://blogs.gartner.com/it-glossary/project-management/",
+      "urls": [
+        "http://blogs.gartner.com/it-glossary/project-management/"
+      ],
+      "years": [],
+      "reference_id": "ref_0010",
+      "source_location": "sanzu/Agile-Project-Management-Best-Practices-and-Methodologies-Whitepaper.pdf#page=22",
+      "verified_by_pipeline": false
+    },
+    {
+      "document_id": "doc_0004",
+      "page": 22,
+      "raw_text": "3. http://www.cs.umd.edu/class/spring2003/cmsc838p/Process/waterfall.pdf",
+      "urls": [
+        "http://www.cs.umd.edu/class/spring2003/cmsc838p/Process/waterfall.pdf"
+      ],
+      "years": [],
+      "reference_id": "ref_0011",
+      "source_location": "sanzu/Agile-Project-Management-Best-Practices-and-Methodologies-Whitepaper.pdf#page=22",
+      "verified_by_pipeline": false
+    },
+    {
+      "document_id": "doc_0004",
+      "page": 22,
+      "raw_text": "4. https://explore.versionone.com/state-of-agile/versionone-11th-annual-state-of-agile-report-2",
+      "urls": [
+        "https://explore.versionone.com/state-of-agile/versionone-11th-annual-state-of-agile-report-2"
+      ],
+      "years": [],
+      "reference_id": "ref_0012",
+      "source_location": "sanzu/Agile-Project-Management-Best-Practices-and-Methodologies-Whitepaper.pdf#page=22",
+      "verified_by_pipeline": false
+    },
+    {
+      "document_id": "doc_0004",
+      "page": 22,
+      "raw_text": "5. https://hbr.org/1986/01/the-new-new-product-development-game",
+      "urls": [
+        "https://hbr.org/1986/01/the-new-new-product-development-game"
+      ],
+      "years": [
+        "1986"
+      ],
+      "reference_id": "ref_0013",
+      "source_location": "sanzu/Agile-Project-Management-Best-Practices-and-Methodologies-Whitepaper.pdf#page=22",
+      "verified_by_pipeline": false
+    },
+    {
+      "document_id": "doc_0004",
+      "page": 22,
+      "raw_text": "6. https://www.cs.umd.edu/~basili/publications/journals/J90.pdf",
+      "urls": [
+        "https://www.cs.umd.edu/~basili/publications/journals/J90.pdf"
+      ],
+      "years": [],
+      "reference_id": "ref_0014",
+      "source_location": "sanzu/Agile-Project-Management-Best-Practices-and-Methodologies-Whitepaper.pdf#page=22",
+      "verified_by_pipeline": false
+    },
+    {
+      "document_id": "doc_0004",
+      "page": 22,
+      "raw_text": "7. http://www.agilemanifesto.org/",
+      "urls": [
+        "http://www.agilemanifesto.org/"
+      ],
+      "years": [],
+      "reference_id": "ref_0015",
+      "source_location": "sanzu/Agile-Project-Management-Best-Practices-and-Methodologies-Whitepaper.pdf#page=22",
+      "verified_by_pipeline": false
+    },
+    {
+      "document_id": "doc_0004",
+      "page": 22,
+      "raw_text": "8. http://www.scrumguides.org/docs/scrumguide/v2016/2016-Scrum-Guide-US.pdf#zoom=100",
+      "urls": [
+        "http://www.scrumguides.org/docs/scrumguide/v2016/2016-Scrum-Guide-US.pdf#zoom=100"
+      ],
+      "years": [
+        "2016"
+      ],
+      "reference_id": "ref_0016",
+      "source_location": "sanzu/Agile-Project-Management-Best-Practices-and-Methodologies-Whitepaper.pdf#page=22",
+      "verified_by_pipeline": false
+    },
+    {
+      "document_id": "doc_0004",
+      "page": 22,
+      "raw_text": "9. http://www.sigplan.org/Conferences/OOPSLA/",
+      "urls": [
+        "http://www.sigplan.org/Conferences/OOPSLA/"
+      ],
+      "years": [],
+      "reference_id": "ref_0017",
+      "source_location": "sanzu/Agile-Project-Management-Best-Practices-and-Methodologies-Whitepaper.pdf#page=22",
+      "verified_by_pipeline": false
+    },
+    {
+      "document_id": "doc_0004",
+      "page": 22,
+      "raw_text": "10. https://www.scrumalliance.org/scrum/media/ScrumAllianceMedia/Files%20and%20PDFs/State%20of%20Scrum/",
+      "urls": [
+        "https://www.scrumalliance.org/scrum/media/ScrumAllianceMedia/Files%20and%20PDFs/State%20of%20Scrum/"
+      ],
+      "years": [],
+      "reference_id": "ref_0018",
+      "source_location": "sanzu/Agile-Project-Management-Best-Practices-and-Methodologies-Whitepaper.pdf#page=22",
+      "verified_by_pipeline": false
+    },
+    {
+      "document_id": "doc_0004",
+      "page": 22,
+      "raw_text": "State0fScrum_2016_FINAL.pdf?aliId=261272923",
+      "urls": [],
+      "years": [],
+      "reference_id": "ref_0019",
+      "source_location": "sanzu/Agile-Project-Management-Best-Practices-and-Methodologies-Whitepaper.pdf#page=22",
+      "verified_by_pipeline": false
+    },
+    {
+      "document_id": "doc_0004",
+      "page": 22,
+      "raw_text": "11. http://www.toyota-global.com/company/vision_philosophy/toyota_production_system/",
+      "urls": [
+        "http://www.toyota-global.com/company/vision_philosophy/toyota_production_system/"
+      ],
+      "years": [],
+      "reference_id": "ref_0020",
+      "source_location": "sanzu/Agile-Project-Management-Best-Practices-and-Methodologies-Whitepaper.pdf#page=22",
+      "verified_by_pipeline": false
+    },
+    {
+      "document_id": "doc_0004",
+      "page": 22,
+      "raw_text": "12. https://www.gartner.com/it-glossary/bimodal/",
+      "urls": [
+        "https://www.gartner.com/it-glossary/bimodal/"
+      ],
+      "years": [],
+      "reference_id": "ref_0021",
+      "source_location": "sanzu/Agile-Project-Management-Best-Practices-and-Methodologies-Whitepaper.pdf#page=22",
+      "verified_by_pipeline": false
+    },
+    {
+      "document_id": "doc_0004",
+      "page": 22,
+      "raw_text": "13. https://www.softwareag.com/corporate/images/SAG_Bimodal_IT_8PG_WP_Aug16-Web_tcm16-143391.pdf",
+      "urls": [
+        "https://www.softwareag.com/corporate/images/SAG_Bimodal_IT_8PG_WP_Aug16-Web_tcm16-143391.pdf"
+      ],
+      "years": [],
+      "reference_id": "ref_0022",
+      "source_location": "sanzu/Agile-Project-Management-Best-Practices-and-Methodologies-Whitepaper.pdf#page=22",
+      "verified_by_pipeline": false
+    },
+    {
+      "document_id": "doc_0004",
+      "page": 22,
+      "raw_text": "14. http://www.poppendieck.com/",
+      "urls": [
+        "http://www.poppendieck.com/"
+      ],
+      "years": [],
+      "reference_id": "ref_0023",
+      "source_location": "sanzu/Agile-Project-Management-Best-Practices-and-Methodologies-Whitepaper.pdf#page=22",
+      "verified_by_pipeline": false
+    },
+    {
+      "document_id": "doc_0004",
+      "page": 22,
+      "raw_text": "15. http://ptgmedia.pearsoncmg.com/images/9780321150783/samplepages/0321150783.pdf",
+      "urls": [
+        "http://ptgmedia.pearsoncmg.com/images/9780321150783/samplepages/0321150783.pdf"
+      ],
+      "years": [],
+      "reference_id": "ref_0024",
+      "source_location": "sanzu/Agile-Project-Management-Best-Practices-and-Methodologies-Whitepaper.pdf#page=22",
+      "verified_by_pipeline": false
+    },
+    {
+      "document_id": "doc_0004",
+      "page": 22,
+      "raw_text": "16. https://msdn.microsoft.com/en-us/library/aa730844(v=vs.80).aspx",
+      "urls": [
+        "https://msdn.microsoft.com/en-us/library/aa730844(v=vs.80"
+      ],
+      "years": [],
+      "reference_id": "ref_0025",
+      "source_location": "sanzu/Agile-Project-Management-Best-Practices-and-Methodologies-Whitepaper.pdf#page=22",
+      "verified_by_pipeline": false
+    },
+    {
+      "document_id": "doc_0004",
+      "page": 22,
+      "raw_text": "17. http://www.cs.utah.edu/~lwilliam/Papers/ieeeSoftware.PDF",
+      "urls": [
+        "http://www.cs.utah.edu/~lwilliam/Papers/ieeeSoftware.PDF"
+      ],
+      "years": [],
+      "reference_id": "ref_0026",
+      "source_location": "sanzu/Agile-Project-Management-Best-Practices-and-Methodologies-Whitepaper.pdf#page=22",
+      "verified_by_pipeline": false
+    },
+    {
+      "document_id": "doc_0004",
+      "page": 22,
+      "raw_text": "18. https://www.ibm.com/devops/method/content/code/practice_pair_programming/",
+      "urls": [
+        "https://www.ibm.com/devops/method/content/code/practice_pair_programming/"
+      ],
+      "years": [],
+      "reference_id": "ref_0027",
+      "source_location": "sanzu/Agile-Project-Management-Best-Practices-and-Methodologies-Whitepaper.pdf#page=22",
+      "verified_by_pipeline": false
+    },
+    {
+      "document_id": "doc_0004",
+      "page": 22,
+      "raw_text": "19. http://www.extremeprogramming.org/index.html",
+      "urls": [
+        "http://www.extremeprogramming.org/index.html"
+      ],
+      "years": [],
+      "reference_id": "ref_0028",
+      "source_location": "sanzu/Agile-Project-Management-Best-Practices-and-Methodologies-Whitepaper.pdf#page=22",
+      "verified_by_pipeline": false
+    },
+    {
+      "document_id": "doc_0009",
+      "page": 6,
+      "raw_text": "3. New Idea In Waterfall Model For Real Time Software Development, International Journal of Engineering Research & Technology (IJERT), Vol. 2 Issue 4, April – 2013.",
+      "urls": [],
+      "years": [
+        "2013"
+      ],
+      "reference_id": "ref_0029",
+      "source_location": "sanzu/waterfall.pdf#page=6",
+      "verified_by_pipeline": false
+    },
+    {
+      "document_id": "doc_0009",
+      "page": 6,
+      "raw_text": "4. Waterfall Model Used in Software Development Reference: Software Requirements Engineering Waterfall Model, E3S Web of Conferences 328, 0 (2021),ICST 2021.",
+      "urls": [],
+      "years": [
+        "2021"
+      ],
+      "reference_id": "ref_0030",
+      "source_location": "sanzu/waterfall.pdf#page=6",
+      "verified_by_pipeline": false
+    },
+    {
+      "document_id": "doc_0009",
+      "page": 6,
+      "raw_text": "5. A Simulation Model for the Waterfall Software Development Life Cycle, International Journal of Engineering & Technology (iJET), ISSN: 2049-3444, Vol. 2, No. 5, 2012.",
+      "urls": [],
+      "years": [
+        "2012"
+      ],
+      "reference_id": "ref_0031",
+      "source_location": "sanzu/waterfall.pdf#page=6",
+      "verified_by_pipeline": false
+    },
+    {
+      "document_id": "doc_0009",
+      "page": 6,
+      "raw_text": "6. Waterfall Process Operations in the Fast-paced World: Project Management Exploratory Analysis, International Journal of Applied Business and Management Studies, Vol. 6, No. 1; 2021.",
+      "urls": [],
+      "years": [
+        "2021"
+      ],
+      "reference_id": "ref_0032",
+      "source_location": "sanzu/waterfall.pdf#page=6",
+      "verified_by_pipeline": false
+    },
+    {
+      "document_id": "doc_0009",
+      "page": 6,
+      "raw_text": "7. The Waterfall Model and the Agile Methodologies : A comparison by project characteristics, February 2017.",
+      "urls": [],
+      "years": [
+        "2017"
+      ],
+      "reference_id": "ref_0033",
+      "source_location": "sanzu/waterfall.pdf#page=6",
+      "verified_by_pipeline": false
+    },
+    {
+      "document_id": "doc_0009",
+      "page": 6,
+      "raw_text": "8. https://study.com/academy/lesson/concurrent- models-in-software-engineering-types- applications.html.",
+      "urls": [
+        "https://study.com/academy/lesson/concurrent-"
+      ],
+      "years": [],
+      "reference_id": "ref_0034",
+      "source_location": "sanzu/waterfall.pdf#page=6",
+      "verified_by_pipeline": false
+    }
+  ]
+}

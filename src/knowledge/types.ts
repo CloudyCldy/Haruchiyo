@@ -137,3 +137,6 @@ export interface ChecklistEvaluationResult {
     isPassed: boolean;
   }[];
 }
+
+export * from "./corpus.types";
+

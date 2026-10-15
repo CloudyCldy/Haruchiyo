@@ -1,0 +1,234 @@
+{
+  "count": 7,
+  "note": "Discrepancias identificadas por revisión manual con evidencia localizada automáticamente; NO se resuelven arbitrariamente.",
+  "contradictions": [
+    {
+      "contradiction_id": "contra_001",
+      "topic": "Duración máxima del Sprint",
+      "kind": "discrepancy",
+      "issue": "07_Scrum (basada en la Scrum Guide 2020) fija el Sprint en 'un mes o menos'; otras fuentes lo acotan a 1-4 semanas o 'menos de cuatro semanas'. Son compatibles en el rango corto pero difieren en el límite superior formal.",
+      "evidence": [
+        {
+          "document_id": "doc_0001",
+          "filename": "07_Scrum.pdf",
+          "page": 5,
+          "chunk_id": "chunk_000004",
+          "excerpt": "del equipo. | | Sprint | Evento de duración fija de un mes o menos; contenedor de todos los demás eventos. | | Sprint Goal | Único objetivo del Sprint; compromiso de los Developers,",
+          "source_location": "sanzu/07_Scrum.pdf#page=5"
+        },
+        {
+          "document_id": "doc_0008",
+          "filename": "scrum_guide_2025.v1.0_-_europeanscrum.org.pdf",
+          "page": 11,
+          "chunk_id": "chunk_000367",
+          "excerpt": "A Sprint in Scrum has a fixed duration that usually varies between one and four weeks. The length should not be changed during the Sprint. The length is decided depending on many",
+          "source_location": "sanzu/scrum_guide_2025.v1.0_-_europeanscrum.org.pdf#page=11"
+        },
+        {
+          "document_id": "doc_0004",
+          "filename": "Agile-Project-Management-Best-Practices-and-Methodologies-Whitepaper.pdf",
+          "page": 11,
+          "chunk_id": "chunk_000122",
+          "excerpt": "no standard duration (as long as it is less than four weeks), all the sprints within a project should have a fixed length. This makes it easier to plan and track progress.",
+          "source_location": "sanzu/Agile-Project-Management-Best-Practices-and-Methodologies-Whitepaper.pdf#page=11"
+        },
+        {
+          "document_id": "doc_0003",
+          "filename": "AGILE METHODOLOGIES(1).pdf",
+          "page": 15,
+          "chunk_id": "chunk_000064",
+          "excerpt": "of deliverables from the product backlog. These cycles typically last 1-4 weeks and keep the project focused and adaptable Daily stand-up meetings: Also known as daily scrums, these are brief meetings (usually 15-20 minutes)",
+          "source_location": "sanzu/AGILE METHODOLOGIES(1).pdf#page=15"
+        }
+      ],
+      "evidence_complete": true,
+      "recommendation": "Para citas normativas usar la Scrum Guide oficial (scrumguides.org); tratar '1-4 semanas' como práctica habitual, no como regla.",
+      "resolved": false,
+      "identification_method": "manual_review_with_regex_located_evidence"
+    },
+    {
+      "contradiction_id": "contra_002",
+      "topic": "Duración del Daily Scrum",
+      "kind": "discrepancy",
+      "issue": "La mayoría de fuentes indica 15 minutos; los apuntes de MRCET indican 15-20 minutos.",
+      "evidence": [
+        {
+          "document_id": "doc_0001",
+          "filename": "07_Scrum.pdf",
+          "page": 13,
+          "chunk_id": "chunk_000018",
+          "excerpt": "El Daily Scrum dura 15 minutos, es para los Developers y se realiza a la misma hora y lugar. Los Developers eligen la estructura, siempre que",
+          "source_location": "sanzu/07_Scrum.pdf#page=13"
+        },
+        {
+          "document_id": "doc_0008",
+          "filename": "scrum_guide_2025.v1.0_-_europeanscrum.org.pdf",
+          "page": 15,
+          "chunk_id": "chunk_000371",
+          "excerpt": "a plan for the next 24 hours. Duration: No more than 15 minutes, its length is independent of the length of the Sprint.",
+          "source_location": "sanzu/scrum_guide_2025.v1.0_-_europeanscrum.org.pdf#page=15"
+        },
+        {
+          "document_id": "doc_0003",
+          "filename": "AGILE METHODOLOGIES(1).pdf",
+          "page": 15,
+          "chunk_id": "chunk_000064",
+          "excerpt": "as daily scrums, these are brief meetings ( usually 15-20 minutes) held each day during a sprint. The team uses this time to discuss progress, identify roadblocks, and ensure everyone is aligned. Product backlog:",
+          "source_location": "sanzu/AGILE METHODOLOGIES(1).pdf#page=15"
+        }
+      ],
+      "evidence_complete": true,
+      "recommendation": "Preferir 15 minutos (timebox de la guía oficial).",
+      "resolved": false,
+      "identification_method": "manual_review_with_regex_located_evidence"
+    },
+    {
+      "contradiction_id": "contra_003",
+      "topic": "Composición del equipo Scrum y terminología de roles",
+      "kind": "terminology_conflict",
+      "issue": "07_Scrum describe un único Scrum Team (Scrum Master, Product Owner y Developers; típicamente ≤10 personas, sin subequipos). La guía de europeanscrum.org y el whitepaper hablan de tres roles incl. 'Development Team' y tamaños de 5-11. 'Development Team' es terminología anterior a la Scrum Guide 2020 ('Developers').",
+      "evidence": [
+        {
+          "document_id": "doc_0001",
+          "filename": "07_Scrum.pdf",
+          "page": 5,
+          "chunk_id": "chunk_000005",
+          "excerpt": "Owner y Developers, sin subequipos ni jerarquías internas; típicamente de 10 personas o menos. Es multifuncional (reúne todas las habilidades necesarias para crear valor cada Sprint) y autogestionado (decide internamente quién hace qué, cuándo",
+          "source_location": "sanzu/07_Scrum.pdf#page=5"
+        },
+        {
+          "document_id": "doc_0008",
+          "filename": "scrum_guide_2025.v1.0_-_europeanscrum.org.pdf",
+          "page": 4,
+          "chunk_id": "chunk_000358",
+          "excerpt": "say that it is advisable that it is not less than 5, and not more than 11, or it is the same as saying 1 SM + 1 PO + 1 Development Team.",
+          "source_location": "sanzu/scrum_guide_2025.v1.0_-_europeanscrum.org.pdf#page=4"
+        },
+        {
+          "document_id": "doc_0004",
+          "filename": "Agile-Project-Management-Best-Practices-and-Methodologies-Whitepaper.pdf",
+          "page": 11,
+          "chunk_id": "chunk_000123",
+          "excerpt": "Development Team) participates in this event.",
+          "source_location": "sanzu/Agile-Project-Management-Best-Practices-and-Methodologies-Whitepaper.pdf#page=11"
+        }
+      ],
+      "evidence_complete": true,
+      "recommendation": "Marcar como información posiblemente desactualizada la terminología 'Development Team'.",
+      "resolved": false,
+      "identification_method": "manual_review_with_regex_located_evidence"
+    },
+    {
+      "contradiction_id": "contra_004",
+      "topic": "Número y naturaleza de los eventos de Scrum",
+      "kind": "discrepancy",
+      "issue": "07_Scrum afirma que el Sprint contiene cinco eventos (Sprint, Planning, Daily, Review, Retrospective). La guía de europeanscrum.org añade como eventos 'Sprint 0' y 'Backlog Refinement'.",
+      "evidence": [
+        {
+          "document_id": "doc_0001",
+          "filename": "07_Scrum.pdf",
+          "page": 7,
+          "chunk_id": "chunk_000009",
+          "excerpt": "proyecto (iniciación, planificación, cierre). Define un Sprint como contenedor de cinco eventos: el propio Sprint, Sprint Planning, Daily Scrum, Sprint Review y Sprint Retrospective. Un nuevo Sprint comienza inmediatamente después de concluir el anterior.",
+          "source_location": "sanzu/07_Scrum.pdf#page=7"
+        },
+        {
+          "document_id": "doc_0008",
+          "filename": "scrum_guide_2025.v1.0_-_europeanscrum.org.pdf",
+          "page": 12,
+          "chunk_id": "chunk_000368",
+          "excerpt": "Sprint 0 or Sprint Init is a key event in Scrum and in any framework and methodology. In Dr. Sutherland's original guide, it does not appear",
+          "source_location": "sanzu/scrum_guide_2025.v1.0_-_europeanscrum.org.pdf#page=12"
+        }
+      ],
+      "evidence_complete": true,
+      "recommendation": "Sprint 0 y Refinement no son eventos en la Scrum Guide oficial 2020; presentarlos como prácticas comunes.",
+      "resolved": false,
+      "identification_method": "manual_review_with_regex_located_evidence"
+    },
+    {
+      "contradiction_id": "contra_005",
+      "topic": "Fases del modelo Waterfall (inconsistencia interna de waterfall.pdf)",
+      "kind": "internal_inconsistency",
+      "issue": "El mismo artículo describe cinco fases de dos maneras distintas: (a) business analysis, design, implementation, testing, maintenance; (b) requirements analysis & specification, design, implementation & unit testing, integration & system testing, operation & maintenance.",
+      "evidence": [
+        {
+          "document_id": "doc_0009",
+          "filename": "waterfall.pdf",
+          "page": 1,
+          "chunk_id": "chunk_000379",
+          "excerpt": "The waterfall model comprises of five consecutive phases such as business analysis, design, implementation, testing and maintenance. This method was a success and many development firms and industrial manufactures have adopted",
+          "source_location": "sanzu/waterfall.pdf#page=1"
+        },
+        {
+          "document_id": "doc_0009",
+          "filename": "waterfall.pdf",
+          "page": 2,
+          "chunk_id": "chunk_000380",
+          "excerpt": "Royce introduced the Waterfall Model in 1970.This model has five phases: Requirements analysis and specification, design, implementation, and unit testing, integration and system testing, and operation and maintenance. The steps always follow in this",
+          "source_location": "sanzu/waterfall.pdf#page=2"
+        }
+      ],
+      "evidence_complete": true,
+      "recommendation": "Usar la versión (b) (atribuida a Royce, 1970) y citar la inconsistencia.",
+      "resolved": false,
+      "identification_method": "manual_review_with_regex_located_evidence"
+    },
+    {
+      "contradiction_id": "contra_006",
+      "topic": "Número de prácticas de XP",
+      "kind": "possible_outdated",
+      "issue": "Los apuntes de MRCET listan 'Twelve Practices of XP' (recuento de la 1.ª edición de Beck). El extracto disponible de la 2.ª edición menciona un capítulo de 'primary practices' pero NO incluye el recuento, por lo que la discrepancia no puede verificarse con las fuentes del ZIP.",
+      "evidence": [
+        {
+          "document_id": "doc_0003",
+          "filename": "AGILE METHODOLOGIES(1).pdf",
+          "page": 4,
+          "chunk_id": "chunk_000046",
+          "excerpt": "Programming, Scrum, Agile and Scrum Principles Agile Manifesto, Twelve Practices of XP",
+          "source_location": "sanzu/AGILE METHODOLOGIES(1).pdf#page=4"
+        },
+        {
+          "document_id": "doc_0002",
+          "filename": "9780321278654.pdf",
+          "page": 2,
+          "chunk_id": null,
+          "excerpt": "those who insist on cookbook checklists, there’s an excellent chapter on ‘primary practices,’ but I urge you to begin by truly contemplating the meaning of the opening sentence in the first chapter of Kent",
+          "source_location": "sanzu/9780321278654.pdf#page=2"
+        }
+      ],
+      "evidence_complete": true,
+      "recommendation": "Obtener el texto completo de la 2.ª edición antes de afirmar cuántas prácticas define XP.",
+      "resolved": false,
+      "identification_method": "manual_review_with_regex_located_evidence"
+    },
+    {
+      "contradiction_id": "contra_007",
+      "topic": "Licencia de The Kanban Guide (inconsistencia interna)",
+      "kind": "internal_inconsistency",
+      "issue": "Pág. 2 declara CC BY-SA 4.0 (Attribution-ShareAlike); pág. 9 declara CC BY 4.0.",
+      "evidence": [
+        {
+          "document_id": "doc_0006",
+          "filename": "kanban-guide.v2020.12.en.pdf",
+          "page": 2,
+          "chunk_id": "chunk_000343",
+          "excerpt": "S. Vacanti, Inc. Offered for license under the Attribution ShareAlike license of Creative Commons, accessible at http://creativecommons.org/licenses/bysa/4.0/legalcode and also described in summary form at http://creativecommons.org/licenses/by-sa/4.0/, By using this Kanban Guide, you acknowledge that you",
+          "source_location": "sanzu/kanban-guide.v2020.12.en.pdf#page=2"
+        },
+        {
+          "document_id": "doc_0006",
+          "filename": "kanban-guide.v2020.12.en.pdf",
+          "page": 9,
+          "chunk_id": "chunk_000351",
+          "excerpt": "and | | --- | --- | | Creative Commons Attribution 4.0 International License. | |",
+          "source_location": "sanzu/kanban-guide.v2020.12.en.pdf#page=9"
+        }
+      ],
+      "evidence_complete": true,
+      "recommendation": "Verificar la licencia vigente en la fuente oficial antes de reutilizar.",
+      "resolved": false,
+      "identification_method": "manual_review_with_regex_located_evidence"
+    }
+  ]
+}

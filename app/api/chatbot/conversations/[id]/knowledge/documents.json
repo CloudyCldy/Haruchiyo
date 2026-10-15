@@ -1,0 +1,681 @@
+{
+  "metadata": {
+    "name": "IT Project Management Knowledge Base",
+    "version": "1.0.0",
+    "language": "multi",
+    "languages": [
+      "en",
+      "es"
+    ],
+    "description": "Base de conocimiento extraída de 9 PDFs sobre metodologías de gestión de proyectos (Scrum, Kanban, XP, Lean, Waterfall, ágil/híbrido).",
+    "created_at": "2026-10-15T04:53:34+00:00",
+    "source_archive": "sanzu.zip",
+    "document_count": 9,
+    "chunk_count": 390,
+    "documents_in_retrieval_index": 8,
+    "glossary_count": 157,
+    "reference_count": 34,
+    "relationship_count": 70,
+    "contradiction_count": 7,
+    "extraction_status": "completed_with_limitations",
+    "pipeline_version": "1.0.0",
+    "page_numbering": "PDF page index (1-based)",
+    "embeddings_included": false
+  },
+  "documents": [
+    {
+      "document_id": "doc_0001",
+      "filename": "07_Scrum.pdf",
+      "original_path": "sanzu/07_Scrum.pdf",
+      "format": "pdf",
+      "size_bytes": 183189,
+      "sha256": "ac7a37783890bc2b2855b767988527c10cafbdaba6d624f7d6b6b9d03286ddf9",
+      "page_count": 24,
+      "title": "Scrum: marco de trabajo para proyectos de TI",
+      "subtitle": "Marco de trabajo adaptativo para gestionar el desarrollo de productos y proyectos de TI. Manual de estudio y guía de ejecución (Guía de estudio v1.0)",
+      "authors": [],
+      "corporate_authors": [
+        "Biblioteca IT Project Management (elaboración asistida por IA)"
+      ],
+      "authors_source": "pdf_metadata",
+      "publisher": null,
+      "publication_date": null,
+      "publication_date_note": "Sin fecha de publicación; el propio documento indica fecha de consulta 2026-10-08.",
+      "isbn": null,
+      "language": "es",
+      "doc_type": "study_guide",
+      "source_reliability": "secondary_ai_assisted",
+      "reliability_note": "El documento declara 'Documento generado con ayuda de IA: verifique las fuentes' y contiene un caso práctico con datos ficticios (PlanIt). Su anexo A marca varias referencias como parcialmente verificadas o no verificadas. Tratar como fuente secundaria; contrastar con fuentes primarias.",
+      "license": null,
+      "usage_note": "Sin licencia declarada.",
+      "extraction_status": "success_with_limitations",
+      "extraction_method": "pymupdf_text_layer",
+      "heading_detection": "outline",
+      "ocr_used": false,
+      "in_retrieval_index": true,
+      "word_count": 10916,
+      "char_count": 63156,
+      "page_role_counts": {
+        "front_matter": 1,
+        "body": 23
+      },
+      "pdf_metadata": {
+        "format": "PDF 1.4",
+        "title": "Scrum: marco de trabajo para proyectos de TI",
+        "author": "Biblioteca IT Project Management (elaboración asistida por IA)",
+        "subject": "Manual de estudio y guía de ejecución",
+        "creator": "(unspecified)",
+        "producer": "ReportLab PDF Library - (opensource)",
+        "creationDate": "D:20261009052957+00'00'",
+        "modDate": "D:20261009052957+00'00'"
+      },
+      "content_format": "markdown_with_page_markers",
+      "content_sha256": "ef3172967349a70a7f88a49ff6b0d451d2154b71ac79f3c31afdff63a309ee6b",
+      "categories": [
+        "scrum",
+        "planificacion",
+        "calidad_pruebas",
+        "herramientas"
+      ],
+      "tags": [
+        "Scrum",
+        "Agile",
+        "Kanban",
+        "DevOps",
+        "Extreme Programming",
+        "Scrumban",
+        "DSDM",
+        "CMMI"
+      ],
+      "references": [
+        "ref_0001",
+        "ref_0002",
+        "ref_0003",
+        "ref_0004",
+        "ref_0005",
+        "ref_0006",
+        "ref_0007",
+        "ref_0008"
+      ],
+      "limitations": [
+        "Documento generado con ayuda de IA: sirve como material de estudio secundario, no como fuente normativa.",
+        "Contiene un caso práctico integral (PlanIt) con datos ficticios declarados por el propio documento; sus fragmentos se marcan con fictional_data=true.",
+        "El Anexo A indica que varias referencias están parcialmente verificadas o no verificadas."
+      ],
+      "chunk_count": 35,
+      "figures_ocr_count": 0
+    },
+    {
+      "document_id": "doc_0002",
+      "filename": "9780321278654.pdf",
+      "original_path": "sanzu/9780321278654.pdf",
+      "format": "pdf",
+      "size_bytes": 524061,
+      "sha256": "dc21a762c87b7a3dce68551c90e3a650320030eb19c8c66f37f9d5de8d11cc47",
+      "page_count": 46,
+      "title": "Extreme Programming Explained: Embrace Change (2nd ed.) — extracto",
+      "subtitle": "Extracto: portada, prólogos, prefacio, Capítulo 1 «What is XP?» e índice analítico (46 de ~190 páginas del libro)",
+      "authors": [
+        "Kent Beck",
+        "Cynthia Andres"
+      ],
+      "corporate_authors": [],
+      "authors_source": "document_text",
+      "publisher": "Addison-Wesley (Pearson Education)",
+      "publication_date": "2005",
+      "publication_date_note": "Copyright del texto © 2005; registro LoC 2004. ISBN 0-321-27865-8.",
+      "isbn": "0-321-27865-8",
+      "language": "en",
+      "doc_type": "book_excerpt",
+      "source_reliability": "primary_book_excerpt",
+      "reliability_note": "Fuente primaria (autor del método), pero SOLO un extracto: el contenido de las prácticas, principios y valores desarrollados en los capítulos 2-24 NO está incluido (solo aparecen como entradas del índice).",
+      "license": "All rights reserved (Pearson Education)",
+      "usage_note": "Obra con copyright. Verifique que dispone de derechos antes de redistribuir fragmentos textuales extensos mediante una API pública.",
+      "extraction_status": "success_with_limitations",
+      "extraction_method": "pymupdf_text_layer",
+      "heading_detection": "outline",
+      "ocr_used": true,
+      "in_retrieval_index": true,
+      "word_count": 9116,
+      "char_count": 59385,
+      "page_role_counts": {
+        "front_matter": 11,
+        "toc": 4,
+        "body": 16,
+        "index": 15
+      },
+      "pdf_metadata": {
+        "format": "PDF 1.6",
+        "title": "Extreme Programming Explained: Embrace Change",
+        "author": "Kent Beck",
+        "creator": "Acrobat: pictwpstops filter 1.0",
+        "producer": "Acrobat Distiller 10.0.0 (Macintosh)",
+        "creationDate": "D:20140808155119+05'30'",
+        "modDate": "D:20140814090934-04'00'"
+      },
+      "content_format": "markdown_with_page_markers",
+      "content_sha256": "9e2331f385cc92f73ca83f9d817e14d0f55f1e7539d8541b42028b4f098a9bf2",
+      "categories": [
+        "xp"
+      ],
+      "tags": [
+        "Extreme Programming"
+      ],
+      "references": [],
+      "limitations": [
+        "Es un extracto: solo contiene prólogos, prefacio, Capítulo 1 (págs. 24-31 del PDF) e índice analítico; los capítulos sobre valores, principios y prácticas no están en el archivo.",
+        "Las páginas del índice analítico (32-46) se conservan en el texto completo pero no se fragmentan para RAG (listas de términos y números de página).",
+        "1 entradas del outline del PDF no se localizaron en el texto; se anclaron al inicio de su página.",
+        "82 palabras partidas por guion de fin de línea se unieron automáticamente (heurística; posibles falsos positivos)."
+      ],
+      "chunk_count": 10,
+      "figures_ocr_count": 4
+    },
+    {
+      "document_id": "doc_0003",
+      "filename": "AGILE METHODOLOGIES(1).pdf",
+      "original_path": "sanzu/AGILE METHODOLOGIES(1).pdf",
+      "format": "pdf",
+      "size_bytes": 2423061,
+      "sha256": "3d3884a57d12d751bb5ce8f76e1b09c8610eecba07554493ce843df8dac50345",
+      "page_count": 54,
+      "title": "Agile Methodologies (R20A6607) — Lecture Notes",
+      "subtitle": "Apuntes de curso, MRCET, CSE (AI & ML), curso 2024-2025",
+      "authors": [
+        "venkateswararaju sarikonda"
+      ],
+      "corporate_authors": [
+        "Malla Reddy College of Engineering and Technology (MRCET)"
+      ],
+      "authors_source": "pdf_metadata",
+      "publisher": "MRCET",
+      "publication_date": "2024-07-10",
+      "publication_date_note": "Fecha de creación del PDF (metadatos); el documento indica curso 2024-2025. El autor proviene solo de metadatos del PDF: verificar.",
+      "isbn": null,
+      "language": "en",
+      "doc_type": "lecture_notes",
+      "source_reliability": "secondary_educational",
+      "reliability_note": "Apuntes universitarios: material secundario, redacción simplificada. Contiene al menos un pasaje truncado en el PDF de origen (pág. 6, viñeta sobre 2001/Manifiesto Ágil).",
+      "license": null,
+      "usage_note": "Sin licencia declarada.",
+      "extraction_status": "success_with_limitations",
+      "extraction_method": "pymupdf_text_layer",
+      "heading_detection": "rule",
+      "ocr_used": true,
+      "in_retrieval_index": true,
+      "word_count": 18877,
+      "char_count": 125291,
+      "page_role_counts": {
+        "front_matter": 3,
+        "administrative": 2,
+        "body": 49
+      },
+      "pdf_metadata": {
+        "format": "PDF 1.5",
+        "author": "venkateswararaju sarikonda",
+        "creator": "Microsoft® Office Word 2007",
+        "producer": "Microsoft® Office Word 2007",
+        "creationDate": "D:20240710150440+05'30'",
+        "modDate": "D:20240710150440+05'30'"
+      },
+      "content_format": "markdown_with_page_markers",
+      "content_sha256": "0b14dcbc9a3286e5f0c72f4f4d25033bd753dfb1b40a1e48a726785d4693bfc8",
+      "categories": [
+        "scrum",
+        "calidad_pruebas",
+        "metodologias_agiles",
+        "lean"
+      ],
+      "tags": [
+        "Agile",
+        "Lean Software Development",
+        "Scrum",
+        "Extreme Programming",
+        "Kanban",
+        "Waterfall",
+        "DSDM",
+        "SAFe"
+      ],
+      "references": [],
+      "limitations": [
+        "Pág. 6 del PDF de origen: la viñeta sobre 2001 (firma del Manifiesto Ágil) aparece truncada ('In 2001, seventeen') también en la imagen renderizada; el contenido no es recuperable y no se ha inventado.",
+        "Los apuntes tienen secciones de tabla sin rejilla que se extraen como texto lineal (p. ej. tablas de LSD vs Agile, págs. 7-8).",
+        "El autor procede únicamente de los metadatos del PDF (no del texto).",
+        "Estructura de encabezados inferida con reglas tipográficas (el PDF no tiene marcadores utilizables): puede haber errores de jerarquía.",
+        "4 palabras partidas por guion de fin de línea se unieron automáticamente (heurística; posibles falsos positivos).",
+        "2 figuras descartadas del OCR por baja calidad o muy poco texto."
+      ],
+      "chunk_count": 71,
+      "figures_ocr_count": 6
+    },
+    {
+      "document_id": "doc_0004",
+      "filename": "Agile-Project-Management-Best-Practices-and-Methodologies-Whitepaper.pdf",
+      "original_path": "sanzu/Agile-Project-Management-Best-Practices-and-Methodologies-Whitepaper.pdf",
+      "format": "pdf",
+      "size_bytes": 4549811,
+      "sha256": "e8273c448e6fe66faaf999a2f37be8b40f3861efe97206b67567a5ec3c6843af",
+      "page_count": 23,
+      "title": "Agile Project Management: Best Practices and Methodologies",
+      "subtitle": "Whitepaper",
+      "authors": [],
+      "corporate_authors": [
+        "AltexSoft"
+      ],
+      "authors_source": "document_text",
+      "publisher": "AltexSoft",
+      "publication_date": null,
+      "publication_date_note": "Sin fecha en el texto; el PDF fue creado el 2017-11-20 (metadatos, no necesariamente fecha de publicación).",
+      "isbn": null,
+      "language": "en",
+      "doc_type": "vendor_whitepaper",
+      "source_reliability": "secondary_vendor",
+      "reliability_note": "Whitepaper de una empresa de consultoría; contiene secciones con títulos duplicados/erróneos en el índice (p. ej. '8.1 When to use Lean', '9.1 When to use Hybrid').",
+      "license": null,
+      "usage_note": "Sin licencia declarada.",
+      "extraction_status": "success_with_limitations",
+      "extraction_method": "pymupdf_text_layer",
+      "heading_detection": "rule",
+      "ocr_used": true,
+      "in_retrieval_index": true,
+      "word_count": 5833,
+      "char_count": 38087,
+      "page_role_counts": {
+        "front_matter": 1,
+        "toc": 1,
+        "body": 20,
+        "back_matter": 1
+      },
+      "pdf_metadata": {
+        "format": "PDF 1.7",
+        "creator": "Adobe InDesign CC 2017 (Windows)",
+        "producer": "Adobe PDF Library 15.0",
+        "creationDate": "D:20171120134239+02'00'",
+        "modDate": "D:20171120144343+02'00'"
+      },
+      "content_format": "markdown_with_page_markers",
+      "content_sha256": "cb5413fbbf05ee3989d762c199457871d0b837f2a8cbaedb17bcb8625fabd9ca",
+      "categories": [
+        "scrum",
+        "metodologias_agiles",
+        "hibrida_bimodal",
+        "xp"
+      ],
+      "tags": [
+        "Agile",
+        "Scrum",
+        "Extreme Programming",
+        "Kanban",
+        "Waterfall",
+        "Hybrid",
+        "Bimodal",
+        "Lean Software Development"
+      ],
+      "references": [
+        "ref_0009",
+        "ref_0010",
+        "ref_0011",
+        "ref_0012",
+        "ref_0013",
+        "ref_0014",
+        "ref_0015",
+        "ref_0016",
+        "ref_0017",
+        "ref_0018",
+        "ref_0019",
+        "ref_0020",
+        "ref_0021",
+        "ref_0022",
+        "ref_0023",
+        "ref_0024",
+        "ref_0025",
+        "ref_0026",
+        "ref_0027",
+        "ref_0028"
+      ],
+      "limitations": [
+        "Los diagramas del whitepaper (p. ej. ciclo ágil, tablero Kanban) son gráficos vectoriales: solo se recupera el texto que contienen, no su estructura visual.",
+        "Última página (datos corporativos de AltexSoft) excluida de los fragmentos.",
+        "Estructura de encabezados inferida con reglas tipográficas (el PDF no tiene marcadores utilizables): puede haber errores de jerarquía.",
+        "7 palabras partidas por guion de fin de línea se unieron automáticamente (heurística; posibles falsos positivos).",
+        "1 figuras descartadas del OCR por baja calidad o muy poco texto."
+      ],
+      "chunk_count": 18,
+      "figures_ocr_count": 1
+    },
+    {
+      "document_id": "doc_0005",
+      "filename": "The Complete Software Project Manager_ Mastering Technology from Planning to Launch and Beyond ( PDFDrive ).pdf",
+      "original_path": "sanzu/The Complete Software Project Manager_ Mastering Technology from Planning to Launch and Beyond ( PDFDrive ).pdf",
+      "format": "pdf",
+      "size_bytes": 1380627,
+      "sha256": "234bd95876692fca3aa4b47abe58442b5b174be12f0619e5bd33e2e170149bc6",
+      "page_count": 259,
+      "title": "The Complete Software Project Manager: Mastering Technology from Planning to Launch and Beyond",
+      "subtitle": null,
+      "authors": [
+        "Anna P. Murray"
+      ],
+      "corporate_authors": [],
+      "authors_source": "document_text",
+      "publisher": "John Wiley & Sons, Inc.",
+      "publication_date": "2016",
+      "publication_date_note": "Copyright © 2016.",
+      "isbn": null,
+      "language": "en",
+      "doc_type": "book",
+      "source_reliability": "primary_book",
+      "reliability_note": "Libro completo (259 págs.). Perspectiva práctica de una autora; no es un estándar normativo.",
+      "license": "All rights reserved (John Wiley & Sons)",
+      "usage_note": "Obra con copyright; el archivo procede de 'PDFDrive' (origen de distribución no verificado). Confirme que dispone de derechos antes de redistribuir fragmentos textuales extensos.",
+      "extraction_status": "success_with_limitations",
+      "extraction_method": "pymupdf_text_layer",
+      "heading_detection": "outline",
+      "ocr_used": false,
+      "in_retrieval_index": true,
+      "word_count": 78870,
+      "char_count": 479889,
+      "page_role_counts": {
+        "front_matter": 10,
+        "toc": 12,
+        "body": 228,
+        "index": 8,
+        "legal": 1
+      },
+      "pdf_metadata": {
+        "format": "PDF 1.6",
+        "title": "The Complete Software Project Manager",
+        "author": "Anna P. Murray",
+        "producer": "iTextSharpŽ 5.5.5 ©2000-2014 iText Group NV (AGPL-version)",
+        "creationDate": "D:20161206140752Z",
+        "modDate": "D:20161206180859Z"
+      },
+      "content_format": "markdown_with_page_markers",
+      "content_sha256": "f5b922fe2b97b09561002e7ee1dc648846964b7cc3a3503ceb5f004d0c797be8",
+      "categories": [
+        "fundamentos",
+        "equipos_roles",
+        "requisitos_alcance",
+        "costes_recursos"
+      ],
+      "tags": [
+        "Agile",
+        "Waterfall",
+        "Scrum"
+      ],
+      "references": [],
+      "limitations": [
+        "Los números de página impresos del libro no coinciden con el índice de página del PDF; las citas usan el índice de página del PDF (1-based).",
+        "Algunos títulos de sección del outline no se localizaron en el texto (ver extraction_report.json); en esos casos el encabezado se ancla al inicio de la página.",
+        "Las figuras/capturas de pantalla se procesan con OCR cuando contienen texto reconocible; el resultado se guarda aparte (figure_ocr) y se marca para revisión.",
+        "11 entradas del outline del PDF no se localizaron en el texto; se anclaron al inicio de su página.",
+        "496 palabras partidas por guion de fin de línea se unieron automáticamente (heurística; posibles falsos positivos).",
+        "2 figuras descartadas del OCR por baja calidad o muy poco texto."
+      ],
+      "chunk_count": 208,
+      "figures_ocr_count": 0
+    },
+    {
+      "document_id": "doc_0006",
+      "filename": "kanban-guide.v2020.12.en.pdf",
+      "original_path": "sanzu/kanban-guide.v2020.12.en.pdf",
+      "format": "pdf",
+      "size_bytes": 157097,
+      "sha256": "7237107dfd5a55efd1f52742cf9471b8a3ef0a86ccbe8b97e6e394c754370c23",
+      "page_count": 9,
+      "title": "The Kanban Guide",
+      "subtitle": "December 2020",
+      "authors": [],
+      "corporate_authors": [
+        "Orderly Disruption Limited",
+        "Daniel S. Vacanti, Inc."
+      ],
+      "authors_source": "document_text",
+      "publisher": null,
+      "publication_date": "2020-12",
+      "publication_date_note": "Portada: 'December 2020'.",
+      "isbn": null,
+      "language": "en",
+      "doc_type": "official_guide",
+      "source_reliability": "primary_official",
+      "reliability_note": "Guía de referencia de la comunidad Kanban (conjunto mínimo de reglas). Inconsistencia interna: pág. 2 indica CC BY-SA 4.0 y pág. 9 indica CC BY 4.0.",
+      "license": "Creative Commons (CC BY-SA 4.0 según pág. 2; CC BY 4.0 según pág. 9 — inconsistente)",
+      "usage_note": "Reutilizable con atribución; verificar la variante de licencia en la fuente oficial.",
+      "extraction_status": "success_with_limitations",
+      "extraction_method": "pymupdf_text_layer",
+      "heading_detection": "outline",
+      "ocr_used": false,
+      "in_retrieval_index": true,
+      "word_count": 2411,
+      "char_count": 15549,
+      "page_role_counts": {
+        "front_matter": 1,
+        "body": 7,
+        "toc": 1
+      },
+      "pdf_metadata": {
+        "format": "PDF 1.7",
+        "creator": "Microsoft® Word for Microsoft 365",
+        "producer": "Microsoft® Word for Microsoft 365",
+        "creationDate": "D:20201204155941-06'00'",
+        "modDate": "D:20201204155941-06'00'"
+      },
+      "content_format": "markdown_with_page_markers",
+      "content_sha256": "bb2dea73bcec8a07b9a17574a95da7f85381760de369710df45e8f37a46be0a4",
+      "categories": [
+        "kanban"
+      ],
+      "tags": [
+        "Kanban",
+        "Lean Software Development"
+      ],
+      "references": [],
+      "limitations": [
+        "Licencia inconsistente dentro del documento (CC BY-SA 4.0 en pág. 2; CC BY 4.0 en pág. 9).",
+        "8 palabras partidas por guion de fin de línea se unieron automáticamente (heurística; posibles falsos positivos)."
+      ],
+      "chunk_count": 12,
+      "figures_ocr_count": 0
+    },
+    {
+      "document_id": "doc_0007",
+      "filename": "lean4.pdf",
+      "original_path": "sanzu/lean4.pdf",
+      "format": "pdf",
+      "size_bytes": 361568,
+      "sha256": "2b907e98552f5ff4fe77be717f9423311a4d6bf4ac866b143d99f34e83f39c4d",
+      "page_count": 11,
+      "title": "The Lean 4 Theorem Prover and Programming Language (System Description)",
+      "subtitle": null,
+      "authors": [
+        "Leonardo de Moura",
+        "Sebastian Ullrich"
+      ],
+      "corporate_authors": [],
+      "authors_source": "document_text",
+      "publisher": null,
+      "publication_date": null,
+      "publication_date_note": "Sin fecha explícita; PDF creado 2021-08-10 (metadatos). El texto indica que Lean 4 se publicó a comienzos de 2021.",
+      "isbn": null,
+      "language": "en",
+      "doc_type": "academic_paper",
+      "source_reliability": "primary_but_off_topic",
+      "reliability_note": "FUERA DE DOMINIO: trata del demostrador de teoremas y lenguaje de programación 'Lean', no de Lean Software Development ni de gestión de proyectos. Se inventaría y se conserva el texto, pero no se fragmenta para RAG.",
+      "license": null,
+      "usage_note": "Sin licencia declarada.",
+      "extraction_status": "success_off_topic_not_chunked",
+      "extraction_method": "pymupdf_text_layer",
+      "heading_detection": "rule",
+      "ocr_used": false,
+      "in_retrieval_index": false,
+      "word_count": 4156,
+      "char_count": 27028,
+      "page_role_counts": {
+        "off_topic": 11
+      },
+      "pdf_metadata": {
+        "format": "PDF 1.5",
+        "creator": "LaTeX with hyperref",
+        "producer": "pdfTeX-1.40.21",
+        "creationDate": "D:20210810102917-07'00'",
+        "modDate": "D:20210810102917-07'00'"
+      },
+      "content_format": "markdown_with_page_markers",
+      "content_sha256": "3a40792af5b83a8a3110a8d0ed0df1a5d0d9ad1826d10473c86b4d98845d116b",
+      "categories": [],
+      "tags": [],
+      "references": [],
+      "limitations": [
+        "Fuera de dominio (demostrador de teoremas Lean 4). No se fragmenta ni se clasifica; se conserva el texto completo por trazabilidad.",
+        "Estructura de encabezados inferida con reglas tipográficas (el PDF no tiene marcadores utilizables): puede haber errores de jerarquía.",
+        "41 palabras partidas por guion de fin de línea se unieron automáticamente (heurística; posibles falsos positivos)."
+      ],
+      "chunk_count": 0,
+      "figures_ocr_count": 0
+    },
+    {
+      "document_id": "doc_0008",
+      "filename": "scrum_guide_2025.v1.0_-_europeanscrum.org.pdf",
+      "original_path": "sanzu/scrum_guide_2025.v1.0_-_europeanscrum.org.pdf",
+      "format": "pdf",
+      "size_bytes": 428944,
+      "sha256": "bcbc716c6a10379f965f0d96672310d8022e8b8b8b022418cdeb770e8b838dd3",
+      "page_count": 19,
+      "title": "Scrum Guide 2025 v1.0 (European Scrum)",
+      "subtitle": null,
+      "authors": [
+        "Yvonne Agnes",
+        "David Marti"
+      ],
+      "corporate_authors": [
+        "europeanscrum.org"
+      ],
+      "authors_source": "document_text",
+      "publisher": "europeanscrum.org",
+      "publication_date": "2025",
+      "publication_date_note": "Título 'Scrum Guide 2025 v1.0'; PDF creado 2025-05-13 (metadatos).",
+      "isbn": null,
+      "language": "en",
+      "doc_type": "community_guide",
+      "source_reliability": "secondary_community",
+      "reliability_note": "NO es la Scrum Guide oficial de Schwaber y Sutherland (scrumguides.org, versión vigente 2020). Es una guía de una organización independiente (europeanscrum.org) y su terminología puede diferir de la oficial.",
+      "license": null,
+      "usage_note": "Sin licencia declarada.",
+      "extraction_status": "success_with_limitations",
+      "extraction_method": "pymupdf_text_layer",
+      "heading_detection": "rule",
+      "ocr_used": false,
+      "in_retrieval_index": true,
+      "word_count": 7656,
+      "char_count": 48188,
+      "page_role_counts": {
+        "front_matter": 1,
+        "toc": 1,
+        "body": 17
+      },
+      "pdf_metadata": {
+        "format": "PDF 1.4",
+        "title": "Microsoft Word - Scrum Guide 2025.v1.0 - Europeanscrum.org.docx",
+        "creator": "Word",
+        "producer": "macOS Version 10.15.7 (Build 19H2026) Quartz PDFContext",
+        "creationDate": "D:20250513154510Z00'00'",
+        "modDate": "D:20250513154510Z00'00'"
+      },
+      "content_format": "markdown_with_page_markers",
+      "content_sha256": "ebfeba75ddbb9d04aebb10e3b37699aa5a2229fdb078a02071348c124eba0928",
+      "categories": [
+        "scrum"
+      ],
+      "tags": [
+        "Scrum",
+        "Agile"
+      ],
+      "references": [],
+      "limitations": [
+        "No es la Scrum Guide oficial (scrumguides.org): terminología y roles pueden diferir de la versión 2020 (p. ej. usa 'Development Team').",
+        "Estructura de encabezados inferida con reglas tipográficas (el PDF no tiene marcadores utilizables): puede haber errores de jerarquía."
+      ],
+      "chunk_count": 23,
+      "figures_ocr_count": 0
+    },
+    {
+      "document_id": "doc_0009",
+      "filename": "waterfall.pdf",
+      "original_path": "sanzu/waterfall.pdf",
+      "format": "pdf",
+      "size_bytes": 204301,
+      "sha256": "a41f8cc177fe80a333f8791920788f8fcbe03c97bf8157654eec1214ac2ea671",
+      "page_count": 6,
+      "title": "The Waterfall Model-Software Engineering",
+      "subtitle": null,
+      "authors": [
+        "Rais Abdul Hamid Khan",
+        "Patil Raj Gopal",
+        "Patil Bhavesh Yogesh",
+        "Patil Vaishnavi Nitin",
+        "Khairnar Shekhar Sahebrao",
+        "Parkhe Nilesh Sharad",
+        "Patil Vivek Santosh"
+      ],
+      "corporate_authors": [
+        "Sandip University, Nashik"
+      ],
+      "authors_source": "document_text",
+      "publisher": "International Journal of Research Publication and Reviews (IJRPR), Vol 5, No 4, pp 7825-7830",
+      "publication_date": "2024-04",
+      "publication_date_note": "Cabecera: 'April 2024'. ISSN 2582-7421.",
+      "isbn": null,
+      "language": "en",
+      "doc_type": "journal_article",
+      "source_reliability": "secondary_academic",
+      "reliability_note": "Artículo de revista de bajo rigor editorial. Inconsistencia interna: describe las fases de Waterfall de dos formas distintas (5 fases de Royce vs. 'business analysis, design, implementation, testing, maintenance').",
+      "license": null,
+      "usage_note": "Sin licencia declarada.",
+      "extraction_status": "success_with_limitations",
+      "extraction_method": "pymupdf_text_layer",
+      "heading_detection": "rule",
+      "ocr_used": false,
+      "in_retrieval_index": true,
+      "word_count": 3257,
+      "char_count": 21753,
+      "page_role_counts": {
+        "body": 6
+      },
+      "pdf_metadata": {
+        "format": "PDF 1.7",
+        "title": "The Waterfall Model-Software Engineering",
+        "author": "Patil Vivek Santosh",
+        "creator": "Microsoft® Word 2019",
+        "producer": "Microsoft® Word 2019",
+        "creationDate": "D:20240426191935+05'30'",
+        "modDate": "D:20240426191935+05'30'"
+      },
+      "content_format": "markdown_with_page_markers",
+      "content_sha256": "639ddae6ce57f529e6d894111c3c9642baaf8afa380fc061d58e06cff5816c02",
+      "categories": [
+        "metodologias_predictivas",
+        "calidad_pruebas",
+        "fundamentos",
+        "referencias"
+      ],
+      "tags": [
+        "Waterfall",
+        "Agile"
+      ],
+      "references": [
+        "ref_0029",
+        "ref_0030",
+        "ref_0031",
+        "ref_0032",
+        "ref_0033",
+        "ref_0034"
+      ],
+      "limitations": [
+        "Artículo con erratas e inconsistencias internas (p. ej. dos descripciones distintas de las fases de Waterfall).",
+        "Estructura de encabezados inferida con reglas tipográficas (el PDF no tiene marcadores utilizables): puede haber errores de jerarquía."
+      ],
+      "chunk_count": 13,
+      "figures_ocr_count": 0
+    }
+  ]
+}

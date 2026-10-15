@@ -1,0 +1,5340 @@
+{
+  "count": 70,
+  "method": "Relaciones semilla de dominio validadas por co-ocurrencia en el mismo chunk; ver 'note'.",
+  "relationships": [
+    {
+      "source": "Scrum",
+      "source_type": "methodology",
+      "relation": "belongs_to",
+      "target": "Agile",
+      "target_type": "methodology",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 32,
+      "support_document_ids": [
+        "doc_0001",
+        "doc_0003",
+        "doc_0004",
+        "doc_0005",
+        "doc_0008"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000001",
+        "chunk_000002",
+        "chunk_000004",
+        "chunk_000014",
+        "chunk_000034",
+        "chunk_000047",
+        "chunk_000052",
+        "chunk_000057",
+        "chunk_000058",
+        "chunk_000059"
+      ],
+      "needs_review": false,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0001"
+    },
+    {
+      "source": "Kanban",
+      "source_type": "methodology",
+      "relation": "belongs_to",
+      "target": "Agile",
+      "target_type": "methodology",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 15,
+      "support_document_ids": [
+        "doc_0001",
+        "doc_0003",
+        "doc_0004"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000001",
+        "chunk_000004",
+        "chunk_000052",
+        "chunk_000057",
+        "chunk_000080",
+        "chunk_000081",
+        "chunk_000082",
+        "chunk_000083",
+        "chunk_000084",
+        "chunk_000085"
+      ],
+      "needs_review": false,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0002"
+    },
+    {
+      "source": "Extreme Programming",
+      "source_type": "methodology",
+      "relation": "belongs_to",
+      "target": "Agile",
+      "target_type": "methodology",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 13,
+      "support_document_ids": [
+        "doc_0001",
+        "doc_0003",
+        "doc_0004"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000001",
+        "chunk_000004",
+        "chunk_000047",
+        "chunk_000052",
+        "chunk_000061",
+        "chunk_000062",
+        "chunk_000084",
+        "chunk_000100",
+        "chunk_000119",
+        "chunk_000121"
+      ],
+      "needs_review": false,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0003"
+    },
+    {
+      "source": "Lean Software Development",
+      "source_type": "methodology",
+      "relation": "belongs_to",
+      "target": "Agile",
+      "target_type": "methodology",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 8,
+      "support_document_ids": [
+        "doc_0003",
+        "doc_0004"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000049",
+        "chunk_000052",
+        "chunk_000055",
+        "chunk_000080",
+        "chunk_000081",
+        "chunk_000128",
+        "chunk_000129",
+        "chunk_000131"
+      ],
+      "needs_review": false,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0004"
+    },
+    {
+      "source": "Feature-Driven Development",
+      "source_type": "methodology",
+      "relation": "belongs_to",
+      "target": "Agile",
+      "target_type": "methodology",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 1,
+      "support_document_ids": [
+        "doc_0003"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000047"
+      ],
+      "needs_review": true,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0005"
+    },
+    {
+      "source": "DSDM",
+      "source_type": "methodology",
+      "relation": "belongs_to",
+      "target": "Agile",
+      "target_type": "methodology",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 3,
+      "support_document_ids": [
+        "doc_0001",
+        "doc_0003"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000004",
+        "chunk_000047",
+        "chunk_000100"
+      ],
+      "needs_review": false,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0006"
+    },
+    {
+      "source": "Scrumban",
+      "source_type": "methodology",
+      "relation": "combines",
+      "target": "Scrum",
+      "target_type": "methodology",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 3,
+      "support_document_ids": [
+        "doc_0001",
+        "doc_0004"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000030",
+        "chunk_000032",
+        "chunk_000125"
+      ],
+      "needs_review": false,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0007"
+    },
+    {
+      "source": "Scrumban",
+      "source_type": "methodology",
+      "relation": "combines",
+      "target": "Kanban",
+      "target_type": "methodology",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 3,
+      "support_document_ids": [
+        "doc_0001",
+        "doc_0004"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000030",
+        "chunk_000032",
+        "chunk_000125"
+      ],
+      "needs_review": false,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0008"
+    },
+    {
+      "source": "Hybrid",
+      "source_type": "methodology",
+      "relation": "combines",
+      "target": "Waterfall",
+      "target_type": "methodology",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 3,
+      "support_document_ids": [
+        "doc_0004"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000121",
+        "chunk_000126",
+        "chunk_000127"
+      ],
+      "needs_review": false,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0009"
+    },
+    {
+      "source": "Hybrid",
+      "source_type": "methodology",
+      "relation": "combines",
+      "target": "Agile",
+      "target_type": "methodology",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 6,
+      "support_document_ids": [
+        "doc_0003",
+        "doc_0004"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000085",
+        "chunk_000119",
+        "chunk_000121",
+        "chunk_000126",
+        "chunk_000127",
+        "chunk_000132"
+      ],
+      "needs_review": false,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0010"
+    },
+    {
+      "source": "Bimodal",
+      "source_type": "methodology",
+      "relation": "combines",
+      "target": "Waterfall",
+      "target_type": "methodology",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 3,
+      "support_document_ids": [
+        "doc_0004"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000121",
+        "chunk_000126",
+        "chunk_000128"
+      ],
+      "needs_review": false,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0011"
+    },
+    {
+      "source": "Bimodal",
+      "source_type": "methodology",
+      "relation": "combines",
+      "target": "Agile",
+      "target_type": "methodology",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 4,
+      "support_document_ids": [
+        "doc_0004"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000119",
+        "chunk_000121",
+        "chunk_000126",
+        "chunk_000128"
+      ],
+      "needs_review": false,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0012"
+    },
+    {
+      "source": "Agile",
+      "source_type": "methodology",
+      "relation": "contrasts_with",
+      "target": "Waterfall",
+      "target_type": "methodology",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 21,
+      "support_document_ids": [
+        "doc_0003",
+        "doc_0004",
+        "doc_0005",
+        "doc_0009"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000062",
+        "chunk_000078",
+        "chunk_000093",
+        "chunk_000118",
+        "chunk_000121",
+        "chunk_000126",
+        "chunk_000127",
+        "chunk_000128",
+        "chunk_000133",
+        "chunk_000137"
+      ],
+      "needs_review": false,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0013"
+    },
+    {
+      "source": "Agile Manifesto",
+      "source_type": "document",
+      "relation": "founds",
+      "target": "Agile",
+      "target_type": "methodology",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 8,
+      "support_document_ids": [
+        "doc_0001",
+        "doc_0003",
+        "doc_0004",
+        "doc_0005"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000001",
+        "chunk_000004",
+        "chunk_000047",
+        "chunk_000052",
+        "chunk_000055",
+        "chunk_000121",
+        "chunk_000130",
+        "chunk_000148"
+      ],
+      "needs_review": false,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0014"
+    },
+    {
+      "source": "Lean Software Development",
+      "source_type": "methodology",
+      "relation": "derives_from",
+      "target": "Toyota Production System",
+      "target_type": "concept",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 3,
+      "support_document_ids": [
+        "doc_0003",
+        "doc_0004"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000049",
+        "chunk_000052",
+        "chunk_000128"
+      ],
+      "needs_review": false,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0015"
+    },
+    {
+      "source": "Kanban",
+      "source_type": "methodology",
+      "relation": "derives_from",
+      "target": "Toyota Production System",
+      "target_type": "concept",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 3,
+      "support_document_ids": [
+        "doc_0003",
+        "doc_0004",
+        "doc_0006"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000052",
+        "chunk_000128",
+        "chunk_000353"
+      ],
+      "needs_review": false,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0016"
+    },
+    {
+      "source": "Taiichi Ohno",
+      "source_type": "person",
+      "relation": "associated_with",
+      "target": "Toyota Production System",
+      "target_type": "concept",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 2,
+      "support_document_ids": [
+        "doc_0003",
+        "doc_0006"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000049",
+        "chunk_000353"
+      ],
+      "needs_review": false,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0017"
+    },
+    {
+      "source": "Winston Royce",
+      "source_type": "person",
+      "relation": "associated_with",
+      "target": "Waterfall",
+      "target_type": "methodology",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 1,
+      "support_document_ids": [
+        "doc_0009"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000380"
+      ],
+      "needs_review": true,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0018"
+    },
+    {
+      "source": "Kent Beck",
+      "source_type": "person",
+      "relation": "associated_with",
+      "target": "Extreme Programming",
+      "target_type": "methodology",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 2,
+      "support_document_ids": [
+        "doc_0003",
+        "doc_0004"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000061",
+        "chunk_000130"
+      ],
+      "needs_review": false,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0019"
+    },
+    {
+      "source": "Ken Schwaber",
+      "source_type": "person",
+      "relation": "associated_with",
+      "target": "Scrum",
+      "target_type": "methodology",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 3,
+      "support_document_ids": [
+        "doc_0001",
+        "doc_0004",
+        "doc_0008"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000001",
+        "chunk_000121",
+        "chunk_000355"
+      ],
+      "needs_review": false,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0020"
+    },
+    {
+      "source": "Jeff Sutherland",
+      "source_type": "person",
+      "relation": "associated_with",
+      "target": "Scrum",
+      "target_type": "methodology",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 5,
+      "support_document_ids": [
+        "doc_0001",
+        "doc_0004",
+        "doc_0008"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000001",
+        "chunk_000002",
+        "chunk_000034",
+        "chunk_000121",
+        "chunk_000355"
+      ],
+      "needs_review": false,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0021"
+    },
+    {
+      "source": "Daniel Vacanti",
+      "source_type": "person",
+      "relation": "associated_with",
+      "target": "Kanban",
+      "target_type": "methodology",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 6,
+      "support_document_ids": [
+        "doc_0006"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000343",
+        "chunk_000346",
+        "chunk_000348",
+        "chunk_000349",
+        "chunk_000350",
+        "chunk_000351"
+      ],
+      "needs_review": false,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0022"
+    },
+    {
+      "source": "Scrum",
+      "source_type": "methodology",
+      "relation": "has_role",
+      "target": "Product Owner",
+      "target_type": "role",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 34,
+      "support_document_ids": [
+        "doc_0001",
+        "doc_0003",
+        "doc_0004",
+        "doc_0008"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000005",
+        "chunk_000006",
+        "chunk_000008",
+        "chunk_000009",
+        "chunk_000011",
+        "chunk_000014",
+        "chunk_000018",
+        "chunk_000020",
+        "chunk_000021",
+        "chunk_000023"
+      ],
+      "needs_review": false,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0023"
+    },
+    {
+      "source": "Scrum",
+      "source_type": "methodology",
+      "relation": "has_role",
+      "target": "Scrum Master",
+      "target_type": "role",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 24,
+      "support_document_ids": [
+        "doc_0001",
+        "doc_0003",
+        "doc_0004",
+        "doc_0008"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000005",
+        "chunk_000006",
+        "chunk_000008",
+        "chunk_000011",
+        "chunk_000014",
+        "chunk_000020",
+        "chunk_000024",
+        "chunk_000033",
+        "chunk_000058",
+        "chunk_000060"
+      ],
+      "needs_review": false,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0024"
+    },
+    {
+      "source": "Scrum",
+      "source_type": "methodology",
+      "relation": "has_role",
+      "target": "Developers",
+      "target_type": "role",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 33,
+      "support_document_ids": [
+        "doc_0001",
+        "doc_0003",
+        "doc_0004",
+        "doc_0008"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000004",
+        "chunk_000005",
+        "chunk_000006",
+        "chunk_000008",
+        "chunk_000009",
+        "chunk_000013",
+        "chunk_000014",
+        "chunk_000018",
+        "chunk_000020",
+        "chunk_000023"
+      ],
+      "needs_review": false,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0025"
+    },
+    {
+      "source": "Scrum",
+      "source_type": "methodology",
+      "relation": "has_role",
+      "target": "Scrum Team",
+      "target_type": "role",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 13,
+      "support_document_ids": [
+        "doc_0001",
+        "doc_0003",
+        "doc_0004",
+        "doc_0008"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000005",
+        "chunk_000006",
+        "chunk_000008",
+        "chunk_000023",
+        "chunk_000029",
+        "chunk_000031",
+        "chunk_000073",
+        "chunk_000121",
+        "chunk_000358",
+        "chunk_000362"
+      ],
+      "needs_review": false,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0026"
+    },
+    {
+      "source": "Scrum",
+      "source_type": "methodology",
+      "relation": "has_artifact",
+      "target": "Product Backlog",
+      "target_type": "artifact",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 27,
+      "support_document_ids": [
+        "doc_0001",
+        "doc_0003",
+        "doc_0004",
+        "doc_0008"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000002",
+        "chunk_000004",
+        "chunk_000005",
+        "chunk_000006",
+        "chunk_000008",
+        "chunk_000009",
+        "chunk_000023",
+        "chunk_000025",
+        "chunk_000029",
+        "chunk_000031"
+      ],
+      "needs_review": false,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0027"
+    },
+    {
+      "source": "Scrum",
+      "source_type": "methodology",
+      "relation": "has_artifact",
+      "target": "Sprint Backlog",
+      "target_type": "artifact",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 19,
+      "support_document_ids": [
+        "doc_0001",
+        "doc_0003",
+        "doc_0004",
+        "doc_0008"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000004",
+        "chunk_000005",
+        "chunk_000006",
+        "chunk_000008",
+        "chunk_000012",
+        "chunk_000018",
+        "chunk_000020",
+        "chunk_000023",
+        "chunk_000025",
+        "chunk_000029"
+      ],
+      "needs_review": false,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0028"
+    },
+    {
+      "source": "Scrum",
+      "source_type": "methodology",
+      "relation": "has_artifact",
+      "target": "Increment",
+      "target_type": "artifact",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 20,
+      "support_document_ids": [
+        "doc_0001",
+        "doc_0003",
+        "doc_0008"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000001",
+        "chunk_000002",
+        "chunk_000003",
+        "chunk_000004",
+        "chunk_000005",
+        "chunk_000006",
+        "chunk_000008",
+        "chunk_000023",
+        "chunk_000025",
+        "chunk_000029"
+      ],
+      "needs_review": false,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0029"
+    },
+    {
+      "source": "Scrum",
+      "source_type": "methodology",
+      "relation": "has_artifact",
+      "target": "Definition of Done",
+      "target_type": "artifact",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 19,
+      "support_document_ids": [
+        "doc_0001",
+        "doc_0008"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000002",
+        "chunk_000004",
+        "chunk_000005",
+        "chunk_000006",
+        "chunk_000008",
+        "chunk_000009",
+        "chunk_000011",
+        "chunk_000013",
+        "chunk_000018",
+        "chunk_000020"
+      ],
+      "needs_review": false,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0030"
+    },
+    {
+      "source": "Scrum",
+      "source_type": "methodology",
+      "relation": "has_artifact",
+      "target": "Sprint Goal",
+      "target_type": "artifact",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 17,
+      "support_document_ids": [
+        "doc_0001",
+        "doc_0003",
+        "doc_0008"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000002",
+        "chunk_000004",
+        "chunk_000005",
+        "chunk_000006",
+        "chunk_000008",
+        "chunk_000009",
+        "chunk_000012",
+        "chunk_000018",
+        "chunk_000020",
+        "chunk_000021"
+      ],
+      "needs_review": false,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0031"
+    },
+    {
+      "source": "Scrum",
+      "source_type": "methodology",
+      "relation": "has_event",
+      "target": "Sprint",
+      "target_type": "event",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 48,
+      "support_document_ids": [
+        "doc_0001",
+        "doc_0003",
+        "doc_0004",
+        "doc_0008"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000001",
+        "chunk_000002",
+        "chunk_000003",
+        "chunk_000004",
+        "chunk_000005",
+        "chunk_000006",
+        "chunk_000008",
+        "chunk_000009",
+        "chunk_000011",
+        "chunk_000012"
+      ],
+      "needs_review": false,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0032"
+    },
+    {
+      "source": "Scrum",
+      "source_type": "methodology",
+      "relation": "has_event",
+      "target": "Sprint Planning",
+      "target_type": "event",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 17,
+      "support_document_ids": [
+        "doc_0001",
+        "doc_0003",
+        "doc_0004",
+        "doc_0008"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000005",
+        "chunk_000008",
+        "chunk_000009",
+        "chunk_000012",
+        "chunk_000013",
+        "chunk_000018",
+        "chunk_000023",
+        "chunk_000029",
+        "chunk_000059",
+        "chunk_000122"
+      ],
+      "needs_review": false,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0033"
+    },
+    {
+      "source": "Scrum",
+      "source_type": "methodology",
+      "relation": "has_event",
+      "target": "Daily Scrum",
+      "target_type": "event",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 18,
+      "support_document_ids": [
+        "doc_0001",
+        "doc_0003",
+        "doc_0004",
+        "doc_0005",
+        "doc_0008"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000002",
+        "chunk_000004",
+        "chunk_000005",
+        "chunk_000008",
+        "chunk_000009",
+        "chunk_000012",
+        "chunk_000018",
+        "chunk_000020",
+        "chunk_000023",
+        "chunk_000024"
+      ],
+      "needs_review": false,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0034"
+    },
+    {
+      "source": "Scrum",
+      "source_type": "methodology",
+      "relation": "has_event",
+      "target": "Sprint Review",
+      "target_type": "event",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 16,
+      "support_document_ids": [
+        "doc_0001",
+        "doc_0003",
+        "doc_0004",
+        "doc_0008"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000002",
+        "chunk_000005",
+        "chunk_000008",
+        "chunk_000009",
+        "chunk_000014",
+        "chunk_000021",
+        "chunk_000023",
+        "chunk_000024",
+        "chunk_000059",
+        "chunk_000123"
+      ],
+      "needs_review": false,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0035"
+    },
+    {
+      "source": "Scrum",
+      "source_type": "methodology",
+      "relation": "has_event",
+      "target": "Sprint Retrospective",
+      "target_type": "event",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 16,
+      "support_document_ids": [
+        "doc_0001",
+        "doc_0003",
+        "doc_0004",
+        "doc_0008"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000005",
+        "chunk_000008",
+        "chunk_000009",
+        "chunk_000021",
+        "chunk_000023",
+        "chunk_000024",
+        "chunk_000029",
+        "chunk_000031",
+        "chunk_000059",
+        "chunk_000122"
+      ],
+      "needs_review": false,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0036"
+    },
+    {
+      "source": "Sprint",
+      "source_type": "event",
+      "relation": "contains",
+      "target": "Sprint Planning",
+      "target_type": "event",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 21,
+      "support_document_ids": [
+        "doc_0001",
+        "doc_0003",
+        "doc_0004",
+        "doc_0008"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000005",
+        "chunk_000008",
+        "chunk_000009",
+        "chunk_000010",
+        "chunk_000012",
+        "chunk_000013",
+        "chunk_000015",
+        "chunk_000018",
+        "chunk_000023",
+        "chunk_000029"
+      ],
+      "needs_review": false,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0037"
+    },
+    {
+      "source": "Sprint",
+      "source_type": "event",
+      "relation": "contains",
+      "target": "Daily Scrum",
+      "target_type": "event",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 17,
+      "support_document_ids": [
+        "doc_0001",
+        "doc_0003",
+        "doc_0004",
+        "doc_0008"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000002",
+        "chunk_000004",
+        "chunk_000005",
+        "chunk_000008",
+        "chunk_000009",
+        "chunk_000012",
+        "chunk_000018",
+        "chunk_000020",
+        "chunk_000023",
+        "chunk_000024"
+      ],
+      "needs_review": false,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0038"
+    },
+    {
+      "source": "Sprint",
+      "source_type": "event",
+      "relation": "contains",
+      "target": "Sprint Review",
+      "target_type": "event",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 17,
+      "support_document_ids": [
+        "doc_0001",
+        "doc_0003",
+        "doc_0004",
+        "doc_0008"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000002",
+        "chunk_000005",
+        "chunk_000008",
+        "chunk_000009",
+        "chunk_000010",
+        "chunk_000014",
+        "chunk_000021",
+        "chunk_000023",
+        "chunk_000024",
+        "chunk_000059"
+      ],
+      "needs_review": false,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0039"
+    },
+    {
+      "source": "Sprint",
+      "source_type": "event",
+      "relation": "contains",
+      "target": "Sprint Retrospective",
+      "target_type": "event",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 17,
+      "support_document_ids": [
+        "doc_0001",
+        "doc_0003",
+        "doc_0004",
+        "doc_0008"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000005",
+        "chunk_000008",
+        "chunk_000009",
+        "chunk_000021",
+        "chunk_000022",
+        "chunk_000023",
+        "chunk_000024",
+        "chunk_000029",
+        "chunk_000031",
+        "chunk_000059"
+      ],
+      "needs_review": false,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0040"
+    },
+    {
+      "source": "Product Owner",
+      "source_type": "role",
+      "relation": "manages",
+      "target": "Product Backlog",
+      "target_type": "artifact",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 20,
+      "support_document_ids": [
+        "doc_0001",
+        "doc_0003",
+        "doc_0008"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000005",
+        "chunk_000006",
+        "chunk_000008",
+        "chunk_000009",
+        "chunk_000015",
+        "chunk_000023",
+        "chunk_000029",
+        "chunk_000031",
+        "chunk_000058",
+        "chunk_000059"
+      ],
+      "needs_review": false,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0041"
+    },
+    {
+      "source": "Developers",
+      "source_type": "role",
+      "relation": "manages",
+      "target": "Sprint Backlog",
+      "target_type": "artifact",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 16,
+      "support_document_ids": [
+        "doc_0001",
+        "doc_0003",
+        "doc_0008"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000004",
+        "chunk_000005",
+        "chunk_000006",
+        "chunk_000008",
+        "chunk_000018",
+        "chunk_000020",
+        "chunk_000023",
+        "chunk_000029",
+        "chunk_000058",
+        "chunk_000059"
+      ],
+      "needs_review": false,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0042"
+    },
+    {
+      "source": "Product Backlog",
+      "source_type": "artifact",
+      "relation": "refined_in",
+      "target": "Backlog Refinement",
+      "target_type": "event",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 4,
+      "support_document_ids": [
+        "doc_0001",
+        "doc_0003",
+        "doc_0008"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000023",
+        "chunk_000076",
+        "chunk_000367",
+        "chunk_000376"
+      ],
+      "needs_review": false,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0043"
+    },
+    {
+      "source": "Sprint Backlog",
+      "source_type": "artifact",
+      "relation": "derived_from",
+      "target": "Product Backlog",
+      "target_type": "artifact",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 16,
+      "support_document_ids": [
+        "doc_0001",
+        "doc_0003",
+        "doc_0004",
+        "doc_0008"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000004",
+        "chunk_000005",
+        "chunk_000006",
+        "chunk_000008",
+        "chunk_000023",
+        "chunk_000025",
+        "chunk_000029",
+        "chunk_000058",
+        "chunk_000059",
+        "chunk_000076"
+      ],
+      "needs_review": false,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0044"
+    },
+    {
+      "source": "Sprint Planning",
+      "source_type": "event",
+      "relation": "produces",
+      "target": "Sprint Backlog",
+      "target_type": "artifact",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 10,
+      "support_document_ids": [
+        "doc_0001",
+        "doc_0003",
+        "doc_0004",
+        "doc_0008"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000005",
+        "chunk_000008",
+        "chunk_000012",
+        "chunk_000018",
+        "chunk_000023",
+        "chunk_000029",
+        "chunk_000059",
+        "chunk_000122",
+        "chunk_000364",
+        "chunk_000369"
+      ],
+      "needs_review": false,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0045"
+    },
+    {
+      "source": "Sprint Planning",
+      "source_type": "event",
+      "relation": "produces",
+      "target": "Sprint Goal",
+      "target_type": "artifact",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 9,
+      "support_document_ids": [
+        "doc_0001",
+        "doc_0008"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000005",
+        "chunk_000008",
+        "chunk_000009",
+        "chunk_000010",
+        "chunk_000012",
+        "chunk_000018",
+        "chunk_000023",
+        "chunk_000029",
+        "chunk_000369"
+      ],
+      "needs_review": false,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0046"
+    },
+    {
+      "source": "Increment",
+      "source_type": "artifact",
+      "relation": "satisfies",
+      "target": "Definition of Done",
+      "target_type": "artifact",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 12,
+      "support_document_ids": [
+        "doc_0001",
+        "doc_0008"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000002",
+        "chunk_000004",
+        "chunk_000005",
+        "chunk_000006",
+        "chunk_000008",
+        "chunk_000010",
+        "chunk_000023",
+        "chunk_000025",
+        "chunk_000029",
+        "chunk_000031"
+      ],
+      "needs_review": false,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0047"
+    },
+    {
+      "source": "User Story",
+      "source_type": "artifact",
+      "relation": "stored_in",
+      "target": "Product Backlog",
+      "target_type": "artifact",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 5,
+      "support_document_ids": [
+        "doc_0001",
+        "doc_0003",
+        "doc_0008"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000015",
+        "chunk_000076",
+        "chunk_000362",
+        "chunk_000364",
+        "chunk_000369"
+      ],
+      "needs_review": false,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0048"
+    },
+    {
+      "source": "Velocity",
+      "source_type": "metric",
+      "relation": "measures",
+      "target": "Scrum",
+      "target_type": "methodology",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 7,
+      "support_document_ids": [
+        "doc_0001",
+        "doc_0008"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000013",
+        "chunk_000018",
+        "chunk_000025",
+        "chunk_000029",
+        "chunk_000030",
+        "chunk_000033",
+        "chunk_000359"
+      ],
+      "needs_review": false,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0049"
+    },
+    {
+      "source": "Burndown Chart",
+      "source_type": "artifact",
+      "relation": "tracks",
+      "target": "Sprint",
+      "target_type": "event",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 6,
+      "support_document_ids": [
+        "doc_0001",
+        "doc_0004",
+        "doc_0008"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000016",
+        "chunk_000020",
+        "chunk_000025",
+        "chunk_000026",
+        "chunk_000122",
+        "chunk_000359"
+      ],
+      "needs_review": false,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0050"
+    },
+    {
+      "source": "Planning Poker",
+      "source_type": "practice",
+      "relation": "supports",
+      "target": "Estimation",
+      "target_type": "practice",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 2,
+      "support_document_ids": [
+        "doc_0008"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000370",
+        "chunk_000377"
+      ],
+      "needs_review": false,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0051"
+    },
+    {
+      "source": "Kanban",
+      "source_type": "methodology",
+      "relation": "uses_practice",
+      "target": "WIP Limits",
+      "target_type": "practice",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 2,
+      "support_document_ids": [
+        "doc_0001",
+        "doc_0006"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000031",
+        "chunk_000349"
+      ],
+      "needs_review": false,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0052"
+    },
+    {
+      "source": "Kanban",
+      "source_type": "methodology",
+      "relation": "has_artifact",
+      "target": "Kanban Board",
+      "target_type": "artifact",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 5,
+      "support_document_ids": [
+        "doc_0001",
+        "doc_0004",
+        "doc_0006"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000016",
+        "chunk_000124",
+        "chunk_000125",
+        "chunk_000348",
+        "chunk_000349"
+      ],
+      "needs_review": false,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0053"
+    },
+    {
+      "source": "Kanban",
+      "source_type": "methodology",
+      "relation": "has_artifact",
+      "target": "Definition of Workflow",
+      "target_type": "artifact",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 4,
+      "support_document_ids": [
+        "doc_0006"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000348",
+        "chunk_000349",
+        "chunk_000350",
+        "chunk_000351"
+      ],
+      "needs_review": false,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0054"
+    },
+    {
+      "source": "Kanban",
+      "source_type": "methodology",
+      "relation": "uses_metric",
+      "target": "Cycle Time",
+      "target_type": "metric",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 3,
+      "support_document_ids": [
+        "doc_0003",
+        "doc_0006"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000080",
+        "chunk_000349",
+        "chunk_000351"
+      ],
+      "needs_review": false,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0055"
+    },
+    {
+      "source": "Kanban",
+      "source_type": "methodology",
+      "relation": "uses_metric",
+      "target": "Throughput",
+      "target_type": "metric",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 1,
+      "support_document_ids": [
+        "doc_0006"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000351"
+      ],
+      "needs_review": true,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0056"
+    },
+    {
+      "source": "Kanban",
+      "source_type": "methodology",
+      "relation": "uses_metric",
+      "target": "Work In Progress",
+      "target_type": "metric",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 9,
+      "support_document_ids": [
+        "doc_0001",
+        "doc_0003",
+        "doc_0004",
+        "doc_0006"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000018",
+        "chunk_000031",
+        "chunk_000071",
+        "chunk_000081",
+        "chunk_000121",
+        "chunk_000124",
+        "chunk_000348",
+        "chunk_000349",
+        "chunk_000351"
+      ],
+      "needs_review": false,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0057"
+    },
+    {
+      "source": "Kanban",
+      "source_type": "methodology",
+      "relation": "uses_metric",
+      "target": "Work Item Age",
+      "target_type": "metric",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 1,
+      "support_document_ids": [
+        "doc_0006"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000351"
+      ],
+      "needs_review": true,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0058"
+    },
+    {
+      "source": "Extreme Programming",
+      "source_type": "methodology",
+      "relation": "uses_practice",
+      "target": "Pair Programming",
+      "target_type": "practice",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 6,
+      "support_document_ids": [
+        "doc_0002",
+        "doc_0003",
+        "doc_0004"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000038",
+        "chunk_000061",
+        "chunk_000062",
+        "chunk_000084",
+        "chunk_000130",
+        "chunk_000131"
+      ],
+      "needs_review": false,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0059"
+    },
+    {
+      "source": "Extreme Programming",
+      "source_type": "methodology",
+      "relation": "uses_practice",
+      "target": "Test-Driven Development",
+      "target_type": "practice",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 5,
+      "support_document_ids": [
+        "doc_0003",
+        "doc_0004"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000061",
+        "chunk_000084",
+        "chunk_000100",
+        "chunk_000130",
+        "chunk_000131"
+      ],
+      "needs_review": false,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0060"
+    },
+    {
+      "source": "Extreme Programming",
+      "source_type": "methodology",
+      "relation": "uses_practice",
+      "target": "Continuous Integration",
+      "target_type": "practice",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 3,
+      "support_document_ids": [
+        "doc_0003",
+        "doc_0004"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000061",
+        "chunk_000130",
+        "chunk_000131"
+      ],
+      "needs_review": false,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0061"
+    },
+    {
+      "source": "Extreme Programming",
+      "source_type": "methodology",
+      "relation": "uses_practice",
+      "target": "Refactoring",
+      "target_type": "practice",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 5,
+      "support_document_ids": [
+        "doc_0002",
+        "doc_0003",
+        "doc_0004"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000036",
+        "chunk_000038",
+        "chunk_000100",
+        "chunk_000130",
+        "chunk_000131"
+      ],
+      "needs_review": false,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0062"
+    },
+    {
+      "source": "Lean Software Development",
+      "source_type": "methodology",
+      "relation": "targets",
+      "target": "Waste",
+      "target_type": "concept",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 9,
+      "support_document_ids": [
+        "doc_0003",
+        "doc_0004"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000048",
+        "chunk_000049",
+        "chunk_000050",
+        "chunk_000052",
+        "chunk_000055",
+        "chunk_000080",
+        "chunk_000081",
+        "chunk_000128",
+        "chunk_000129"
+      ],
+      "needs_review": false,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0063"
+    },
+    {
+      "source": "Waterfall",
+      "source_type": "methodology",
+      "relation": "produces",
+      "target": "Software Requirement Specification",
+      "target_type": "artifact",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 1,
+      "support_document_ids": [
+        "doc_0009"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000382"
+      ],
+      "needs_review": true,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0064"
+    },
+    {
+      "source": "Waterfall",
+      "source_type": "methodology",
+      "relation": "instance_of",
+      "target": "Software Development Life Cycle",
+      "target_type": "concept",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 5,
+      "support_document_ids": [
+        "doc_0003",
+        "doc_0005",
+        "doc_0009"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000092",
+        "chunk_000093",
+        "chunk_000153",
+        "chunk_000379",
+        "chunk_000382"
+      ],
+      "needs_review": false,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0065"
+    },
+    {
+      "source": "Agile",
+      "source_type": "methodology",
+      "relation": "uses_practice",
+      "target": "Continuous Integration",
+      "target_type": "practice",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 5,
+      "support_document_ids": [
+        "doc_0003",
+        "doc_0004"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000061",
+        "chunk_000091",
+        "chunk_000095",
+        "chunk_000130",
+        "chunk_000131"
+      ],
+      "needs_review": false,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0066"
+    },
+    {
+      "source": "DevOps",
+      "source_type": "methodology",
+      "relation": "uses_metric",
+      "target": "DORA Metrics",
+      "target_type": "metric",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 2,
+      "support_document_ids": [
+        "doc_0001"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000025",
+        "chunk_000034"
+      ],
+      "needs_review": false,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0067"
+    },
+    {
+      "source": "Project Manager",
+      "source_type": "role",
+      "relation": "reports_to",
+      "target": "Project Sponsor",
+      "target_type": "role",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 2,
+      "support_document_ids": [
+        "doc_0005"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000168",
+        "chunk_000264"
+      ],
+      "needs_review": false,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0068"
+    },
+    {
+      "source": "Technical Debt",
+      "source_type": "concept",
+      "relation": "mitigated_by",
+      "target": "Definition of Done",
+      "target_type": "artifact",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 2,
+      "support_document_ids": [
+        "doc_0001"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000028",
+        "chunk_000033"
+      ],
+      "needs_review": false,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0069"
+    },
+    {
+      "source": "Scope Creep",
+      "source_type": "concept",
+      "relation": "risk_for",
+      "target": "Waterfall",
+      "target_type": "methodology",
+      "origin": "curated_seed_validated_by_cooccurrence",
+      "evidence_level": "cooccurrence_in_chunk",
+      "support_chunk_count": 1,
+      "support_document_ids": [
+        "doc_0005"
+      ],
+      "evidence_chunk_ids": [
+        "chunk_000293"
+      ],
+      "needs_review": true,
+      "note": "La relación procede del criterio de dominio del diseñador; el corpus solo confirma que ambas entidades aparecen juntas en los fragmentos citados. No es una extracción semántica.",
+      "relationship_id": "rel_0070"
+    }
+  ],
+  "document_coverage": [
+    {
+      "document_id": "doc_0001",
+      "relation": "document_discusses",
+      "target": "Scrum",
+      "target_type": "methodology",
+      "chunk_count": 24,
+      "mentions": 95,
+      "evidence_chunk_ids": [
+        "chunk_000001",
+        "chunk_000002",
+        "chunk_000003",
+        "chunk_000004",
+        "chunk_000005",
+        "chunk_000006",
+        "chunk_000008",
+        "chunk_000009",
+        "chunk_000011",
+        "chunk_000012"
+      ],
+      "origin": "dictionary_match_counts"
+    },
+    {
+      "document_id": "doc_0003",
+      "relation": "document_discusses",
+      "target": "Scrum",
+      "target_type": "methodology",
+      "chunk_count": 17,
+      "mentions": 55,
+      "evidence_chunk_ids": [
+        "chunk_000047",
+        "chunk_000052",
+        "chunk_000057",
+        "chunk_000058",
+        "chunk_000059",
+        "chunk_000060",
+        "chunk_000064",
+        "chunk_000065",
+        "chunk_000073",
+        "chunk_000076"
+      ],
+      "origin": "dictionary_match_counts"
+    },
+    {
+      "document_id": "doc_0004",
+      "relation": "document_discusses",
+      "target": "Scrum",
+      "target_type": "methodology",
+      "chunk_count": 8,
+      "mentions": 34,
+      "evidence_chunk_ids": [
+        "chunk_000119",
+        "chunk_000120",
+        "chunk_000121",
+        "chunk_000122",
+        "chunk_000123",
+        "chunk_000124",
+        "chunk_000125",
+        "chunk_000132"
+      ],
+      "origin": "dictionary_match_counts"
+    },
+    {
+      "document_id": "doc_0005",
+      "relation": "document_discusses",
+      "target": "Scrum",
+      "target_type": "methodology",
+      "chunk_count": 5,
+      "mentions": 5,
+      "evidence_chunk_ids": [
+        "chunk_000137",
+        "chunk_000150",
+        "chunk_000151",
+        "chunk_000233",
+        "chunk_000274"
+      ],
+      "origin": "dictionary_match_counts"
+    },
+    {
+      "document_id": "doc_0008",
+      "relation": "document_discusses",
+      "target": "Scrum",
+      "target_type": "methodology",
+      "chunk_count": 21,
+      "mentions": 103,
+      "evidence_chunk_ids": [
+        "chunk_000355",
+        "chunk_000356",
+        "chunk_000357",
+        "chunk_000358",
+        "chunk_000359",
+        "chunk_000360",
+        "chunk_000361",
+        "chunk_000362",
+        "chunk_000363",
+        "chunk_000364"
+      ],
+      "origin": "dictionary_match_counts"
+    },
+    {
+      "document_id": "doc_0001",
+      "relation": "document_discusses",
+      "target": "Agile",
+      "target_type": "methodology",
+      "chunk_count": 5,
+      "mentions": 8,
+      "evidence_chunk_ids": [
+        "chunk_000001",
+        "chunk_000002",
+        "chunk_000004",
+        "chunk_000014",
+        "chunk_000034"
+      ],
+      "origin": "dictionary_match_counts"
+    },
+    {
+      "document_id": "doc_0003",
+      "relation": "document_discusses",
+      "target": "Agile",
+      "target_type": "methodology",
+      "chunk_count": 56,
+      "mentions": 297,
+      "evidence_chunk_ids": [
+        "chunk_000047",
+        "chunk_000049",
+        "chunk_000052",
+        "chunk_000055",
+        "chunk_000056",
+        "chunk_000057",
+        "chunk_000058",
+        "chunk_000059",
+        "chunk_000060",
+        "chunk_000061"
+      ],
+      "origin": "dictionary_match_counts"
+    },
+    {
+      "document_id": "doc_0004",
+      "relation": "document_discusses",
+      "target": "Agile",
+      "target_type": "methodology",
+      "chunk_count": 13,
+      "mentions": 35,
+      "evidence_chunk_ids": [
+        "chunk_000118",
+        "chunk_000119",
+        "chunk_000120",
+        "chunk_000121",
+        "chunk_000124",
+        "chunk_000126",
+        "chunk_000127",
+        "chunk_000128",
+        "chunk_000129",
+        "chunk_000130"
+      ],
+      "origin": "dictionary_match_counts"
+    },
+    {
+      "document_id": "doc_0005",
+      "relation": "document_discusses",
+      "target": "Agile",
+      "target_type": "methodology",
+      "chunk_count": 16,
+      "mentions": 69,
+      "evidence_chunk_ids": [
+        "chunk_000137",
+        "chunk_000138",
+        "chunk_000145",
+        "chunk_000148",
+        "chunk_000149",
+        "chunk_000150",
+        "chunk_000151",
+        "chunk_000153",
+        "chunk_000225",
+        "chunk_000233"
+      ],
+      "origin": "dictionary_match_counts"
+    },
+    {
+      "document_id": "doc_0008",
+      "relation": "document_discusses",
+      "target": "Agile",
+      "target_type": "methodology",
+      "chunk_count": 2,
+      "mentions": 4,
+      "evidence_chunk_ids": [
+        "chunk_000359",
+        "chunk_000361"
+      ],
+      "origin": "dictionary_match_counts"
+    },
+    {
+      "document_id": "doc_0009",
+      "relation": "document_discusses",
+      "target": "Agile",
+      "target_type": "methodology",
+      "chunk_count": 4,
+      "mentions": 15,
+      "evidence_chunk_ids": [
+        "chunk_000378",
+        "chunk_000380",
+        "chunk_000387",
+        "chunk_000388"
+      ],
+      "origin": "dictionary_match_counts"
+    },
+    {
+      "document_id": "doc_0001",
+      "relation": "document_discusses",
+      "target": "DevOps",
+      "target_type": "methodology",
+      "chunk_count": 4,
+      "mentions": 4,
+      "evidence_chunk_ids": [
+        "chunk_000001",
+        "chunk_000025",
+        "chunk_000032",
+        "chunk_000034"
+      ],
+      "origin": "dictionary_match_counts"
+    },
+    {
+      "document_id": "doc_0003",
+      "relation": "document_discusses",
+      "target": "DevOps",
+      "target_type": "methodology",
+      "chunk_count": 2,
+      "mentions": 2,
+      "evidence_chunk_ids": [
+        "chunk_000078",
+        "chunk_000082"
+      ],
+      "origin": "dictionary_match_counts"
+    },
+    {
+      "document_id": "doc_0001",
+      "relation": "document_discusses",
+      "target": "Extreme Programming",
+      "target_type": "methodology",
+      "chunk_count": 3,
+      "mentions": 3,
+      "evidence_chunk_ids": [
+        "chunk_000001",
+        "chunk_000004",
+        "chunk_000032"
+      ],
+      "origin": "dictionary_match_counts"
+    },
+    {
+      "document_id": "doc_0002",
+      "relation": "document_discusses",
+      "target": "Extreme Programming",
+      "target_type": "methodology",
+      "chunk_count": 9,
+      "mentions": 93,
+      "evidence_chunk_ids": [
+        "chunk_000036",
+        "chunk_000037",
+        "chunk_000038",
+        "chunk_000039",
+        "chunk_000041",
+        "chunk_000042",
+        "chunk_000043",
+        "chunk_000044",
+        "chunk_000045"
+      ],
+      "origin": "dictionary_match_counts"
+    },
+    {
+      "document_id": "doc_0003",
+      "relation": "document_discusses",
+      "target": "Extreme Programming",
+      "target_type": "methodology",
+      "chunk_count": 6,
+      "mentions": 28,
+      "evidence_chunk_ids": [
+        "chunk_000047",
+        "chunk_000052",
+        "chunk_000061",
+        "chunk_000062",
+        "chunk_000084",
+        "chunk_000100"
+      ],
+      "origin": "dictionary_match_counts"
+    },
+    {
+      "document_id": "doc_0004",
+      "relation": "document_discusses",
+      "target": "Extreme Programming",
+      "target_type": "methodology",
+      "chunk_count": 5,
+      "mentions": 23,
+      "evidence_chunk_ids": [
+        "chunk_000119",
+        "chunk_000121",
+        "chunk_000130",
+        "chunk_000131",
+        "chunk_000132"
+      ],
+      "origin": "dictionary_match_counts"
+    },
+    {
+      "document_id": "doc_0001",
+      "relation": "document_discusses",
+      "target": "Kanban",
+      "target_type": "methodology",
+      "chunk_count": 8,
+      "mentions": 8,
+      "evidence_chunk_ids": [
+        "chunk_000001",
+        "chunk_000003",
+        "chunk_000004",
+        "chunk_000016",
+        "chunk_000018",
+        "chunk_000030",
+        "chunk_000031",
+        "chunk_000032"
+      ],
+      "origin": "dictionary_match_counts"
+    },
+    {
+      "document_id": "doc_0003",
+      "relation": "document_discusses",
+      "target": "Kanban",
+      "target_type": "methodology",
+      "chunk_count": 9,
+      "mentions": 18,
+      "evidence_chunk_ids": [
+        "chunk_000052",
+        "chunk_000057",
+        "chunk_000071",
+        "chunk_000080",
+        "chunk_000081",
+        "chunk_000082",
+        "chunk_000083",
+        "chunk_000084",
+        "chunk_000085"
+      ],
+      "origin": "dictionary_match_counts"
+    },
+    {
+      "document_id": "doc_0004",
+      "relation": "document_discusses",
+      "target": "Kanban",
+      "target_type": "methodology",
+      "chunk_count": 6,
+      "mentions": 20,
+      "evidence_chunk_ids": [
+        "chunk_000119",
+        "chunk_000121",
+        "chunk_000124",
+        "chunk_000125",
+        "chunk_000126",
+        "chunk_000128"
+      ],
+      "origin": "dictionary_match_counts"
+    },
+    {
+      "document_id": "doc_0006",
+      "relation": "document_discusses",
+      "target": "Kanban",
+      "target_type": "methodology",
+      "chunk_count": 12,
+      "mentions": 61,
+      "evidence_chunk_ids": [
+        "chunk_000343",
+        "chunk_000344",
+        "chunk_000345",
+        "chunk_000346",
+        "chunk_000347",
+        "chunk_000348",
+        "chunk_000349",
+        "chunk_000350",
+        "chunk_000351",
+        "chunk_000352"
+      ],
+      "origin": "dictionary_match_counts"
+    },
+    {
+      "document_id": "doc_0003",
+      "relation": "document_discusses",
+      "target": "DSDM",
+      "target_type": "methodology",
+      "chunk_count": 2,
+      "mentions": 4,
+      "evidence_chunk_ids": [
+        "chunk_000047",
+        "chunk_000100"
+      ],
+      "origin": "dictionary_match_counts"
+    },
+    {
+      "document_id": "doc_0003",
+      "relation": "document_discusses",
+      "target": "SAFe",
+      "target_type": "methodology",
+      "chunk_count": 3,
+      "mentions": 4,
+      "evidence_chunk_ids": [
+        "chunk_000078",
+        "chunk_000083",
+        "chunk_000085"
+      ],
+      "origin": "dictionary_match_counts"
+    },
+    {
+      "document_id": "doc_0001",
+      "relation": "document_discusses",
+      "target": "Scrumban",
+      "target_type": "methodology",
+      "chunk_count": 2,
+      "mentions": 2,
+      "evidence_chunk_ids": [
+        "chunk_000030",
+        "chunk_000032"
+      ],
+      "origin": "dictionary_match_counts"
+    },
+    {
+      "document_id": "doc_0003",
+      "relation": "document_discusses",
+      "target": "Waterfall",
+      "target_type": "methodology",
+      "chunk_count": 4,
+      "mentions": 5,
+      "evidence_chunk_ids": [
+        "chunk_000062",
+        "chunk_000078",
+        "chunk_000092",
+        "chunk_000093"
+      ],
+      "origin": "dictionary_match_counts"
+    },
+    {
+      "document_id": "doc_0004",
+      "relation": "document_discusses",
+      "target": "Waterfall",
+      "target_type": "methodology",
+      "chunk_count": 6,
+      "mentions": 16,
+      "evidence_chunk_ids": [
+        "chunk_000118",
+        "chunk_000121",
+        "chunk_000126",
+        "chunk_000127",
+        "chunk_000128",
+        "chunk_000133"
+      ],
+      "origin": "dictionary_match_counts"
+    },
+    {
+      "document_id": "doc_0005",
+      "relation": "document_discusses",
+      "target": "Waterfall",
+      "target_type": "methodology",
+      "chunk_count": 16,
+      "mentions": 40,
+      "evidence_chunk_ids": [
+        "chunk_000137",
+        "chunk_000138",
+        "chunk_000145",
+        "chunk_000146",
+        "chunk_000147",
+        "chunk_000148",
+        "chunk_000149",
+        "chunk_000150",
+        "chunk_000153",
+        "chunk_000225"
+      ],
+      "origin": "dictionary_match_counts"
+    },
+    {
+      "document_id": "doc_0009",
+      "relation": "document_discusses",
+      "target": "Waterfall",
+      "target_type": "methodology",
+      "chunk_count": 9,
+      "mentions": 23,
+      "evidence_chunk_ids": [
+        "chunk_000379",
+        "chunk_000380",
+        "chunk_000382",
+        "chunk_000383",
+        "chunk_000384",
+        "chunk_000385",
+        "chunk_000386",
+        "chunk_000387",
+        "chunk_000388"
+      ],
+      "origin": "dictionary_match_counts"
+    },
+    {
+      "document_id": "doc_0004",
+      "relation": "document_discusses",
+      "target": "Hybrid",
+      "target_type": "methodology",
+      "chunk_count": 5,
+      "mentions": 12,
+      "evidence_chunk_ids": [
+        "chunk_000119",
+        "chunk_000121",
+        "chunk_000126",
+        "chunk_000127",
+        "chunk_000132"
+      ],
+      "origin": "dictionary_match_counts"
+    },
+    {
+      "document_id": "doc_0003",
+      "relation": "document_discusses",
+      "target": "Crystal",
+      "target_type": "methodology",
+      "chunk_count": 2,
+      "mentions": 3,
+      "evidence_chunk_ids": [
+        "chunk_000047",
+        "chunk_000100"
+      ],
+      "origin": "dictionary_match_counts"
+    },
+    {
+      "document_id": "doc_0003",
+      "relation": "document_discusses",
+      "target": "Lean Software Development",
+      "target_type": "methodology",
+      "chunk_count": 9,
+      "mentions": 61,
+      "evidence_chunk_ids": [
+        "chunk_000048",
+        "chunk_000049",
+        "chunk_000050",
+        "chunk_000051",
+        "chunk_000052",
+        "chunk_000054",
+        "chunk_000055",
+        "chunk_000080",
+        "chunk_000081"
+      ],
+      "origin": "dictionary_match_counts"
+    },
+    {
+      "document_id": "doc_0004",
+      "relation": "document_discusses",
+      "target": "Lean Software Development",
+      "target_type": "methodology",
+      "chunk_count": 3,
+      "mentions": 5,
+      "evidence_chunk_ids": [
+        "chunk_000128",
+        "chunk_000129",
+        "chunk_000131"
+      ],
+      "origin": "dictionary_match_counts"
+    },
+    {
+      "document_id": "doc_0004",
+      "relation": "document_discusses",
+      "target": "Bimodal",
+      "target_type": "methodology",
+      "chunk_count": 4,
+      "mentions": 10,
+      "evidence_chunk_ids": [
+        "chunk_000119",
+        "chunk_000121",
+        "chunk_000126",
+        "chunk_000128"
+      ],
+      "origin": "dictionary_match_counts"
+    }
+  ],
+  "entity_index": {
+    "Agile": {
+      "type": "methodology",
+      "total_chunks": 96,
+      "documents": {
+        "doc_0001": {
+          "chunk_ids": [
+            "chunk_000001",
+            "chunk_000002",
+            "chunk_000004",
+            "chunk_000014",
+            "chunk_000034"
+          ],
+          "mentions": 8
+        },
+        "doc_0003": {
+          "chunk_ids": [
+            "chunk_000047",
+            "chunk_000049",
+            "chunk_000052",
+            "chunk_000055",
+            "chunk_000056",
+            "chunk_000057",
+            "chunk_000058",
+            "chunk_000059",
+            "chunk_000060",
+            "chunk_000061",
+            "chunk_000062",
+            "chunk_000063",
+            "chunk_000064",
+            "chunk_000065",
+            "chunk_000066",
+            "chunk_000067",
+            "chunk_000068",
+            "chunk_000069",
+            "chunk_000070",
+            "chunk_000075",
+            "chunk_000077",
+            "chunk_000078",
+            "chunk_000079",
+            "chunk_000080",
+            "chunk_000081",
+            "chunk_000082",
+            "chunk_000083",
+            "chunk_000084",
+            "chunk_000085",
+            "chunk_000086",
+            "chunk_000087",
+            "chunk_000088",
+            "chunk_000089",
+            "chunk_000091",
+            "chunk_000093",
+            "chunk_000094",
+            "chunk_000095",
+            "chunk_000096",
+            "chunk_000097",
+            "chunk_000098",
+            "chunk_000099",
+            "chunk_000100",
+            "chunk_000101",
+            "chunk_000103",
+            "chunk_000104",
+            "chunk_000105",
+            "chunk_000106",
+            "chunk_000107",
+            "chunk_000108",
+            "chunk_000109",
+            "chunk_000110",
+            "chunk_000111",
+            "chunk_000113",
+            "chunk_000114",
+            "chunk_000115",
+            "chunk_000116"
+          ],
+          "mentions": 297
+        },
+        "doc_0004": {
+          "chunk_ids": [
+            "chunk_000118",
+            "chunk_000119",
+            "chunk_000120",
+            "chunk_000121",
+            "chunk_000124",
+            "chunk_000126",
+            "chunk_000127",
+            "chunk_000128",
+            "chunk_000129",
+            "chunk_000130",
+            "chunk_000131",
+            "chunk_000132",
+            "chunk_000133"
+          ],
+          "mentions": 35
+        },
+        "doc_0005": {
+          "chunk_ids": [
+            "chunk_000137",
+            "chunk_000138",
+            "chunk_000145",
+            "chunk_000148",
+            "chunk_000149",
+            "chunk_000150",
+            "chunk_000151",
+            "chunk_000153",
+            "chunk_000225",
+            "chunk_000233",
+            "chunk_000274",
+            "chunk_000279",
+            "chunk_000286",
+            "chunk_000287",
+            "chunk_000332",
+            "chunk_000338"
+          ],
+          "mentions": 69
+        },
+        "doc_0008": {
+          "chunk_ids": [
+            "chunk_000359",
+            "chunk_000361"
+          ],
+          "mentions": 4
+        },
+        "doc_0009": {
+          "chunk_ids": [
+            "chunk_000378",
+            "chunk_000380",
+            "chunk_000387",
+            "chunk_000388"
+          ],
+          "mentions": 15
+        }
+      }
+    },
+    "Agile Alliance": {
+      "type": "organization",
+      "total_chunks": 1,
+      "documents": {
+        "doc_0003": {
+          "chunk_ids": [
+            "chunk_000047"
+          ],
+          "mentions": 1
+        }
+      }
+    },
+    "Agile Manifesto": {
+      "type": "document",
+      "total_chunks": 8,
+      "documents": {
+        "doc_0001": {
+          "chunk_ids": [
+            "chunk_000001",
+            "chunk_000004"
+          ],
+          "mentions": 3
+        },
+        "doc_0003": {
+          "chunk_ids": [
+            "chunk_000047",
+            "chunk_000052",
+            "chunk_000055"
+          ],
+          "mentions": 4
+        },
+        "doc_0004": {
+          "chunk_ids": [
+            "chunk_000121",
+            "chunk_000130"
+          ],
+          "mentions": 2
+        },
+        "doc_0005": {
+          "chunk_ids": [
+            "chunk_000148"
+          ],
+          "mentions": 2
+        }
+      }
+    },
+    "Architect": {
+      "type": "role",
+      "total_chunks": 7,
+      "documents": {
+        "doc_0005": {
+          "chunk_ids": [
+            "chunk_000176",
+            "chunk_000177",
+            "chunk_000178",
+            "chunk_000179",
+            "chunk_000186",
+            "chunk_000333",
+            "chunk_000338"
+          ],
+          "mentions": 12
+        }
+      }
+    },
+    "Asana": {
+      "type": "tool",
+      "total_chunks": 3,
+      "documents": {
+        "doc_0008": {
+          "chunk_ids": [
+            "chunk_000359",
+            "chunk_000363",
+            "chunk_000365"
+          ],
+          "mentions": 3
+        }
+      }
+    },
+    "Azure DevOps": {
+      "type": "tool",
+      "total_chunks": 3,
+      "documents": {
+        "doc_0001": {
+          "chunk_ids": [
+            "chunk_000025",
+            "chunk_000034"
+          ],
+          "mentions": 2
+        },
+        "doc_0003": {
+          "chunk_ids": [
+            "chunk_000082"
+          ],
+          "mentions": 1
+        }
+      }
+    },
+    "Backlog Refinement": {
+      "type": "event",
+      "total_chunks": 6,
+      "documents": {
+        "doc_0001": {
+          "chunk_ids": [
+            "chunk_000018",
+            "chunk_000023"
+          ],
+          "mentions": 2
+        },
+        "doc_0003": {
+          "chunk_ids": [
+            "chunk_000069",
+            "chunk_000076"
+          ],
+          "mentions": 2
+        },
+        "doc_0008": {
+          "chunk_ids": [
+            "chunk_000367",
+            "chunk_000376"
+          ],
+          "mentions": 14
+        }
+      }
+    },
+    "Bimodal": {
+      "type": "methodology",
+      "total_chunks": 4,
+      "documents": {
+        "doc_0004": {
+          "chunk_ids": [
+            "chunk_000119",
+            "chunk_000121",
+            "chunk_000126",
+            "chunk_000128"
+          ],
+          "mentions": 10
+        }
+      }
+    },
+    "Burndown Chart": {
+      "type": "artifact",
+      "total_chunks": 7,
+      "documents": {
+        "doc_0001": {
+          "chunk_ids": [
+            "chunk_000016",
+            "chunk_000020",
+            "chunk_000025",
+            "chunk_000026"
+          ],
+          "mentions": 4
+        },
+        "doc_0003": {
+          "chunk_ids": [
+            "chunk_000115"
+          ],
+          "mentions": 1
+        },
+        "doc_0004": {
+          "chunk_ids": [
+            "chunk_000122"
+          ],
+          "mentions": 2
+        },
+        "doc_0008": {
+          "chunk_ids": [
+            "chunk_000359"
+          ],
+          "mentions": 1
+        }
+      }
+    },
+    "Business Analyst": {
+      "type": "role",
+      "total_chunks": 2,
+      "documents": {
+        "doc_0005": {
+          "chunk_ids": [
+            "chunk_000174",
+            "chunk_000178"
+          ],
+          "mentions": 2
+        }
+      }
+    },
+    "CMMI": {
+      "type": "standard",
+      "total_chunks": 1,
+      "documents": {
+        "doc_0001": {
+          "chunk_ids": [
+            "chunk_000030"
+          ],
+          "mentions": 1
+        }
+      }
+    },
+    "Coach": {
+      "type": "role",
+      "total_chunks": 3,
+      "documents": {
+        "doc_0003": {
+          "chunk_ids": [
+            "chunk_000114",
+            "chunk_000115"
+          ],
+          "mentions": 10
+        },
+        "doc_0008": {
+          "chunk_ids": [
+            "chunk_000358"
+          ],
+          "mentions": 1
+        }
+      }
+    },
+    "Continuous Integration": {
+      "type": "practice",
+      "total_chunks": 6,
+      "documents": {
+        "doc_0003": {
+          "chunk_ids": [
+            "chunk_000061",
+            "chunk_000091",
+            "chunk_000095"
+          ],
+          "mentions": 9
+        },
+        "doc_0004": {
+          "chunk_ids": [
+            "chunk_000130",
+            "chunk_000131"
+          ],
+          "mentions": 2
+        },
+        "doc_0008": {
+          "chunk_ids": [
+            "chunk_000365"
+          ],
+          "mentions": 1
+        }
+      }
+    },
+    "Crystal": {
+      "type": "methodology",
+      "total_chunks": 2,
+      "documents": {
+        "doc_0003": {
+          "chunk_ids": [
+            "chunk_000047",
+            "chunk_000100"
+          ],
+          "mentions": 3
+        }
+      }
+    },
+    "Customer": {
+      "type": "role",
+      "total_chunks": 16,
+      "documents": {
+        "doc_0002": {
+          "chunk_ids": [
+            "chunk_000036"
+          ],
+          "mentions": 1
+        },
+        "doc_0003": {
+          "chunk_ids": [
+            "chunk_000053",
+            "chunk_000055",
+            "chunk_000059",
+            "chunk_000061",
+            "chunk_000068",
+            "chunk_000084",
+            "chunk_000091",
+            "chunk_000097",
+            "chunk_000099",
+            "chunk_000112"
+          ],
+          "mentions": 11
+        },
+        "doc_0004": {
+          "chunk_ids": [
+            "chunk_000119"
+          ],
+          "mentions": 1
+        },
+        "doc_0005": {
+          "chunk_ids": [
+            "chunk_000147",
+            "chunk_000248",
+            "chunk_000330"
+          ],
+          "mentions": 4
+        },
+        "doc_0009": {
+          "chunk_ids": [
+            "chunk_000387"
+          ],
+          "mentions": 1
+        }
+      }
+    },
+    "Cycle Time": {
+      "type": "metric",
+      "total_chunks": 6,
+      "documents": {
+        "doc_0003": {
+          "chunk_ids": [
+            "chunk_000048",
+            "chunk_000080",
+            "chunk_000089",
+            "chunk_000095"
+          ],
+          "mentions": 4
+        },
+        "doc_0006": {
+          "chunk_ids": [
+            "chunk_000349",
+            "chunk_000351"
+          ],
+          "mentions": 3
+        }
+      }
+    },
+    "DORA Metrics": {
+      "type": "metric",
+      "total_chunks": 7,
+      "documents": {
+        "doc_0001": {
+          "chunk_ids": [
+            "chunk_000018",
+            "chunk_000025",
+            "chunk_000026",
+            "chunk_000028",
+            "chunk_000029",
+            "chunk_000033",
+            "chunk_000034"
+          ],
+          "mentions": 9
+        }
+      }
+    },
+    "DSDM": {
+      "type": "methodology",
+      "total_chunks": 3,
+      "documents": {
+        "doc_0001": {
+          "chunk_ids": [
+            "chunk_000004"
+          ],
+          "mentions": 1
+        },
+        "doc_0003": {
+          "chunk_ids": [
+            "chunk_000047",
+            "chunk_000100"
+          ],
+          "mentions": 4
+        }
+      }
+    },
+    "Daily Scrum": {
+      "type": "event",
+      "total_chunks": 19,
+      "documents": {
+        "doc_0001": {
+          "chunk_ids": [
+            "chunk_000002",
+            "chunk_000004",
+            "chunk_000005",
+            "chunk_000008",
+            "chunk_000009",
+            "chunk_000012",
+            "chunk_000018",
+            "chunk_000020",
+            "chunk_000023",
+            "chunk_000024"
+          ],
+          "mentions": 10
+        },
+        "doc_0003": {
+          "chunk_ids": [
+            "chunk_000059"
+          ],
+          "mentions": 3
+        },
+        "doc_0004": {
+          "chunk_ids": [
+            "chunk_000122",
+            "chunk_000123"
+          ],
+          "mentions": 3
+        },
+        "doc_0005": {
+          "chunk_ids": [
+            "chunk_000274",
+            "chunk_000334"
+          ],
+          "mentions": 2
+        },
+        "doc_0008": {
+          "chunk_ids": [
+            "chunk_000359",
+            "chunk_000364",
+            "chunk_000367",
+            "chunk_000371"
+          ],
+          "mentions": 10
+        }
+      }
+    },
+    "Daniel Vacanti": {
+      "type": "person",
+      "total_chunks": 6,
+      "documents": {
+        "doc_0006": {
+          "chunk_ids": [
+            "chunk_000343",
+            "chunk_000346",
+            "chunk_000348",
+            "chunk_000349",
+            "chunk_000350",
+            "chunk_000351"
+          ],
+          "mentions": 6
+        }
+      }
+    },
+    "Definition of Done": {
+      "type": "artifact",
+      "total_chunks": 24,
+      "documents": {
+        "doc_0001": {
+          "chunk_ids": [
+            "chunk_000002",
+            "chunk_000004",
+            "chunk_000005",
+            "chunk_000006",
+            "chunk_000008",
+            "chunk_000009",
+            "chunk_000010",
+            "chunk_000011",
+            "chunk_000013",
+            "chunk_000017",
+            "chunk_000018",
+            "chunk_000020",
+            "chunk_000022",
+            "chunk_000023",
+            "chunk_000025",
+            "chunk_000026",
+            "chunk_000028",
+            "chunk_000029",
+            "chunk_000030",
+            "chunk_000031",
+            "chunk_000033"
+          ],
+          "mentions": 44
+        },
+        "doc_0008": {
+          "chunk_ids": [
+            "chunk_000364",
+            "chunk_000366",
+            "chunk_000369"
+          ],
+          "mentions": 5
+        }
+      }
+    },
+    "Definition of Workflow": {
+      "type": "artifact",
+      "total_chunks": 4,
+      "documents": {
+        "doc_0006": {
+          "chunk_ids": [
+            "chunk_000348",
+            "chunk_000349",
+            "chunk_000350",
+            "chunk_000351"
+          ],
+          "mentions": 14
+        }
+      }
+    },
+    "DevOps": {
+      "type": "methodology",
+      "total_chunks": 6,
+      "documents": {
+        "doc_0001": {
+          "chunk_ids": [
+            "chunk_000001",
+            "chunk_000025",
+            "chunk_000032",
+            "chunk_000034"
+          ],
+          "mentions": 4
+        },
+        "doc_0003": {
+          "chunk_ids": [
+            "chunk_000078",
+            "chunk_000082"
+          ],
+          "mentions": 2
+        }
+      }
+    },
+    "Developers": {
+      "type": "role",
+      "total_chunks": 41,
+      "documents": {
+        "doc_0001": {
+          "chunk_ids": [
+            "chunk_000004",
+            "chunk_000005",
+            "chunk_000006",
+            "chunk_000008",
+            "chunk_000009",
+            "chunk_000013",
+            "chunk_000014",
+            "chunk_000015",
+            "chunk_000017",
+            "chunk_000018",
+            "chunk_000020",
+            "chunk_000022",
+            "chunk_000023",
+            "chunk_000029",
+            "chunk_000031"
+          ],
+          "mentions": 34
+        },
+        "doc_0003": {
+          "chunk_ids": [
+            "chunk_000050",
+            "chunk_000058",
+            "chunk_000059",
+            "chunk_000076"
+          ],
+          "mentions": 7
+        },
+        "doc_0004": {
+          "chunk_ids": [
+            "chunk_000121",
+            "chunk_000123",
+            "chunk_000128",
+            "chunk_000129",
+            "chunk_000130",
+            "chunk_000132"
+          ],
+          "mentions": 8
+        },
+        "doc_0008": {
+          "chunk_ids": [
+            "chunk_000358",
+            "chunk_000359",
+            "chunk_000360",
+            "chunk_000361",
+            "chunk_000362",
+            "chunk_000363",
+            "chunk_000364",
+            "chunk_000365",
+            "chunk_000366",
+            "chunk_000369",
+            "chunk_000371",
+            "chunk_000372",
+            "chunk_000373",
+            "chunk_000375",
+            "chunk_000376"
+          ],
+          "mentions": 36
+        },
+        "doc_0009": {
+          "chunk_ids": [
+            "chunk_000388"
+          ],
+          "mentions": 2
+        }
+      }
+    },
+    "Empiricism": {
+      "type": "concept",
+      "total_chunks": 1,
+      "documents": {
+        "doc_0003": {
+          "chunk_ids": [
+            "chunk_000116"
+          ],
+          "mentions": 1
+        }
+      }
+    },
+    "Estimation": {
+      "type": "practice",
+      "total_chunks": 35,
+      "documents": {
+        "doc_0001": {
+          "chunk_ids": [
+            "chunk_000002",
+            "chunk_000013",
+            "chunk_000015",
+            "chunk_000016"
+          ],
+          "mentions": 4
+        },
+        "doc_0002": {
+          "chunk_ids": [
+            "chunk_000042",
+            "chunk_000044"
+          ],
+          "mentions": 2
+        },
+        "doc_0003": {
+          "chunk_ids": [
+            "chunk_000071",
+            "chunk_000072",
+            "chunk_000074"
+          ],
+          "mentions": 3
+        },
+        "doc_0005": {
+          "chunk_ids": [
+            "chunk_000151",
+            "chunk_000209",
+            "chunk_000215",
+            "chunk_000223",
+            "chunk_000237",
+            "chunk_000241",
+            "chunk_000242",
+            "chunk_000243",
+            "chunk_000244",
+            "chunk_000245",
+            "chunk_000248",
+            "chunk_000251",
+            "chunk_000330",
+            "chunk_000332",
+            "chunk_000333",
+            "chunk_000334",
+            "chunk_000338",
+            "chunk_000342"
+          ],
+          "mentions": 32
+        },
+        "doc_0008": {
+          "chunk_ids": [
+            "chunk_000362",
+            "chunk_000363",
+            "chunk_000364",
+            "chunk_000369",
+            "chunk_000370",
+            "chunk_000376",
+            "chunk_000377"
+          ],
+          "mentions": 10
+        },
+        "doc_0009": {
+          "chunk_ids": [
+            "chunk_000387"
+          ],
+          "mentions": 1
+        }
+      }
+    },
+    "Extreme Programming": {
+      "type": "methodology",
+      "total_chunks": 23,
+      "documents": {
+        "doc_0001": {
+          "chunk_ids": [
+            "chunk_000001",
+            "chunk_000004",
+            "chunk_000032"
+          ],
+          "mentions": 3
+        },
+        "doc_0002": {
+          "chunk_ids": [
+            "chunk_000036",
+            "chunk_000037",
+            "chunk_000038",
+            "chunk_000039",
+            "chunk_000041",
+            "chunk_000042",
+            "chunk_000043",
+            "chunk_000044",
+            "chunk_000045"
+          ],
+          "mentions": 93
+        },
+        "doc_0003": {
+          "chunk_ids": [
+            "chunk_000047",
+            "chunk_000052",
+            "chunk_000061",
+            "chunk_000062",
+            "chunk_000084",
+            "chunk_000100"
+          ],
+          "mentions": 28
+        },
+        "doc_0004": {
+          "chunk_ids": [
+            "chunk_000119",
+            "chunk_000121",
+            "chunk_000130",
+            "chunk_000131",
+            "chunk_000132"
+          ],
+          "mentions": 23
+        }
+      }
+    },
+    "Feature-Driven Development": {
+      "type": "methodology",
+      "total_chunks": 1,
+      "documents": {
+        "doc_0003": {
+          "chunk_ids": [
+            "chunk_000047"
+          ],
+          "mentions": 2
+        }
+      }
+    },
+    "GitHub": {
+      "type": "tool",
+      "total_chunks": 6,
+      "documents": {
+        "doc_0001": {
+          "chunk_ids": [
+            "chunk_000016",
+            "chunk_000020",
+            "chunk_000025",
+            "chunk_000026",
+            "chunk_000034"
+          ],
+          "mentions": 9
+        },
+        "doc_0003": {
+          "chunk_ids": [
+            "chunk_000090"
+          ],
+          "mentions": 1
+        }
+      }
+    },
+    "Hybrid": {
+      "type": "methodology",
+      "total_chunks": 7,
+      "documents": {
+        "doc_0001": {
+          "chunk_ids": [
+            "chunk_000032"
+          ],
+          "mentions": 1
+        },
+        "doc_0003": {
+          "chunk_ids": [
+            "chunk_000085"
+          ],
+          "mentions": 2
+        },
+        "doc_0004": {
+          "chunk_ids": [
+            "chunk_000119",
+            "chunk_000121",
+            "chunk_000126",
+            "chunk_000127",
+            "chunk_000132"
+          ],
+          "mentions": 12
+        }
+      }
+    },
+    "Increment": {
+      "type": "artifact",
+      "total_chunks": 21,
+      "documents": {
+        "doc_0001": {
+          "chunk_ids": [
+            "chunk_000001",
+            "chunk_000002",
+            "chunk_000003",
+            "chunk_000004",
+            "chunk_000005",
+            "chunk_000006",
+            "chunk_000008",
+            "chunk_000010",
+            "chunk_000023",
+            "chunk_000025",
+            "chunk_000029",
+            "chunk_000031",
+            "chunk_000033"
+          ],
+          "mentions": 21
+        },
+        "doc_0003": {
+          "chunk_ids": [
+            "chunk_000058",
+            "chunk_000059",
+            "chunk_000060",
+            "chunk_000076"
+          ],
+          "mentions": 5
+        },
+        "doc_0008": {
+          "chunk_ids": [
+            "chunk_000362",
+            "chunk_000365",
+            "chunk_000366",
+            "chunk_000372"
+          ],
+          "mentions": 10
+        }
+      }
+    },
+    "Jeff Sutherland": {
+      "type": "person",
+      "total_chunks": 5,
+      "documents": {
+        "doc_0001": {
+          "chunk_ids": [
+            "chunk_000001",
+            "chunk_000002",
+            "chunk_000034"
+          ],
+          "mentions": 3
+        },
+        "doc_0004": {
+          "chunk_ids": [
+            "chunk_000121"
+          ],
+          "mentions": 1
+        },
+        "doc_0008": {
+          "chunk_ids": [
+            "chunk_000355"
+          ],
+          "mentions": 1
+        }
+      }
+    },
+    "Jira": {
+      "type": "tool",
+      "total_chunks": 14,
+      "documents": {
+        "doc_0001": {
+          "chunk_ids": [
+            "chunk_000025",
+            "chunk_000026",
+            "chunk_000034"
+          ],
+          "mentions": 3
+        },
+        "doc_0003": {
+          "chunk_ids": [
+            "chunk_000082",
+            "chunk_000088",
+            "chunk_000089",
+            "chunk_000090"
+          ],
+          "mentions": 15
+        },
+        "doc_0005": {
+          "chunk_ids": [
+            "chunk_000171",
+            "chunk_000230",
+            "chunk_000301",
+            "chunk_000328"
+          ],
+          "mentions": 4
+        },
+        "doc_0008": {
+          "chunk_ids": [
+            "chunk_000359",
+            "chunk_000363",
+            "chunk_000365"
+          ],
+          "mentions": 3
+        }
+      }
+    },
+    "Kaizen": {
+      "type": "practice",
+      "total_chunks": 2,
+      "documents": {
+        "doc_0003": {
+          "chunk_ids": [
+            "chunk_000052",
+            "chunk_000080"
+          ],
+          "mentions": 3
+        }
+      }
+    },
+    "Kanban": {
+      "type": "methodology",
+      "total_chunks": 35,
+      "documents": {
+        "doc_0001": {
+          "chunk_ids": [
+            "chunk_000001",
+            "chunk_000003",
+            "chunk_000004",
+            "chunk_000016",
+            "chunk_000018",
+            "chunk_000030",
+            "chunk_000031",
+            "chunk_000032"
+          ],
+          "mentions": 8
+        },
+        "doc_0003": {
+          "chunk_ids": [
+            "chunk_000052",
+            "chunk_000057",
+            "chunk_000071",
+            "chunk_000080",
+            "chunk_000081",
+            "chunk_000082",
+            "chunk_000083",
+            "chunk_000084",
+            "chunk_000085"
+          ],
+          "mentions": 18
+        },
+        "doc_0004": {
+          "chunk_ids": [
+            "chunk_000119",
+            "chunk_000121",
+            "chunk_000124",
+            "chunk_000125",
+            "chunk_000126",
+            "chunk_000128"
+          ],
+          "mentions": 20
+        },
+        "doc_0006": {
+          "chunk_ids": [
+            "chunk_000343",
+            "chunk_000344",
+            "chunk_000345",
+            "chunk_000346",
+            "chunk_000347",
+            "chunk_000348",
+            "chunk_000349",
+            "chunk_000350",
+            "chunk_000351",
+            "chunk_000352",
+            "chunk_000353",
+            "chunk_000354"
+          ],
+          "mentions": 61
+        }
+      }
+    },
+    "Kanban Board": {
+      "type": "artifact",
+      "total_chunks": 5,
+      "documents": {
+        "doc_0001": {
+          "chunk_ids": [
+            "chunk_000016"
+          ],
+          "mentions": 1
+        },
+        "doc_0004": {
+          "chunk_ids": [
+            "chunk_000124",
+            "chunk_000125"
+          ],
+          "mentions": 2
+        },
+        "doc_0006": {
+          "chunk_ids": [
+            "chunk_000348",
+            "chunk_000349"
+          ],
+          "mentions": 4
+        }
+      }
+    },
+    "Ken Schwaber": {
+      "type": "person",
+      "total_chunks": 3,
+      "documents": {
+        "doc_0001": {
+          "chunk_ids": [
+            "chunk_000001"
+          ],
+          "mentions": 1
+        },
+        "doc_0004": {
+          "chunk_ids": [
+            "chunk_000121"
+          ],
+          "mentions": 1
+        },
+        "doc_0008": {
+          "chunk_ids": [
+            "chunk_000355"
+          ],
+          "mentions": 1
+        }
+      }
+    },
+    "Kent Beck": {
+      "type": "person",
+      "total_chunks": 2,
+      "documents": {
+        "doc_0003": {
+          "chunk_ids": [
+            "chunk_000061"
+          ],
+          "mentions": 1
+        },
+        "doc_0004": {
+          "chunk_ids": [
+            "chunk_000130"
+          ],
+          "mentions": 1
+        }
+      }
+    },
+    "LeSS": {
+      "type": "methodology",
+      "total_chunks": 2,
+      "documents": {
+        "doc_0001": {
+          "chunk_ids": [
+            "chunk_000030"
+          ],
+          "mentions": 1
+        },
+        "doc_0003": {
+          "chunk_ids": [
+            "chunk_000085"
+          ],
+          "mentions": 2
+        }
+      }
+    },
+    "Lead Time": {
+      "type": "metric",
+      "total_chunks": 1,
+      "documents": {
+        "doc_0001": {
+          "chunk_ids": [
+            "chunk_000018"
+          ],
+          "mentions": 1
+        }
+      }
+    },
+    "Lean Software Development": {
+      "type": "methodology",
+      "total_chunks": 13,
+      "documents": {
+        "doc_0003": {
+          "chunk_ids": [
+            "chunk_000048",
+            "chunk_000049",
+            "chunk_000050",
+            "chunk_000051",
+            "chunk_000052",
+            "chunk_000054",
+            "chunk_000055",
+            "chunk_000080",
+            "chunk_000081"
+          ],
+          "mentions": 61
+        },
+        "doc_0004": {
+          "chunk_ids": [
+            "chunk_000128",
+            "chunk_000129",
+            "chunk_000131"
+          ],
+          "mentions": 5
+        },
+        "doc_0006": {
+          "chunk_ids": [
+            "chunk_000347"
+          ],
+          "mentions": 1
+        }
+      }
+    },
+    "Microsoft Project": {
+      "type": "tool",
+      "total_chunks": 3,
+      "documents": {
+        "doc_0001": {
+          "chunk_ids": [
+            "chunk_000025",
+            "chunk_000034"
+          ],
+          "mentions": 2
+        },
+        "doc_0005": {
+          "chunk_ids": [
+            "chunk_000171"
+          ],
+          "mentions": 1
+        }
+      }
+    },
+    "Nexus": {
+      "type": "methodology",
+      "total_chunks": 1,
+      "documents": {
+        "doc_0001": {
+          "chunk_ids": [
+            "chunk_000030"
+          ],
+          "mentions": 1
+        }
+      }
+    },
+    "Pair Programming": {
+      "type": "practice",
+      "total_chunks": 8,
+      "documents": {
+        "doc_0002": {
+          "chunk_ids": [
+            "chunk_000038",
+            "chunk_000040"
+          ],
+          "mentions": 3
+        },
+        "doc_0003": {
+          "chunk_ids": [
+            "chunk_000056",
+            "chunk_000061",
+            "chunk_000062",
+            "chunk_000084"
+          ],
+          "mentions": 7
+        },
+        "doc_0004": {
+          "chunk_ids": [
+            "chunk_000130",
+            "chunk_000131"
+          ],
+          "mentions": 3
+        }
+      }
+    },
+    "Planning Poker": {
+      "type": "practice",
+      "total_chunks": 2,
+      "documents": {
+        "doc_0008": {
+          "chunk_ids": [
+            "chunk_000370",
+            "chunk_000377"
+          ],
+          "mentions": 2
+        }
+      }
+    },
+    "Product Backlog": {
+      "type": "artifact",
+      "total_chunks": 33,
+      "documents": {
+        "doc_0001": {
+          "chunk_ids": [
+            "chunk_000002",
+            "chunk_000004",
+            "chunk_000005",
+            "chunk_000006",
+            "chunk_000008",
+            "chunk_000009",
+            "chunk_000010",
+            "chunk_000015",
+            "chunk_000017",
+            "chunk_000023",
+            "chunk_000025",
+            "chunk_000029",
+            "chunk_000031"
+          ],
+          "mentions": 23
+        },
+        "doc_0003": {
+          "chunk_ids": [
+            "chunk_000058",
+            "chunk_000059",
+            "chunk_000076",
+            "chunk_000077",
+            "chunk_000087"
+          ],
+          "mentions": 9
+        },
+        "doc_0004": {
+          "chunk_ids": [
+            "chunk_000122",
+            "chunk_000132"
+          ],
+          "mentions": 3
+        },
+        "doc_0008": {
+          "chunk_ids": [
+            "chunk_000359",
+            "chunk_000360",
+            "chunk_000362",
+            "chunk_000363",
+            "chunk_000364",
+            "chunk_000365",
+            "chunk_000367",
+            "chunk_000368",
+            "chunk_000369",
+            "chunk_000372",
+            "chunk_000373",
+            "chunk_000376",
+            "chunk_000377"
+          ],
+          "mentions": 53
+        }
+      }
+    },
+    "Product Owner": {
+      "type": "role",
+      "total_chunks": 41,
+      "documents": {
+        "doc_0001": {
+          "chunk_ids": [
+            "chunk_000005",
+            "chunk_000006",
+            "chunk_000007",
+            "chunk_000008",
+            "chunk_000009",
+            "chunk_000011",
+            "chunk_000014",
+            "chunk_000015",
+            "chunk_000018",
+            "chunk_000020",
+            "chunk_000021",
+            "chunk_000022",
+            "chunk_000023",
+            "chunk_000024",
+            "chunk_000026",
+            "chunk_000028",
+            "chunk_000029",
+            "chunk_000030",
+            "chunk_000031",
+            "chunk_000033"
+          ],
+          "mentions": 64
+        },
+        "doc_0003": {
+          "chunk_ids": [
+            "chunk_000058",
+            "chunk_000059",
+            "chunk_000060"
+          ],
+          "mentions": 8
+        },
+        "doc_0004": {
+          "chunk_ids": [
+            "chunk_000121",
+            "chunk_000123"
+          ],
+          "mentions": 4
+        },
+        "doc_0008": {
+          "chunk_ids": [
+            "chunk_000358",
+            "chunk_000360",
+            "chunk_000361",
+            "chunk_000362",
+            "chunk_000363",
+            "chunk_000364",
+            "chunk_000365",
+            "chunk_000366",
+            "chunk_000369",
+            "chunk_000370",
+            "chunk_000371",
+            "chunk_000372",
+            "chunk_000373",
+            "chunk_000375",
+            "chunk_000376",
+            "chunk_000377"
+          ],
+          "mentions": 43
+        }
+      }
+    },
+    "Program Manager": {
+      "type": "role",
+      "total_chunks": 8,
+      "documents": {
+        "doc_0005": {
+          "chunk_ids": [
+            "chunk_000138",
+            "chunk_000168",
+            "chunk_000170",
+            "chunk_000171",
+            "chunk_000177",
+            "chunk_000178",
+            "chunk_000263",
+            "chunk_000264"
+          ],
+          "mentions": 12
+        }
+      }
+    },
+    "Project Charter": {
+      "type": "artifact",
+      "total_chunks": 1,
+      "documents": {
+        "doc_0005": {
+          "chunk_ids": [
+            "chunk_000213"
+          ],
+          "mentions": 1
+        }
+      }
+    },
+    "Project Manager": {
+      "type": "role",
+      "total_chunks": 8,
+      "documents": {
+        "doc_0001": {
+          "chunk_ids": [
+            "chunk_000016"
+          ],
+          "mentions": 1
+        },
+        "doc_0005": {
+          "chunk_ids": [
+            "chunk_000138",
+            "chunk_000168",
+            "chunk_000171",
+            "chunk_000173",
+            "chunk_000177",
+            "chunk_000263",
+            "chunk_000264"
+          ],
+          "mentions": 10
+        }
+      }
+    },
+    "Project Sponsor": {
+      "type": "role",
+      "total_chunks": 11,
+      "documents": {
+        "doc_0001": {
+          "chunk_ids": [
+            "chunk_000007",
+            "chunk_000009",
+            "chunk_000011",
+            "chunk_000014",
+            "chunk_000020",
+            "chunk_000021",
+            "chunk_000029"
+          ],
+          "mentions": 12
+        },
+        "doc_0005": {
+          "chunk_ids": [
+            "chunk_000168",
+            "chunk_000169",
+            "chunk_000178",
+            "chunk_000264"
+          ],
+          "mentions": 6
+        }
+      }
+    },
+    "Rapid Application Development": {
+      "type": "methodology",
+      "total_chunks": 1,
+      "documents": {
+        "doc_0003": {
+          "chunk_ids": [
+            "chunk_000047"
+          ],
+          "mentions": 2
+        }
+      }
+    },
+    "Refactoring": {
+      "type": "practice",
+      "total_chunks": 7,
+      "documents": {
+        "doc_0002": {
+          "chunk_ids": [
+            "chunk_000036",
+            "chunk_000038"
+          ],
+          "mentions": 3
+        },
+        "doc_0003": {
+          "chunk_ids": [
+            "chunk_000100"
+          ],
+          "mentions": 1
+        },
+        "doc_0004": {
+          "chunk_ids": [
+            "chunk_000130",
+            "chunk_000131"
+          ],
+          "mentions": 4
+        },
+        "doc_0005": {
+          "chunk_ids": [
+            "chunk_000146",
+            "chunk_000220"
+          ],
+          "mentions": 3
+        }
+      }
+    },
+    "Risk Management": {
+      "type": "practice",
+      "total_chunks": 8,
+      "documents": {
+        "doc_0001": {
+          "chunk_ids": [
+            "chunk_000002",
+            "chunk_000021",
+            "chunk_000033"
+          ],
+          "mentions": 4
+        },
+        "doc_0003": {
+          "chunk_ids": [
+            "chunk_000086",
+            "chunk_000087",
+            "chunk_000088"
+          ],
+          "mentions": 20
+        },
+        "doc_0005": {
+          "chunk_ids": [
+            "chunk_000139",
+            "chunk_000326"
+          ],
+          "mentions": 2
+        }
+      }
+    },
+    "Roadmap": {
+      "type": "artifact",
+      "total_chunks": 11,
+      "documents": {
+        "doc_0001": {
+          "chunk_ids": [
+            "chunk_000012"
+          ],
+          "mentions": 1
+        },
+        "doc_0003": {
+          "chunk_ids": [
+            "chunk_000073",
+            "chunk_000089",
+            "chunk_000090"
+          ],
+          "mentions": 3
+        },
+        "doc_0004": {
+          "chunk_ids": [
+            "chunk_000117",
+            "chunk_000129",
+            "chunk_000130"
+          ],
+          "mentions": 3
+        },
+        "doc_0005": {
+          "chunk_ids": [
+            "chunk_000160",
+            "chunk_000161",
+            "chunk_000279",
+            "chunk_000340"
+          ],
+          "mentions": 9
+        }
+      }
+    },
+    "SAFe": {
+      "type": "methodology",
+      "total_chunks": 4,
+      "documents": {
+        "doc_0001": {
+          "chunk_ids": [
+            "chunk_000030"
+          ],
+          "mentions": 1
+        },
+        "doc_0003": {
+          "chunk_ids": [
+            "chunk_000078",
+            "chunk_000083",
+            "chunk_000085"
+          ],
+          "mentions": 4
+        }
+      }
+    },
+    "Scope Creep": {
+      "type": "concept",
+      "total_chunks": 5,
+      "documents": {
+        "doc_0005": {
+          "chunk_ids": [
+            "chunk_000290",
+            "chunk_000291",
+            "chunk_000292",
+            "chunk_000293",
+            "chunk_000341"
+          ],
+          "mentions": 11
+        }
+      }
+    },
+    "Scrum": {
+      "type": "methodology",
+      "total_chunks": 75,
+      "documents": {
+        "doc_0001": {
+          "chunk_ids": [
+            "chunk_000001",
+            "chunk_000002",
+            "chunk_000003",
+            "chunk_000004",
+            "chunk_000005",
+            "chunk_000006",
+            "chunk_000008",
+            "chunk_000009",
+            "chunk_000011",
+            "chunk_000012",
+            "chunk_000013",
+            "chunk_000014",
+            "chunk_000018",
+            "chunk_000020",
+            "chunk_000021",
+            "chunk_000023",
+            "chunk_000024",
+            "chunk_000025",
+            "chunk_000029",
+            "chunk_000030",
+            "chunk_000031",
+            "chunk_000032",
+            "chunk_000033",
+            "chunk_000034"
+          ],
+          "mentions": 95
+        },
+        "doc_0003": {
+          "chunk_ids": [
+            "chunk_000047",
+            "chunk_000052",
+            "chunk_000057",
+            "chunk_000058",
+            "chunk_000059",
+            "chunk_000060",
+            "chunk_000064",
+            "chunk_000065",
+            "chunk_000073",
+            "chunk_000076",
+            "chunk_000080",
+            "chunk_000081",
+            "chunk_000082",
+            "chunk_000083",
+            "chunk_000084",
+            "chunk_000085",
+            "chunk_000089"
+          ],
+          "mentions": 55
+        },
+        "doc_0004": {
+          "chunk_ids": [
+            "chunk_000119",
+            "chunk_000120",
+            "chunk_000121",
+            "chunk_000122",
+            "chunk_000123",
+            "chunk_000124",
+            "chunk_000125",
+            "chunk_000132"
+          ],
+          "mentions": 34
+        },
+        "doc_0005": {
+          "chunk_ids": [
+            "chunk_000137",
+            "chunk_000150",
+            "chunk_000151",
+            "chunk_000233",
+            "chunk_000274"
+          ],
+          "mentions": 5
+        },
+        "doc_0008": {
+          "chunk_ids": [
+            "chunk_000355",
+            "chunk_000356",
+            "chunk_000357",
+            "chunk_000358",
+            "chunk_000359",
+            "chunk_000360",
+            "chunk_000361",
+            "chunk_000362",
+            "chunk_000363",
+            "chunk_000364",
+            "chunk_000365",
+            "chunk_000366",
+            "chunk_000367",
+            "chunk_000368",
+            "chunk_000369",
+            "chunk_000371",
+            "chunk_000372",
+            "chunk_000373",
+            "chunk_000374",
+            "chunk_000375",
+            "chunk_000376"
+          ],
+          "mentions": 103
+        }
+      }
+    },
+    "Scrum Master": {
+      "type": "role",
+      "total_chunks": 24,
+      "documents": {
+        "doc_0001": {
+          "chunk_ids": [
+            "chunk_000005",
+            "chunk_000006",
+            "chunk_000008",
+            "chunk_000011",
+            "chunk_000014",
+            "chunk_000020",
+            "chunk_000024",
+            "chunk_000033"
+          ],
+          "mentions": 11
+        },
+        "doc_0003": {
+          "chunk_ids": [
+            "chunk_000058",
+            "chunk_000060"
+          ],
+          "mentions": 3
+        },
+        "doc_0004": {
+          "chunk_ids": [
+            "chunk_000121",
+            "chunk_000122",
+            "chunk_000123"
+          ],
+          "mentions": 5
+        },
+        "doc_0008": {
+          "chunk_ids": [
+            "chunk_000358",
+            "chunk_000359",
+            "chunk_000360",
+            "chunk_000361",
+            "chunk_000362",
+            "chunk_000364",
+            "chunk_000369",
+            "chunk_000371",
+            "chunk_000372",
+            "chunk_000375",
+            "chunk_000376"
+          ],
+          "mentions": 26
+        }
+      }
+    },
+    "Scrum Team": {
+      "type": "role",
+      "total_chunks": 13,
+      "documents": {
+        "doc_0001": {
+          "chunk_ids": [
+            "chunk_000005",
+            "chunk_000006",
+            "chunk_000008",
+            "chunk_000023",
+            "chunk_000029",
+            "chunk_000031"
+          ],
+          "mentions": 10
+        },
+        "doc_0003": {
+          "chunk_ids": [
+            "chunk_000073"
+          ],
+          "mentions": 1
+        },
+        "doc_0004": {
+          "chunk_ids": [
+            "chunk_000121"
+          ],
+          "mentions": 1
+        },
+        "doc_0008": {
+          "chunk_ids": [
+            "chunk_000358",
+            "chunk_000362",
+            "chunk_000367",
+            "chunk_000368",
+            "chunk_000369"
+          ],
+          "mentions": 9
+        }
+      }
+    },
+    "Scrumban": {
+      "type": "methodology",
+      "total_chunks": 3,
+      "documents": {
+        "doc_0001": {
+          "chunk_ids": [
+            "chunk_000030",
+            "chunk_000032"
+          ],
+          "mentions": 2
+        },
+        "doc_0004": {
+          "chunk_ids": [
+            "chunk_000125"
+          ],
+          "mentions": 1
+        }
+      }
+    },
+    "Self-organization": {
+      "type": "concept",
+      "total_chunks": 7,
+      "documents": {
+        "doc_0001": {
+          "chunk_ids": [
+            "chunk_000002"
+          ],
+          "mentions": 1
+        },
+        "doc_0003": {
+          "chunk_ids": [
+            "chunk_000056",
+            "chunk_000058",
+            "chunk_000060",
+            "chunk_000098"
+          ],
+          "mentions": 4
+        },
+        "doc_0004": {
+          "chunk_ids": [
+            "chunk_000121"
+          ],
+          "mentions": 1
+        },
+        "doc_0008": {
+          "chunk_ids": [
+            "chunk_000361"
+          ],
+          "mentions": 2
+        }
+      }
+    },
+    "Simphony.NET": {
+      "type": "tool",
+      "total_chunks": 1,
+      "documents": {
+        "doc_0009": {
+          "chunk_ids": [
+            "chunk_000379"
+          ],
+          "mentions": 1
+        }
+      }
+    },
+    "Software Design Document": {
+      "type": "artifact",
+      "total_chunks": 1,
+      "documents": {
+        "doc_0009": {
+          "chunk_ids": [
+            "chunk_000381"
+          ],
+          "mentions": 4
+        }
+      }
+    },
+    "Software Development Life Cycle": {
+      "type": "concept",
+      "total_chunks": 9,
+      "documents": {
+        "doc_0003": {
+          "chunk_ids": [
+            "chunk_000091",
+            "chunk_000092",
+            "chunk_000093",
+            "chunk_000095",
+            "chunk_000097"
+          ],
+          "mentions": 13
+        },
+        "doc_0005": {
+          "chunk_ids": [
+            "chunk_000153"
+          ],
+          "mentions": 3
+        },
+        "doc_0009": {
+          "chunk_ids": [
+            "chunk_000378",
+            "chunk_000379",
+            "chunk_000382"
+          ],
+          "mentions": 6
+        }
+      }
+    },
+    "Software Requirement Specification": {
+      "type": "artifact",
+      "total_chunks": 2,
+      "documents": {
+        "doc_0009": {
+          "chunk_ids": [
+            "chunk_000381",
+            "chunk_000382"
+          ],
+          "mentions": 4
+        }
+      }
+    },
+    "Sprint": {
+      "type": "event",
+      "total_chunks": 58,
+      "documents": {
+        "doc_0001": {
+          "chunk_ids": [
+            "chunk_000001",
+            "chunk_000002",
+            "chunk_000003",
+            "chunk_000004",
+            "chunk_000005",
+            "chunk_000006",
+            "chunk_000008",
+            "chunk_000009",
+            "chunk_000010",
+            "chunk_000011",
+            "chunk_000012",
+            "chunk_000013",
+            "chunk_000014",
+            "chunk_000015",
+            "chunk_000016",
+            "chunk_000018",
+            "chunk_000019",
+            "chunk_000020",
+            "chunk_000021",
+            "chunk_000022",
+            "chunk_000023",
+            "chunk_000024",
+            "chunk_000025",
+            "chunk_000026",
+            "chunk_000028",
+            "chunk_000029",
+            "chunk_000030",
+            "chunk_000031",
+            "chunk_000033"
+          ],
+          "mentions": 158
+        },
+        "doc_0003": {
+          "chunk_ids": [
+            "chunk_000058",
+            "chunk_000059",
+            "chunk_000064",
+            "chunk_000066",
+            "chunk_000076",
+            "chunk_000084",
+            "chunk_000089"
+          ],
+          "mentions": 25
+        },
+        "doc_0004": {
+          "chunk_ids": [
+            "chunk_000119",
+            "chunk_000121",
+            "chunk_000122",
+            "chunk_000123"
+          ],
+          "mentions": 38
+        },
+        "doc_0008": {
+          "chunk_ids": [
+            "chunk_000359",
+            "chunk_000361",
+            "chunk_000362",
+            "chunk_000363",
+            "chunk_000364",
+            "chunk_000365",
+            "chunk_000366",
+            "chunk_000367",
+            "chunk_000368",
+            "chunk_000369",
+            "chunk_000370",
+            "chunk_000371",
+            "chunk_000372",
+            "chunk_000373",
+            "chunk_000374",
+            "chunk_000375",
+            "chunk_000376",
+            "chunk_000377"
+          ],
+          "mentions": 156
+        }
+      }
+    },
+    "Sprint Backlog": {
+      "type": "artifact",
+      "total_chunks": 19,
+      "documents": {
+        "doc_0001": {
+          "chunk_ids": [
+            "chunk_000004",
+            "chunk_000005",
+            "chunk_000006",
+            "chunk_000008",
+            "chunk_000012",
+            "chunk_000018",
+            "chunk_000020",
+            "chunk_000023",
+            "chunk_000025",
+            "chunk_000029"
+          ],
+          "mentions": 16
+        },
+        "doc_0003": {
+          "chunk_ids": [
+            "chunk_000058",
+            "chunk_000059",
+            "chunk_000076"
+          ],
+          "mentions": 5
+        },
+        "doc_0004": {
+          "chunk_ids": [
+            "chunk_000122"
+          ],
+          "mentions": 2
+        },
+        "doc_0008": {
+          "chunk_ids": [
+            "chunk_000362",
+            "chunk_000364",
+            "chunk_000365",
+            "chunk_000369",
+            "chunk_000376"
+          ],
+          "mentions": 18
+        }
+      }
+    },
+    "Sprint Goal": {
+      "type": "artifact",
+      "total_chunks": 19,
+      "documents": {
+        "doc_0001": {
+          "chunk_ids": [
+            "chunk_000002",
+            "chunk_000004",
+            "chunk_000005",
+            "chunk_000006",
+            "chunk_000008",
+            "chunk_000009",
+            "chunk_000010",
+            "chunk_000012",
+            "chunk_000018",
+            "chunk_000019",
+            "chunk_000020",
+            "chunk_000021",
+            "chunk_000023",
+            "chunk_000025",
+            "chunk_000029",
+            "chunk_000031",
+            "chunk_000033"
+          ],
+          "mentions": 26
+        },
+        "doc_0003": {
+          "chunk_ids": [
+            "chunk_000076"
+          ],
+          "mentions": 1
+        },
+        "doc_0008": {
+          "chunk_ids": [
+            "chunk_000369"
+          ],
+          "mentions": 2
+        }
+      }
+    },
+    "Sprint Planning": {
+      "type": "event",
+      "total_chunks": 21,
+      "documents": {
+        "doc_0001": {
+          "chunk_ids": [
+            "chunk_000005",
+            "chunk_000008",
+            "chunk_000009",
+            "chunk_000010",
+            "chunk_000012",
+            "chunk_000013",
+            "chunk_000015",
+            "chunk_000018",
+            "chunk_000023",
+            "chunk_000029"
+          ],
+          "mentions": 11
+        },
+        "doc_0003": {
+          "chunk_ids": [
+            "chunk_000059"
+          ],
+          "mentions": 2
+        },
+        "doc_0004": {
+          "chunk_ids": [
+            "chunk_000122",
+            "chunk_000123"
+          ],
+          "mentions": 7
+        },
+        "doc_0008": {
+          "chunk_ids": [
+            "chunk_000359",
+            "chunk_000364",
+            "chunk_000367",
+            "chunk_000368",
+            "chunk_000369",
+            "chunk_000370",
+            "chunk_000374",
+            "chunk_000377"
+          ],
+          "mentions": 12
+        }
+      }
+    },
+    "Sprint Retrospective": {
+      "type": "event",
+      "total_chunks": 17,
+      "documents": {
+        "doc_0001": {
+          "chunk_ids": [
+            "chunk_000005",
+            "chunk_000008",
+            "chunk_000009",
+            "chunk_000021",
+            "chunk_000022",
+            "chunk_000023",
+            "chunk_000024",
+            "chunk_000029",
+            "chunk_000031"
+          ],
+          "mentions": 14
+        },
+        "doc_0003": {
+          "chunk_ids": [
+            "chunk_000059"
+          ],
+          "mentions": 6
+        },
+        "doc_0004": {
+          "chunk_ids": [
+            "chunk_000122",
+            "chunk_000123"
+          ],
+          "mentions": 5
+        },
+        "doc_0008": {
+          "chunk_ids": [
+            "chunk_000359",
+            "chunk_000367",
+            "chunk_000374",
+            "chunk_000375",
+            "chunk_000376"
+          ],
+          "mentions": 18
+        }
+      }
+    },
+    "Sprint Review": {
+      "type": "event",
+      "total_chunks": 17,
+      "documents": {
+        "doc_0001": {
+          "chunk_ids": [
+            "chunk_000002",
+            "chunk_000005",
+            "chunk_000008",
+            "chunk_000009",
+            "chunk_000010",
+            "chunk_000014",
+            "chunk_000021",
+            "chunk_000023",
+            "chunk_000024"
+          ],
+          "mentions": 11
+        },
+        "doc_0003": {
+          "chunk_ids": [
+            "chunk_000059"
+          ],
+          "mentions": 3
+        },
+        "doc_0004": {
+          "chunk_ids": [
+            "chunk_000123"
+          ],
+          "mentions": 2
+        },
+        "doc_0008": {
+          "chunk_ids": [
+            "chunk_000359",
+            "chunk_000365",
+            "chunk_000367",
+            "chunk_000372",
+            "chunk_000373",
+            "chunk_000374"
+          ],
+          "mentions": 14
+        }
+      }
+    },
+    "Stakeholder": {
+      "type": "role",
+      "total_chunks": 126,
+      "documents": {
+        "doc_0001": {
+          "chunk_ids": [
+            "chunk_000002",
+            "chunk_000005",
+            "chunk_000006",
+            "chunk_000008",
+            "chunk_000009",
+            "chunk_000011",
+            "chunk_000012",
+            "chunk_000014",
+            "chunk_000023",
+            "chunk_000024",
+            "chunk_000025",
+            "chunk_000029",
+            "chunk_000031",
+            "chunk_000033"
+          ],
+          "mentions": 24
+        },
+        "doc_0003": {
+          "chunk_ids": [
+            "chunk_000055",
+            "chunk_000056",
+            "chunk_000058",
+            "chunk_000059",
+            "chunk_000061",
+            "chunk_000062",
+            "chunk_000063",
+            "chunk_000064",
+            "chunk_000068",
+            "chunk_000069",
+            "chunk_000075",
+            "chunk_000078",
+            "chunk_000080",
+            "chunk_000082",
+            "chunk_000089",
+            "chunk_000098",
+            "chunk_000101",
+            "chunk_000104",
+            "chunk_000106",
+            "chunk_000110",
+            "chunk_000111",
+            "chunk_000113",
+            "chunk_000114",
+            "chunk_000115"
+          ],
+          "mentions": 44
+        },
+        "doc_0004": {
+          "chunk_ids": [
+            "chunk_000121",
+            "chunk_000124"
+          ],
+          "mentions": 2
+        },
+        "doc_0005": {
+          "chunk_ids": [
+            "chunk_000135",
+            "chunk_000138",
+            "chunk_000143",
+            "chunk_000147",
+            "chunk_000149",
+            "chunk_000150",
+            "chunk_000151",
+            "chunk_000158",
+            "chunk_000163",
+            "chunk_000164",
+            "chunk_000165",
+            "chunk_000167",
+            "chunk_000168",
+            "chunk_000169",
+            "chunk_000174",
+            "chunk_000178",
+            "chunk_000181",
+            "chunk_000188",
+            "chunk_000189",
+            "chunk_000191",
+            "chunk_000201",
+            "chunk_000202",
+            "chunk_000203",
+            "chunk_000204",
+            "chunk_000206",
+            "chunk_000207",
+            "chunk_000211",
+            "chunk_000213",
+            "chunk_000216",
+            "chunk_000228",
+            "chunk_000231",
+            "chunk_000232",
+            "chunk_000233",
+            "chunk_000234",
+            "chunk_000235",
+            "chunk_000246",
+            "chunk_000247",
+            "chunk_000253",
+            "chunk_000256",
+            "chunk_000257",
+            "chunk_000260",
+            "chunk_000263",
+            "chunk_000264",
+            "chunk_000267",
+            "chunk_000271",
+            "chunk_000272",
+            "chunk_000276",
+            "chunk_000279",
+            "chunk_000281",
+            "chunk_000283",
+            "chunk_000286",
+            "chunk_000287",
+            "chunk_000288",
+            "chunk_000289",
+            "chunk_000290",
+            "chunk_000291",
+            "chunk_000292",
+            "chunk_000293",
+            "chunk_000294",
+            "chunk_000295",
+            "chunk_000296",
+            "chunk_000300",
+            "chunk_000309",
+            "chunk_000310",
+            "chunk_000312",
+            "chunk_000317",
+            "chunk_000318",
+            "chunk_000328",
+            "chunk_000330",
+            "chunk_000331",
+            "chunk_000334",
+            "chunk_000338",
+            "chunk_000339",
+            "chunk_000340",
+            "chunk_000341"
+          ],
+          "mentions": 173
+        },
+        "doc_0008": {
+          "chunk_ids": [
+            "chunk_000358",
+            "chunk_000360",
+            "chunk_000362",
+            "chunk_000363",
+            "chunk_000364",
+            "chunk_000365",
+            "chunk_000366",
+            "chunk_000372",
+            "chunk_000373"
+          ],
+          "mentions": 21
+        },
+        "doc_0009": {
+          "chunk_ids": [
+            "chunk_000379",
+            "chunk_000385"
+          ],
+          "mentions": 2
+        }
+      }
+    },
+    "Stand-up Meeting": {
+      "type": "practice",
+      "total_chunks": 11,
+      "documents": {
+        "doc_0003": {
+          "chunk_ids": [
+            "chunk_000059",
+            "chunk_000064",
+            "chunk_000089",
+            "chunk_000115"
+          ],
+          "mentions": 5
+        },
+        "doc_0004": {
+          "chunk_ids": [
+            "chunk_000122",
+            "chunk_000123"
+          ],
+          "mentions": 2
+        },
+        "doc_0005": {
+          "chunk_ids": [
+            "chunk_000153",
+            "chunk_000274",
+            "chunk_000334",
+            "chunk_000339"
+          ],
+          "mentions": 6
+        },
+        "doc_0008": {
+          "chunk_ids": [
+            "chunk_000371"
+          ],
+          "mentions": 2
+        }
+      }
+    },
+    "Taiichi Ohno": {
+      "type": "person",
+      "total_chunks": 2,
+      "documents": {
+        "doc_0003": {
+          "chunk_ids": [
+            "chunk_000049"
+          ],
+          "mentions": 1
+        },
+        "doc_0006": {
+          "chunk_ids": [
+            "chunk_000353"
+          ],
+          "mentions": 1
+        }
+      }
+    },
+    "Technical Debt": {
+      "type": "concept",
+      "total_chunks": 2,
+      "documents": {
+        "doc_0001": {
+          "chunk_ids": [
+            "chunk_000028",
+            "chunk_000033"
+          ],
+          "mentions": 2
+        }
+      }
+    },
+    "Test-Driven Development": {
+      "type": "practice",
+      "total_chunks": 7,
+      "documents": {
+        "doc_0001": {
+          "chunk_ids": [
+            "chunk_000030"
+          ],
+          "mentions": 1
+        },
+        "doc_0003": {
+          "chunk_ids": [
+            "chunk_000051",
+            "chunk_000061",
+            "chunk_000084",
+            "chunk_000100"
+          ],
+          "mentions": 11
+        },
+        "doc_0004": {
+          "chunk_ids": [
+            "chunk_000130",
+            "chunk_000131"
+          ],
+          "mentions": 6
+        }
+      }
+    },
+    "Throughput": {
+      "type": "metric",
+      "total_chunks": 2,
+      "documents": {
+        "doc_0006": {
+          "chunk_ids": [
+            "chunk_000351"
+          ],
+          "mentions": 2
+        },
+        "doc_0009": {
+          "chunk_ids": [
+            "chunk_000385"
+          ],
+          "mentions": 1
+        }
+      }
+    },
+    "Timeboxing": {
+      "type": "practice",
+      "total_chunks": 11,
+      "documents": {
+        "doc_0001": {
+          "chunk_ids": [
+            "chunk_000004",
+            "chunk_000006",
+            "chunk_000008",
+            "chunk_000031"
+          ],
+          "mentions": 5
+        },
+        "doc_0003": {
+          "chunk_ids": [
+            "chunk_000056",
+            "chunk_000064",
+            "chunk_000066",
+            "chunk_000074",
+            "chunk_000100"
+          ],
+          "mentions": 5
+        },
+        "doc_0004": {
+          "chunk_ids": [
+            "chunk_000121",
+            "chunk_000123"
+          ],
+          "mentions": 3
+        }
+      }
+    },
+    "Toyota Production System": {
+      "type": "concept",
+      "total_chunks": 4,
+      "documents": {
+        "doc_0003": {
+          "chunk_ids": [
+            "chunk_000049",
+            "chunk_000052"
+          ],
+          "mentions": 2
+        },
+        "doc_0004": {
+          "chunk_ids": [
+            "chunk_000128"
+          ],
+          "mentions": 1
+        },
+        "doc_0006": {
+          "chunk_ids": [
+            "chunk_000353"
+          ],
+          "mentions": 1
+        }
+      }
+    },
+    "Trello": {
+      "type": "tool",
+      "total_chunks": 7,
+      "documents": {
+        "doc_0001": {
+          "chunk_ids": [
+            "chunk_000025",
+            "chunk_000034"
+          ],
+          "mentions": 2
+        },
+        "doc_0003": {
+          "chunk_ids": [
+            "chunk_000082"
+          ],
+          "mentions": 2
+        },
+        "doc_0004": {
+          "chunk_ids": [
+            "chunk_000125"
+          ],
+          "mentions": 2
+        },
+        "doc_0008": {
+          "chunk_ids": [
+            "chunk_000359",
+            "chunk_000363",
+            "chunk_000365"
+          ],
+          "mentions": 3
+        }
+      }
+    },
+    "Unified Process": {
+      "type": "methodology",
+      "total_chunks": 1,
+      "documents": {
+        "doc_0003": {
+          "chunk_ids": [
+            "chunk_000047"
+          ],
+          "mentions": 1
+        }
+      }
+    },
+    "User Acceptance Testing": {
+      "type": "event",
+      "total_chunks": 17,
+      "documents": {
+        "doc_0003": {
+          "chunk_ids": [
+            "chunk_000095",
+            "chunk_000096"
+          ],
+          "mentions": 2
+        },
+        "doc_0005": {
+          "chunk_ids": [
+            "chunk_000220",
+            "chunk_000228",
+            "chunk_000267",
+            "chunk_000303",
+            "chunk_000317",
+            "chunk_000318",
+            "chunk_000319",
+            "chunk_000320",
+            "chunk_000322",
+            "chunk_000327",
+            "chunk_000332",
+            "chunk_000333",
+            "chunk_000336",
+            "chunk_000337",
+            "chunk_000342"
+          ],
+          "mentions": 51
+        }
+      }
+    },
+    "User Story": {
+      "type": "artifact",
+      "total_chunks": 23,
+      "documents": {
+        "doc_0001": {
+          "chunk_ids": [
+            "chunk_000013",
+            "chunk_000014",
+            "chunk_000015",
+            "chunk_000034"
+          ],
+          "mentions": 4
+        },
+        "doc_0003": {
+          "chunk_ids": [
+            "chunk_000060",
+            "chunk_000065",
+            "chunk_000066",
+            "chunk_000067",
+            "chunk_000069",
+            "chunk_000070",
+            "chunk_000071",
+            "chunk_000072",
+            "chunk_000074",
+            "chunk_000076",
+            "chunk_000078",
+            "chunk_000082",
+            "chunk_000088",
+            "chunk_000089",
+            "chunk_000103"
+          ],
+          "mentions": 48
+        },
+        "doc_0005": {
+          "chunk_ids": [
+            "chunk_000149"
+          ],
+          "mentions": 1
+        },
+        "doc_0008": {
+          "chunk_ids": [
+            "chunk_000362",
+            "chunk_000364",
+            "chunk_000369"
+          ],
+          "mentions": 5
+        }
+      }
+    },
+    "Velocity": {
+      "type": "metric",
+      "total_chunks": 10,
+      "documents": {
+        "doc_0001": {
+          "chunk_ids": [
+            "chunk_000013",
+            "chunk_000018",
+            "chunk_000025",
+            "chunk_000026",
+            "chunk_000028",
+            "chunk_000029",
+            "chunk_000030",
+            "chunk_000033"
+          ],
+          "mentions": 9
+        },
+        "doc_0003": {
+          "chunk_ids": [
+            "chunk_000115"
+          ],
+          "mentions": 1
+        },
+        "doc_0008": {
+          "chunk_ids": [
+            "chunk_000359"
+          ],
+          "mentions": 1
+        }
+      }
+    },
+    "WIP Limits": {
+      "type": "practice",
+      "total_chunks": 2,
+      "documents": {
+        "doc_0001": {
+          "chunk_ids": [
+            "chunk_000031"
+          ],
+          "mentions": 1
+        },
+        "doc_0006": {
+          "chunk_ids": [
+            "chunk_000349"
+          ],
+          "mentions": 2
+        }
+      }
+    },
+    "Waste": {
+      "type": "concept",
+      "total_chunks": 15,
+      "documents": {
+        "doc_0003": {
+          "chunk_ids": [
+            "chunk_000048",
+            "chunk_000049",
+            "chunk_000050",
+            "chunk_000052",
+            "chunk_000055",
+            "chunk_000080",
+            "chunk_000081"
+          ],
+          "mentions": 12
+        },
+        "doc_0004": {
+          "chunk_ids": [
+            "chunk_000117",
+            "chunk_000118",
+            "chunk_000128",
+            "chunk_000129"
+          ],
+          "mentions": 6
+        },
+        "doc_0005": {
+          "chunk_ids": [
+            "chunk_000212",
+            "chunk_000233",
+            "chunk_000289",
+            "chunk_000307"
+          ],
+          "mentions": 4
+        }
+      }
+    },
+    "Waterfall": {
+      "type": "methodology",
+      "total_chunks": 36,
+      "documents": {
+        "doc_0001": {
+          "chunk_ids": [
+            "chunk_000031"
+          ],
+          "mentions": 1
+        },
+        "doc_0003": {
+          "chunk_ids": [
+            "chunk_000062",
+            "chunk_000078",
+            "chunk_000092",
+            "chunk_000093"
+          ],
+          "mentions": 5
+        },
+        "doc_0004": {
+          "chunk_ids": [
+            "chunk_000118",
+            "chunk_000121",
+            "chunk_000126",
+            "chunk_000127",
+            "chunk_000128",
+            "chunk_000133"
+          ],
+          "mentions": 16
+        },
+        "doc_0005": {
+          "chunk_ids": [
+            "chunk_000137",
+            "chunk_000138",
+            "chunk_000145",
+            "chunk_000146",
+            "chunk_000147",
+            "chunk_000148",
+            "chunk_000149",
+            "chunk_000150",
+            "chunk_000153",
+            "chunk_000225",
+            "chunk_000236",
+            "chunk_000241",
+            "chunk_000249",
+            "chunk_000287",
+            "chunk_000293",
+            "chunk_000342"
+          ],
+          "mentions": 40
+        },
+        "doc_0009": {
+          "chunk_ids": [
+            "chunk_000379",
+            "chunk_000380",
+            "chunk_000382",
+            "chunk_000383",
+            "chunk_000384",
+            "chunk_000385",
+            "chunk_000386",
+            "chunk_000387",
+            "chunk_000388"
+          ],
+          "mentions": 23
+        }
+      }
+    },
+    "Winston Royce": {
+      "type": "person",
+      "total_chunks": 2,
+      "documents": {
+        "doc_0004": {
+          "chunk_ids": [
+            "chunk_000117"
+          ],
+          "mentions": 1
+        },
+        "doc_0009": {
+          "chunk_ids": [
+            "chunk_000380"
+          ],
+          "mentions": 1
+        }
+      }
+    },
+    "Work In Progress": {
+      "type": "metric",
+      "total_chunks": 11,
+      "documents": {
+        "doc_0001": {
+          "chunk_ids": [
+            "chunk_000017",
+            "chunk_000018",
+            "chunk_000031"
+          ],
+          "mentions": 5
+        },
+        "doc_0003": {
+          "chunk_ids": [
+            "chunk_000071",
+            "chunk_000081"
+          ],
+          "mentions": 2
+        },
+        "doc_0004": {
+          "chunk_ids": [
+            "chunk_000121",
+            "chunk_000124"
+          ],
+          "mentions": 4
+        },
+        "doc_0005": {
+          "chunk_ids": [
+            "chunk_000327"
+          ],
+          "mentions": 1
+        },
+        "doc_0006": {
+          "chunk_ids": [
+            "chunk_000348",
+            "chunk_000349",
+            "chunk_000351"
+          ],
+          "mentions": 14
+        }
+      }
+    },
+    "Work Item Age": {
+      "type": "metric",
+      "total_chunks": 1,
+      "documents": {
+        "doc_0006": {
+          "chunk_ids": [
+            "chunk_000351"
+          ],
+          "mentions": 1
+        }
+      }
+    }
+  }
+}

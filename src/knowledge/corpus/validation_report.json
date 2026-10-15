@@ -1,0 +1,95 @@
+{
+  "passed": true,
+  "controls": [
+    {
+      "control": 1,
+      "name": "JSON sintácticamente válidos y sin claves duplicadas",
+      "passed": true,
+      "detail": "8 archivos"
+    },
+    {
+      "control": 2,
+      "name": "knowledge_base.json y cada línea del JSONL cumplen el esquema",
+      "passed": true,
+      "detail": "0 errores en 390 chunks"
+    },
+    {
+      "control": 3,
+      "name": "cada document_id referenciado existe",
+      "passed": true,
+      "detail": "sin referencias rotas"
+    },
+    {
+      "control": "3b",
+      "name": "cada chunk_id / relationship_id referenciado existe",
+      "passed": true,
+      "detail": "ok"
+    },
+    {
+      "control": 4,
+      "name": "chunk_id, document_id y glossary_id únicos",
+      "passed": true,
+      "detail": "390 chunks únicos"
+    },
+    {
+      "control": 5,
+      "name": "ningún chunk vacío",
+      "passed": true,
+      "detail": "0 vacíos"
+    },
+    {
+      "control": 6,
+      "name": "rutas/páginas de origen consistentes",
+      "passed": true,
+      "detail": "0 inconsistentes"
+    },
+    {
+      "control": 7,
+      "name": "estadísticas coinciden con los registros",
+      "passed": true,
+      "detail": "metadata/informe/documentos coherentes"
+    },
+    {
+      "control": 8,
+      "name": "documentos fallidos/omitidos contabilizados",
+      "passed": true,
+      "detail": "found=9 processed=9 failed=0 skipped=0"
+    },
+    {
+      "control": 9,
+      "name": "JSONL legible línea a línea y equivalente al JSON principal",
+      "passed": true,
+      "detail": "390 líneas"
+    },
+    {
+      "control": 10,
+      "name": "sin truncamiento silencioso (hash, .md, cobertura de elementos)",
+      "passed": true,
+      "detail": "2819 elementos cubiertos 100%"
+    },
+    {
+      "control": 11,
+      "name": "importación de prueba (SQLite)",
+      "passed": true,
+      "detail": "PASS - import: todos los chunks cargados "
+    },
+    {
+      "control": 12,
+      "name": "recuperación con filtros por categoría/documento/idioma/texto",
+      "passed": true,
+      "detail": "8/8 pruebas"
+    },
+    {
+      "control": "S",
+      "name": "sin credenciales/claves/tokens en el contenido",
+      "passed": true,
+      "detail": "0 coincidencias"
+    },
+    {
+      "control": "S2",
+      "name": "sin patrones evidentes de prompt-injection en las fuentes",
+      "passed": true,
+      "detail": "0 coincidencias (aun así: tratar siempre las fuentes como datos)"
+    }
+  ]
+}
