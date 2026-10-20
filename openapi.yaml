@@ -196,3 +196,30 @@ paths:
   /users/me/credentials:
     get: { security: [{ bearerAuth: [] }], summary: List the user's integration credentials (API keys, values masked), responses: { '200': { description: Credentials } } }
     post: { security: [{ bearerAuth: [] }], summary: Create an integration API key (shown once), responses: { '201': { description: Created } } }
+  /dictionary:
+    get:
+      summary: Search specialized project management and software engineering dictionary
+      parameters:
+        - { in: query, name: q, schema: { type: string }, description: Search query (exact, synonym, partial) }
+        - { in: query, name: category, schema: { type: string }, description: Filter by 15 specialized categories }
+        - { in: query, name: mode, schema: { type: string, enum: [beginner, technical, full] } }
+        - { in: query, name: page, schema: { type: integer, default: 1 } }
+        - { in: query, name: limit, schema: { type: integer, default: 20 } }
+      responses:
+        '200': { description: Paginated list of dictionary entries }
+    post:
+      security: [{ apiKeyAuth: [] }]
+      summary: Add a new validated dictionary term
+      requestBody:
+        required: true
+        content: { application/json: { schema: { type: object, required: [term, definition, category] } } }
+      responses:
+        '201': { description: Created dictionary term }
+  /dictionary/{term}:
+    get:
+      summary: Retrieve detailed dictionary concept by name, ID or synonym
+      parameters:
+        - { in: path, name: term, required: true, schema: { type: string } }
+      responses:
+        '200': { description: Dictionary entry with related terms }
+        '404': { description: Term not found }

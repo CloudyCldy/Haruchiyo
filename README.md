@@ -51,12 +51,18 @@ curl "localhost:3000/api/v1/documentation/search?q=riesgos&methodology=SCRUM&lim
 curl "localhost:3000/api/v1/projects/$ID/documents/recommended?phase=EJECUCION" -H "Authorization: Bearer $TOKEN"
 curl "localhost:3000/api/v1/partner/projects/haitani-proj-1/documents/recommended" -H "X-Api-Key: $SANZU_API_KEY"
 
+# Diccionario especializado de gestión de proyectos y desarrollo de software (15 categorías)
+curl "localhost:3000/api/v1/dictionary?q=quemado&category=metricas_analisis"
+curl "localhost:3000/api/v1/dictionary/sprint"
+curl "localhost:3000/api/v1/dictionary/wip-limit?mode=beginner"
+
 # Hitos, riesgos (severidad = probabilidad × impacto) e incidencias
 curl -X POST localhost:3000/api/v1/projects/$ID/risks -H "Authorization: Bearer $TOKEN" -H 'Content-Type: application/json' \
   -d '{"title":"Render se duerme","probability":"HIGH","impact":"MEDIUM"}'
 curl localhost:3000/api/v1/projects/$ID/milestones -H "Authorization: Bearer $TOKEN"
 curl localhost:3000/api/v1/projects/$ID/issues -H "Authorization: Bearer $TOKEN"
 ```
+
 
 Producción: `https://sanzu.onrender.com/api/v1`. La especificación completa está en [openapi.yaml](openapi.yaml) (v1.2.0, 48 rutas).
 

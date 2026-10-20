@@ -1,5 +1,6 @@
 import { KnowledgeService } from "@/knowledge/service";
-import { ProjectKnowledgeBase, RetrievedChunk } from "@/knowledge/corpus.types";
+import { ProjectKnowledgeBase } from "@/knowledge/corpus.types";
+import { ExpertEngineService } from "./expert-engine.service";
 
 export interface AIProvider {
   complete(system: string, user: string): Promise<string>;
@@ -33,6 +34,7 @@ export type CorePayload = {
     risks?: any[];
     issues?: any[];
     milestones?: any[];
+    team?: any[];
   };
 };
 
@@ -42,17 +44,27 @@ export class SanzuCoreProvider implements AIProvider {
     try {
       payload = JSON.parse(user) as CorePayload;
     } catch {
-      return "Error: Payload no válido para el asistente Sanzu.";
+      // Si no es JSON estruturado, delegar directamente a ExpertEngineService
+      const res = ExpertEngineService.generateAnswer(user);
+      return res.answer;
     }
 
     const { question, context } = payload;
     const { project, findings, knowledgeBase } = context;
-    const metrics = findings.metrics;
-    const methodology = (project.methodology || "AGILE").toUpperCase();
+    const metrics = findings?.metrics || {
+      progress: 0,
+      blockedTasks: 0,
+      overdueTasks: 0,
+      pendingTasks: 0,
+      riskCount: 0,
+      issueCount: 0,
+      milestoneProgress: 0
+    };
+    const methodology = (project?.methodology || "AGILE").toUpperCase();
     const questionText = question.toLowerCase();
 
     // 1. Identify primary problem areas from metrics
-    const problemsText = findings.problems.length
+    const problemsText = findings?.problems?.length
       ? findings.problems.map(p => p.description).join(" ")
       : "No se detectaron problemas críticos en el análisis actual.";
 
@@ -92,19 +104,18 @@ export class SanzuCoreProvider implements AIProvider {
       suggestedAction = "Refuerza la integración continua y el desarrollo guiado por pruebas (TDD) para reducir la tasa de defectos.";
     }
 
-    // 3. Knowledge base grounding and citations
+    // 3. Grounding sections
     const sections: string[] = [];
 
-    // Context & Status summary (maintains exact compatibility with expected format)
+    // Diagnostic summary
     sections.push(
-      `Contexto de ${project.name}: metodología ${methodology}. Progreso: ${metrics.progress}%. Pendientes: ${metrics.pendingTasks}. Bloqueadas: ${metrics.blockedTasks}. Vencidas: ${metrics.overdueTasks}. Riesgos: ${metrics.riskCount}. Issues: ${metrics.issueCount}. Progreso de hitos: ${metrics.milestoneProgress}%. ${problemsText} Acción sugerida: ${suggestedAction}`
+      `Contexto de ${project?.name || "Proyecto"}: metodología ${methodology}. Progreso: ${metrics.progress}%. Pendientes: ${metrics.pendingTasks}. Bloqueadas: ${metrics.blockedTasks}. Vencidas: ${metrics.overdueTasks}. Riesgos: ${metrics.riskCount}. Issues: ${metrics.issueCount}. Progreso de hitos: ${metrics.milestoneProgress}%. ${problemsText} Acción sugerida: ${suggestedAction}`
     );
 
     // Knowledge base tips according to project type and question
     if (knowledgeBase) {
       const tips: string[] = [];
 
-      // Relevant Templates
       if (
         questionText.includes("plantilla") ||
         questionText.includes("template") ||
@@ -119,7 +130,6 @@ export class SanzuCoreProvider implements AIProvider {
         tips.push(`Plantillas recomendadas para ${methodology}: ${templates || "user-story, bug-report"}. Puedes consultar /api/templates.`);
       }
 
-      // Relevant Checklists
       if (
         questionText.includes("checklist") ||
         questionText.includes("ready") ||
@@ -134,7 +144,6 @@ export class SanzuCoreProvider implements AIProvider {
         tips.push(`Checklists aplicables: ${checklists || "Definition of Ready, Definition of Done"}. Evalúa el estado vía /api/checklists/{id}/evaluate.`);
       }
 
-      // Relevant Processes
       if (
         questionText.includes("proceso") ||
         questionText.includes("flujo") ||
@@ -148,16 +157,14 @@ export class SanzuCoreProvider implements AIProvider {
         tips.push(`Procesos estándar disponibles: ${processes || "sprint-lifecycle, release-management"}. Consulta /api/processes.`);
       }
 
-      // Corpus Grounding Citations
-      if (knowledgeBase.topChunks.length > 0) {
+      if (knowledgeBase.topChunks && knowledgeBase.topChunks.length > 0) {
         const top = knowledgeBase.topChunks[0];
         tips.push(`Fundamentado en la base de conocimiento: ${top.citation} (${top.chunk.section_title}).`);
       }
 
-      // Contradiction awareness
-      if (knowledgeBase.contradictions.length > 0) {
+      if (knowledgeBase.contradictions && knowledgeBase.contradictions.length > 0) {
         const contra = knowledgeBase.contradictions[0];
-        if (questionText.includes("duracion") || questionText.includes("tiempo") || questionText.includes("rol") || questionText.includes("tiempo")) {
+        if (questionText.includes("duracion") || questionText.includes("tiempo") || questionText.includes("rol")) {
           tips.push(`Nota bibliográfica sobre ${contra.topic}: ${contra.issue}`);
         }
       }
@@ -165,23 +172,145 @@ export class SanzuCoreProvider implements AIProvider {
       if (tips.length > 0) {
         sections.push(tips.join(" "));
       }
-    } else {
-      // Fallback knowledge lookup if knowledgeBase wasn't populated in context
-      if (questionText.includes("plantilla") || questionText.includes("template") || questionText.includes("historia") || questionText.includes("user story")) {
-        const templates = KnowledgeService.listTemplates({ methodology });
-        const names = templates.map(t => t.name).join(", ");
-        sections.push(`Plantillas recomendadas para ${methodology}: ${names || "user-story, bug-report"}. Puedes consultar /api/templates.`);
-      } else if (questionText.includes("checklist") || questionText.includes("ready") || questionText.includes("done") || questionText.includes("calidad") || questionText.includes("dod") || questionText.includes("dor")) {
-        const checklists = KnowledgeService.listChecklists({ methodology });
-        const names = checklists.map(c => c.name).join(", ");
-        sections.push(`Checklists aplicables: ${names || "Definition of Ready, Definition of Done"}. Evalúa el estado vía /api/checklists/{id}/evaluate.`);
-      } else if (questionText.includes("proceso") || questionText.includes("flujo") || questionText.includes("lifecycle") || questionText.includes("sprint")) {
-        const processes = KnowledgeService.listProcesses({ methodology });
-        const names = processes.map(p => p.name).join(", ");
-        sections.push(`Procesos estándar disponibles: ${names || "sprint-lifecycle, release-management"}. Consulta /api/processes.`);
-      }
+    }
+
+    // 4. Also append expert engine structured answer for deep queries
+    const expertRes = ExpertEngineService.generateAnswer(question, {
+      project: context.project,
+      findings: context.findings,
+      tasks: context.tasks,
+      risks: context.risks,
+      team: context.team
+    } as any);
+
+    if (expertRes && expertRes.intent !== "general_inquiry" && expertRes.intent !== "project_analysis") {
+      sections.push("\n" + expertRes.answer);
     }
 
     return sections.join(" ");
   }
+}
+
+/**
+ * Proveedor para Google Gemini API
+ */
+export class GeminiAIProvider implements AIProvider {
+  private apiKey: string;
+  private model: string;
+  private fallback: SanzuCoreProvider;
+
+  constructor(apiKey?: string, model = "gemini-2.5-flash") {
+    this.apiKey = apiKey || process.env.GEMINI_API_KEY || "";
+    this.model = process.env.GEMINI_MODEL || model;
+    this.fallback = new SanzuCoreProvider();
+  }
+
+  async complete(system: string, user: string): Promise<string> {
+    if (!this.apiKey) {
+      return this.fallback.complete(system, user);
+    }
+
+    try {
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/${this.model}:generateContent?key=${this.apiKey}`;
+      const res = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          systemInstruction: { parts: [{ text: system }] },
+          contents: [{ role: "user", parts: [{ text: user }] }],
+          generationConfig: { temperature: 0.2, maxOutputTokens: 2048 }
+        })
+      });
+
+      if (!res.ok) {
+        console.warn(`Gemini API respondió ${res.status}. Usando proveedor determinista.`);
+        return this.fallback.complete(system, user);
+      }
+
+      const data = await res.json();
+      const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+      return text || this.fallback.complete(system, user);
+    } catch (err) {
+      console.warn("Fallo al conectar con Gemini:", err instanceof Error ? err.message : err);
+      return this.fallback.complete(system, user);
+    }
+  }
+}
+
+/**
+ * Proveedor para OpenAI API
+ */
+export class OpenAIProvider implements AIProvider {
+  private apiKey: string;
+  private model: string;
+  private fallback: SanzuCoreProvider;
+
+  constructor(apiKey?: string, model = "gpt-4o-mini") {
+    this.apiKey = apiKey || process.env.OPENAI_API_KEY || "";
+    this.model = process.env.OPENAI_MODEL || model;
+    this.fallback = new SanzuCoreProvider();
+  }
+
+  async complete(system: string, user: string): Promise<string> {
+    if (!this.apiKey) {
+      return this.fallback.complete(system, user);
+    }
+
+    try {
+      const res = await fetch("https://api.openai.com/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${this.apiKey}`
+        },
+        body: JSON.stringify({
+          model: this.model,
+          messages: [
+            { role: "system", content: system },
+            { role: "user", content: user }
+          ],
+          temperature: 0.2,
+          max_tokens: 2048
+        })
+      });
+
+      if (!res.ok) {
+        console.warn(`OpenAI API respondió ${res.status}. Usando proveedor determinista.`);
+        return this.fallback.complete(system, user);
+      }
+
+      const data = await res.json();
+      const text = data?.choices?.[0]?.message?.content;
+      return text || this.fallback.complete(system, user);
+    } catch (err) {
+      console.warn("Fallo al conectar con OpenAI:", err instanceof Error ? err.message : err);
+      return this.fallback.complete(system, user);
+    }
+  }
+}
+
+/**
+ * Fábrica para instanciar el proveedor de IA adecuado según la configuración
+ */
+export function getAIProvider(): AIProvider {
+  const preferred = (process.env.AI_PROVIDER || "").toLowerCase().trim();
+
+  if (preferred === "gemini" && process.env.GEMINI_API_KEY) {
+    return new GeminiAIProvider();
+  }
+
+  if (preferred === "openai" && process.env.OPENAI_API_KEY) {
+    return new OpenAIProvider();
+  }
+
+  if (process.env.GEMINI_API_KEY) {
+    return new GeminiAIProvider();
+  }
+
+  if (process.env.OPENAI_API_KEY) {
+    return new OpenAIProvider();
+  }
+
+  // Por defecto, modo determinista de alto rendimiento y cero dependencias de pago
+  return new SanzuCoreProvider();
 }

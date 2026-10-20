@@ -57,12 +57,15 @@ Definidos en `src/lib/errors.ts` (`ERROR_CODES`). Los clientes deben decidir por
 ## 6. Endpoints que usa Haitani
 
 | Método | Ruta | Auth | Descripción |
-|---|---|---|---|
+| GET | `/api/v1/health` | Pública | Comprobación de salud y disponibilidad del servicio Sanzu |
 | POST | `/api/v1/partner/projects` | API key | Crea/actualiza proyecto por `externalRef` (`haitani-proj-<id>`) |
 | GET | `/api/v1/partner/projects/:externalRef` | API key | Proyecto completo |
 | GET | `/api/v1/partner/projects/:externalRef/{metrics\|health\|compliance\|analysis\|recommendations}` | API key | Inteligencia sobre datos guardados en Sanzu |
 | **POST** | **`/api/v1/projects/:externalRef/context`** | API key | **Análisis del contexto real que envía Haitani (recomendado)** |
-| POST | `/api/v1/partner/chatbot/message` | API key | Chatbot: `{ externalRef, message, conversationId?, requirements? }` |
+| POST | `/api/v1/partner/chatbot/message` | API key | Asistente inteligente: acepta `{ externalRef, message, conversationId?, requirements? }` o esquema unificado `{ message, context: { companyId, projectId, tasks, team, risks } }`. Devuelve respuesta estructurada con `answer`, `sources`, `suggestions` y `metadata` |
+| GET | `/api/v1/dictionary` | Pública | Diccionario especializado (15 categorías, exacto, sinónimos, parcial, modo principiante/técnico): `?q=&category=&mode=&page=&limit=` |
+| GET | `/api/v1/dictionary/:term` | Pública | Consulta detallada de término por ID, nombre o sinónimo, con conceptos relacionados |
+| POST | `/api/v1/dictionary` | API key | Registro de nuevo término validado con Zod |
 | GET | `/api/v1/partner/projects/:externalRef/backlog` | API key | Backlog del proyecto (`?type ?status ?priority ?sprintId=<id>\|none`), ordenado por prioridad |
 | POST | `/api/v1/partner/projects/:externalRef/backlog` | API key | Agrega un ítem: `{ title, type, priority?, storyPoints?, description?, acceptanceCriteria?, sprintId? }` |
 | PUT | `/api/v1/partner/projects/:externalRef/backlog/:itemId` | API key | Edita un ítem o cambia su estado (avanza o regresa un paso; un salto da `409`) |
@@ -71,6 +74,7 @@ Definidos en `src/lib/errors.ts` (`ERROR_CODES`). Los clientes deben decidir por
 | PUT | `/api/v1/partner/projects/:externalRef/sprints` | API key | Haitani manda **todos** sus sprints: `{ sprints: [{ externalRef: "haitani-sprint-<id>", name, goal?, startDate, endDate, status? }] }`. Sanzu crea, actualiza y borra su copia para que quede igual (los ítems de un sprint borrado quedan sin sprint). Estados: `planificado→PLANNED`, `activo→ACTIVE`, `cerrado→COMPLETED` |
 | GET | `/api/v1/partner/projects/:externalRef/documents/recommended` | API key | ST055: documentos recomendados (`?phase=INICIO\|EJECUCION\|CIERRE`, `?q`, `?limit`); sin `phase` se deduce del estado y las fechas |
 | GET | `/api/v1/documentation/search` | Pública | ST054: búsqueda en el corpus y guías (`?q` obligatorio, `?methodology`, `?category`, `?limit`) |
+
 
 Rutas de usuario de Sanzu (JWT) relevantes para inteligencia:
 `GET /projects/:id/health`, `/metrics`, `/risks` (`?status=`, `?summary=true`), `/recommendations` (`?live=true`), `POST /projects/:id/recommendations`, `GET /projects/:id/analysis`, `/compliance`, `GET /projects/:id/backlog` (`?type&status&priority&sprintId=<id>|none`).

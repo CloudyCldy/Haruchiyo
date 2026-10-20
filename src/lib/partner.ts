@@ -19,6 +19,23 @@ export async function getPartnerProject(externalRef: string) {
   return project;
 }
 
+export async function getOrCreatePartnerProject(externalRef: string, name = "Haitani Project", methodologyId = "SCRUM") {
+  let project = await prisma.project.findUnique({ where: { externalRef }, include: partnerProjectInclude });
+  if (project) return project;
+  const user = await getPartnerServiceUser();
+  await prisma.project.create({
+    data: {
+      externalRef,
+      name,
+      methodologyId,
+      managerId: user.id,
+      status: "ACTIVE"
+    }
+  });
+  return prisma.project.findUniqueOrThrow({ where: { externalRef }, include: partnerProjectInclude });
+}
+
+
 export async function getPartnerServiceUser() {
   const existing = await prisma.user.findUnique({ where: { email: "partner-service@sanzu.internal" } });
   if (existing) return existing;

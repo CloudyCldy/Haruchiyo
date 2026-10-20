@@ -15,9 +15,33 @@ export const sprintUpdateSchema = z.object(sprintFields).partial();
 export const partnerSprintSyncSchema = z.object({ sprints: z.array(z.object({ ...sprintFields, externalRef: z.string().trim().min(1).max(100) }).refine(value => value.startDate <= value.endDate, { message: "startDate must not be after endDate", path: ["startDate"] })).max(500) });
 export const chatSchema = z.object({ projectId: objectIdSchema, message: z.string().trim().min(1).max(4000), conversationId: objectIdSchema.optional() });
 export const partnerProjectSchema = z.object({ externalRef: z.string().trim().min(1), name: z.string().trim().min(1), methodologyId: z.string().trim().min(1), requirements: z.unknown() });
-export const partnerChatSchema = z.object({ externalRef: z.string().trim().min(1), message: z.string().trim().min(1).max(4000), conversationId: objectIdSchema.optional(), requirements: z.unknown().optional() });
+export const partnerChatSchema = z.object({ externalRef: z.string().trim().min(1).optional(), projectId: z.string().trim().optional(), message: z.string().trim().min(1).max(4000), conversationId: objectIdSchema.optional(), requirements: z.unknown().optional(), context: z.record(z.unknown()).optional() });
 export function parse<S extends z.ZodTypeAny>(schema: S, value: unknown): z.output<S> { const result = schema.safeParse(value); if (!result.success) { const error = new Error(result.error.issues.map(i => `${i.path.join(".")}: ${i.message}`).join(", ")); error.name = "ValidationError"; throw error; } return result.data; }
 /** ST054: búsqueda de documentación (?q, ?methodology, ?category, ?limit). */
 export const documentationSearchSchema = z.object({ q: z.string().trim().min(2, "q must have at least 2 characters").max(200), methodology: z.string().trim().max(30).optional(), category: z.string().trim().max(60).optional(), limit: z.coerce.number().int().min(1).max(25).optional() });
 /** ST055: recomendación de documentos (?phase=INICIO|EJECUCION|CIERRE, ?q, ?limit). */
 export const documentRecommendationSchema = z.object({ phase: z.string().trim().optional(), q: z.string().trim().max(200).optional(), limit: z.coerce.number().int().min(1).max(15).optional() });
+/** Diccionario especializado de gestión de proyectos y desarrollo de software */
+export const dictionarySearchSchema = z.object({
+  q: z.string().trim().max(200).optional(),
+  category: z.string().trim().max(60).optional(),
+  mode: z.enum(["beginner", "technical", "full"]).optional(),
+  page: z.coerce.number().int().min(1).optional(),
+  limit: z.coerce.number().int().min(1).max(100).optional()
+});
+export const dictionaryCreateSchema = z.object({
+  id: z.string().trim().min(2).max(100).optional(),
+  term: z.string().trim().min(2).max(100),
+  synonyms: z.array(z.string().trim()).default([]),
+  definition: z.string().trim().min(5).max(3000),
+  beginnerExplanation: z.string().trim().min(5).max(2000).optional(),
+  category: z.string().trim().min(2).max(50),
+  example: z.string().trim().min(5).max(2000).optional(),
+  relatedConcepts: z.array(z.string().trim()).default([]),
+  recommendations: z.array(z.string().trim()).default([]),
+  translations: z.object({
+    es: z.string().trim().default(""),
+    en: z.string().trim().default("")
+  }).default({ es: "", en: "" }),
+  searchVariants: z.array(z.string().trim()).default([])
+});

@@ -8,6 +8,7 @@ import {
   TemplateDefinition
 } from "./types";
 import { corpusService } from "./corpus.service";
+import { dictionaryService } from "./dictionary/service";
 
 export const KnowledgeService = {
   // Documentation
@@ -160,5 +161,23 @@ export const KnowledgeService = {
 
   getCorpusContradictions() {
     return corpusService.getContradictions();
+  },
+
+  // Specialized Project Management and Software Engineering Dictionary
+  searchDictionary(params?: Parameters<typeof dictionaryService.search>[0]) {
+    return dictionaryService.search(params);
+  },
+
+  getDictionaryTerm(term: string) {
+    return dictionaryService.getById(term) || dictionaryService.getByExactTermOrSynonym(term);
+  },
+
+  getRelatedDictionaryTerms(term: string) {
+    return dictionaryService.getRelated(term);
+  },
+
+  addDictionaryEntry(entry: Parameters<typeof dictionaryService.addEntry>[0]) {
+    return dictionaryService.addEntry(entry);
   }
 };
+
