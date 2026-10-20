@@ -17,9 +17,11 @@ export async function signToken(userId: string) {
 export async function getAuthUser(request: NextRequest) {
   const value = request.headers.get("authorization");
   if (!value?.startsWith("Bearer ")) throw new AuthenticationError("Authentication required");
+  const token = value.slice(7).trim();
+  if (!token || token.length > 4096) throw new AuthenticationError("Invalid token");
   let userId: string | undefined;
   try {
-    const { payload } = await jwtVerify(value.slice(7), jwtSecret());
+    const { payload } = await jwtVerify(token, jwtSecret(), { algorithms: ["HS256"] });
     userId = typeof payload.userId === "string" ? payload.userId : undefined;
   } catch {
     throw new AuthenticationError("Invalid or expired token");
@@ -32,8 +34,11 @@ export async function getAuthUser(request: NextRequest) {
 
 export async function getAuthClient(request: NextRequest) {
   const key = request.headers.get("X-Api-Key");
-  if (!key) throw new AuthenticationError("API key required");
-  const keyHash = createHash("sha256").update(key).digest("hex");
+  if (!key || typeof key !== "string" || key.trim() === "" || key.length > 512) {
+    throw new AuthenticationError("API key required");
+  }
+  const cleanKey = key.trim();
+  const keyHash = createHash("sha256").update(cleanKey).digest("hex");
   const client = await prisma.apiClient.findFirst({ where: { keyHash, active: true } });
   if (!client) throw new AuthenticationError("Invalid API key");
   return client;

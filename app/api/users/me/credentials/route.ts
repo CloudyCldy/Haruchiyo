@@ -2,6 +2,7 @@ import { NextRequest } from "next/server";
 import { withAuth } from "@/lib/route";
 import { getOrCreateUserApiKey, rotateUserApiKey } from "@/lib/auth";
 import { ok, handleError } from "@/lib/http";
+import { assertRateLimit } from "@/lib/rate-limit";
 
 export async function GET(request: NextRequest) {
   return withAuth(request, async (user) => {
@@ -54,6 +55,11 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
+  try {
+    assertRateLimit(request, { keyPrefix: "cred-rotate", max: 10, windowMs: 60_000 });
+  } catch (error) {
+    return handleError(error);
+  }
   return withAuth(request, async (user) => {
     try {
       const apiKey = await rotateUserApiKey(user.id, user.email);

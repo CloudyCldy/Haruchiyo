@@ -21,6 +21,7 @@ const byName: Record<string, ErrorCode> = {
   AuthorizationError: "FORBIDDEN",
   NotFoundError: "NOT_FOUND",
   ConflictError: "CONFLICT",
+  RateLimitError: "TOO_MANY_REQUESTS",
   AIServiceError: "AI_SERVICE_ERROR",
 };
 
@@ -28,6 +29,12 @@ export function handleError(error: unknown) {
   if (error instanceof ZodError) return fail("VALIDATION_ERROR", error.issues.map(i => `${i.path.join(".")}: ${i.message}`).join(", "));
   if (error instanceof SyntaxError) return fail("BAD_REQUEST", "Request body must be valid JSON");
   if (error instanceof Error) {
+    if (error.name === "RateLimitError" && "retryAfter" in error) {
+      const retryAfter = (error as { retryAfter?: number }).retryAfter ?? 60;
+      const res = fail("TOO_MANY_REQUESTS", error.message, 429);
+      res.headers.set("Retry-After", String(retryAfter));
+      return res;
+    }
     const code = byName[error.name];
     if (code) return fail(code, error.message);
     // Errores conocidos de Prisma

@@ -62,7 +62,12 @@ type ProjectAnalysis = {
     status: string;
     problems: { description: string }[];
   };
-  health: number;
+  health: {
+    score: number;
+    status: string;
+    factors?: Record<string, number>;
+    weights?: Record<string, number>;
+  } | number;
   problems: { description: string }[];
   recommendations: { title?: string; description?: string; suggestedAction?: string }[];
 };
@@ -129,6 +134,21 @@ export default function HomePage() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [taskForm, setTaskForm] = useState({ title: "", priority: "MEDIUM", status: "TODO" });
   const [taskSubmitting, setTaskSubmitting] = useState(false);
+
+  // Derivación determinística del índice de salud para evitar [object Object]
+  const healthScore = analysis
+    ? (typeof analysis.health === "object" && analysis.health !== null
+        ? analysis.health.score
+        : typeof analysis.health === "number"
+        ? analysis.health
+        : 100)
+    : 100;
+
+  const healthStatus = analysis
+    ? (typeof analysis.health === "object" && analysis.health !== null && analysis.health.status
+        ? analysis.health.status
+        : analysis.compliance?.status || "Óptimo")
+    : "Óptimo";
 
   // Asistente de Inteligencia Estratégica (Chatbot)
   const [chatMessages, setChatMessages] = useState<ChatMessageItem[]>([]);
@@ -532,7 +552,23 @@ export default function HomePage() {
               aria-label={theme === "dark" ? "Cambiar a modo claro" : "Cambiar a modo oscuro"}
               title="Alternar tema"
             >
-              {theme === "dark" ? "☼" : "☾"}
+              {theme === "dark" ? (
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <circle cx="12" cy="12" r="5" />
+                  <line x1="12" y1="1" x2="12" y2="3" />
+                  <line x1="12" y1="21" x2="12" y2="23" />
+                  <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                  <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                  <line x1="1" y1="12" x2="3" y2="12" />
+                  <line x1="21" y1="12" x2="23" y2="12" />
+                  <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                  <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                </svg>
+              ) : (
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                </svg>
+              )}
             </button>
 
             <button
@@ -541,7 +577,7 @@ export default function HomePage() {
               onClick={() => setActiveTab("credentials")}
               title="Obtener API Key, URL base y Token de acceso"
             >
-              🔑 Acceso API
+              Acceso API
             </button>
 
             <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
@@ -635,11 +671,11 @@ export default function HomePage() {
 
             <div className="kpi-card">
               <span className="kpi-label">Índice de Salud (Foco)</span>
-              <div className="kpi-number" style={{ color: analysis && analysis.health < 60 ? "var(--status-error)" : "var(--text-primary)" }}>
-                {analysis ? `${analysis.health}%` : "100%"}
+              <div className="kpi-number" style={{ color: healthScore < 60 ? "var(--status-error)" : "var(--text-primary)" }}>
+                {analysis ? `${healthScore}%` : "100%"}
               </div>
               <span className="kpi-badge cyan">
-                {analysis?.compliance.status || "Óptimo"}
+                {healthStatus}
               </span>
             </div>
 
@@ -667,28 +703,28 @@ export default function HomePage() {
               className={`view-tab-btn ${activeTab === "operations" ? "active" : ""}`}
               onClick={() => setActiveTab("operations")}
             >
-              <span>📁</span> Operaciones Activas ({projects.length})
+              Operaciones Activas ({projects.length})
             </button>
             <button
               type="button"
               className={`view-tab-btn ${activeTab === "inspection" ? "active" : ""}`}
               onClick={() => setActiveTab("inspection")}
             >
-              <span>⚡</span> Inspección Táctica & Tareas ({tasks.length})
+              Inspección Táctica & Tareas ({tasks.length})
             </button>
             <button
               type="button"
               className={`view-tab-btn ${activeTab === "ai" ? "active" : ""}`}
               onClick={() => setActiveTab("ai")}
             >
-              <span>⚔</span> Inteligencia Estratégica (Copiloto)
+              Inteligencia Estratégica (Copiloto)
             </button>
             <button
               type="button"
               className={`view-tab-btn ${activeTab === "credentials" ? "active" : ""}`}
               onClick={() => setActiveTab("credentials")}
             >
-              <span>🔑</span> Credenciales y Acceso API
+              Credenciales y Acceso API
             </button>
           </nav>
 
@@ -818,7 +854,13 @@ export default function HomePage() {
                       textAlign: "center",
                     }}
                   >
-                    <span style={{ fontSize: "32px", color: "var(--rose-sanzu)", marginBottom: "10px" }}>⚔</span>
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--rose-sanzu)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginBottom: "10px" }} aria-hidden="true">
+                      <circle cx="12" cy="12" r="10" />
+                      <line x1="22" y1="12" x2="18" y2="12" />
+                      <line x1="6" y1="12" x2="2" y2="12" />
+                      <line x1="12" y1="6" x2="12" y2="2" />
+                      <line x1="12" y1="22" x2="12" y2="18" />
+                    </svg>
                     <p style={{ fontFamily: "var(--font-serif)", fontSize: "18px", color: "var(--text-primary)", margin: 0 }}>
                       No hay operaciones activas.
                       <br />
@@ -859,7 +901,7 @@ export default function HomePage() {
                                 copyProjectId(project.id);
                               }}
                             >
-                              {copiedProjectId === project.id ? "Copiado ✓" : "Copiar ID"}
+                              {copiedProjectId === project.id ? "Copiado" : "Copiar ID"}
                             </button>
                           </div>
                         </article>
@@ -881,7 +923,7 @@ export default function HomePage() {
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px" }}>
                   <span className="kicker-tag">DIAGNÓSTICO // {activeProject?.name || "OPERACIÓN"}</span>
                   <span className="status-pill">
-                    SALUD: {analysis ? `${analysis.health}%` : "100%"}
+                    SALUD: {analysis ? `${healthScore}%` : "100%"}
                   </span>
                 </div>
                 <h3>Diagnóstico de cumplimiento</h3>
@@ -915,7 +957,7 @@ export default function HomePage() {
                     {/* Amenazas Detectadas */}
                     <div style={{ marginBottom: "20px" }}>
                       <span className="kicker-tag" style={{ color: analysis.problems.length > 0 ? "var(--status-warning)" : "var(--status-success)" }}>
-                        {analysis.problems.length > 0 ? "⚠️ AMENAZAS DETECTADAS" : "✓ SIN AMENAZAS INMEDIATAS"}
+                        {analysis.problems.length > 0 ? "AMENAZAS DETECTADAS" : "SIN AMENAZAS INMEDIATAS"}
                       </span>
                       {analysis.problems.length === 0 ? (
                         <p style={{ fontSize: "13px", color: "var(--text-secondary)", marginTop: "6px" }}>
@@ -1052,7 +1094,7 @@ export default function HomePage() {
                   <div key={msg.id} className={`chat-bubble ${msg.role}`}>
                     {msg.role === "assistant" && (
                       <div className="assistant-badge">
-                        <span>⚔</span> SANZU AI // RESPUESTA ESTRATÉGICA
+                        SANZU AI // RESPUESTA ESTRATÉGICA
                       </div>
                     )}
                     <div>{msg.content}</div>
@@ -1096,21 +1138,21 @@ export default function HomePage() {
                     className="quick-prompt-btn"
                     onClick={() => sendChatMessage("¿Cuáles son los principales riesgos de este proyecto?")}
                   >
-                    ⚡ Identificar riesgos
+                    Identificar riesgos
                   </button>
                   <button
                     type="button"
                     className="quick-prompt-btn"
                     onClick={() => sendChatMessage("¿Cómo optimizar el flujo de trabajo según la metodología?")}
                   >
-                    📋 Sugerir plantillas y procesos
+                    Sugerir plantillas y procesos
                   </button>
                   <button
                     type="button"
                     className="quick-prompt-btn"
                     onClick={() => sendChatMessage("¿Por qué tenemos tareas bloqueadas o retrasos?")}
                   >
-                    ⚠️ Diagnosticar bloqueos
+                    Diagnosticar bloqueos
                   </button>
                 </div>
 
@@ -1163,7 +1205,7 @@ export default function HomePage() {
                     onClick={() => loadCredentials()}
                     disabled={credentialsLoading}
                   >
-                    {credentialsLoading ? "Sincronizando..." : "🔄 Actualizar credenciales"}
+                    {credentialsLoading ? "Sincronizando..." : "Actualizar credenciales"}
                   </button>
                 </div>
               </section>
@@ -1198,7 +1240,7 @@ export default function HomePage() {
                         copyToClipboard(u, "url");
                       }}
                     >
-                      {copiedField === "url" ? "✓ URL Copiada" : "📋 Copiar URL (/api)"}
+                      {copiedField === "url" ? "URL Copiada" : "Copiar URL (/api)"}
                     </button>
                     <button
                       type="button"
@@ -1208,7 +1250,7 @@ export default function HomePage() {
                         copyToClipboard(h, "baseUrl");
                       }}
                     >
-                      {copiedField === "baseUrl" ? "✓ Host Copiado" : "📋 Copiar Host Base"}
+                      {copiedField === "baseUrl" ? "Host Copiado" : "Copiar Host Base"}
                     </button>
                   </div>
                 </div>
@@ -1240,7 +1282,7 @@ export default function HomePage() {
                       className="copy-btn"
                       onClick={() => setShowToken(!showToken)}
                     >
-                      {showToken ? "🙈 Ocultar" : "👁 Mostrar Token"}
+                      {showToken ? "Ocultar" : "Mostrar Token"}
                     </button>
                     <button
                       type="button"
@@ -1250,7 +1292,7 @@ export default function HomePage() {
                         copyToClipboard(t, "token");
                       }}
                     >
-                      {copiedField === "token" ? "✓ Token Copiado" : "📋 Copiar Token"}
+                      {copiedField === "token" ? "Token Copiado" : "Copiar Token"}
                     </button>
                     <button
                       type="button"
@@ -1260,7 +1302,7 @@ export default function HomePage() {
                         copyToClipboard(`Authorization: Bearer ${t}`, "authHeader");
                       }}
                     >
-                      {copiedField === "authHeader" ? "✓ Header Copiado" : "📋 Copiar Header"}
+                      {copiedField === "authHeader" ? "Header Copiado" : "Copiar Header"}
                     </button>
                   </div>
                 </div>
@@ -1292,14 +1334,14 @@ export default function HomePage() {
                       className="copy-btn"
                       onClick={() => setShowApiKey(!showApiKey)}
                     >
-                      {showApiKey ? "🙈 Ocultar" : "👁 Mostrar Key"}
+                      {showApiKey ? "Ocultar" : "Mostrar Key"}
                     </button>
                     <button
                       type="button"
                       className={`copy-btn ${copiedField === "apiKey" ? "copied" : ""}`}
                       onClick={() => copyToClipboard(credentials?.apiKey || "", "apiKey")}
                     >
-                      {copiedField === "apiKey" ? "✓ Key Copiada" : "📋 Copiar API Key"}
+                      {copiedField === "apiKey" ? "Key Copiada" : "Copiar API Key"}
                     </button>
                     <button
                       type="button"
@@ -1308,7 +1350,7 @@ export default function HomePage() {
                       disabled={rotateLoading}
                       title="Generar una nueva API Key y revocar la anterior"
                     >
-                      {rotateLoading ? "Generando..." : rotateSuccess ? "✓ Clave Renovada" : "🔄 Regenerar Key"}
+                      {rotateLoading ? "Generando..." : rotateSuccess ? "Clave Renovada" : "Regenerar Key"}
                     </button>
                   </div>
                 </div>
@@ -1336,7 +1378,7 @@ export default function HomePage() {
                           copyToClipboard(cmd, "curlToken");
                         }}
                       >
-                        {copiedField === "curlToken" ? "✓ Comando Copiado" : "📋 Copiar cURL"}
+                        {copiedField === "curlToken" ? "Comando Copiado" : "Copiar cURL"}
                       </button>
                     </div>
                     <div className="code-snippet-box">
@@ -1356,7 +1398,7 @@ export default function HomePage() {
                           copyToClipboard(cmd, "curlApiKey");
                         }}
                       >
-                        {copiedField === "curlApiKey" ? "✓ Comando Copiado" : "📋 Copiar cURL"}
+                        {copiedField === "curlApiKey" ? "Comando Copiado" : "Copiar cURL"}
                       </button>
                     </div>
                     <div className="code-snippet-box">
@@ -1468,7 +1510,23 @@ export default function HomePage() {
             aria-label={theme === "dark" ? "Cambiar a modo claro" : "Cambiar a modo oscuro"}
             title="Alternar tema"
           >
-            {theme === "dark" ? "☼" : "☾"}
+            {theme === "dark" ? (
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="5" />
+                <line x1="12" y1="1" x2="12" y2="3" />
+                <line x1="12" y1="21" x2="12" y2="23" />
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                <line x1="1" y1="12" x2="3" y2="12" />
+                <line x1="21" y1="12" x2="23" y2="12" />
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+              </svg>
+            ) : (
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+              </svg>
+            )}
           </button>
 
           <button
@@ -1518,7 +1576,7 @@ export default function HomePage() {
 
               <div style={{ marginTop: "12px", display: "flex", alignItems: "center", gap: "8px" }}>
                 <span className="code-mono" style={{ fontSize: "11px", color: "var(--text-tertiary)" }}>
-                  🔑 Acceso programático REST: obtén tu API Key, URL y Token de sesión en el Centro de Comando.
+                  Acceso programático REST: obtén tu API Key, URL y Token de sesión en el Centro de Comando.
                 </span>
               </div>
 

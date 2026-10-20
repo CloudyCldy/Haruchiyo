@@ -12,6 +12,7 @@ export const ERROR_CODES = {
   NOT_FOUND: { status: 404, description: "El recurso no existe (o no es visible para quien lo solicita)." },
   CONFLICT: { status: 409, description: "Conflicto de estado: duplicado o transición de estado no permitida." },
   VALIDATION_ERROR: { status: 422, description: "Los datos no cumplen el esquema Zod o las reglas de negocio." },
+  TOO_MANY_REQUESTS: { status: 429, description: "Límite de peticiones excedido. Espere antes de reintentar." },
   AI_SERVICE_ERROR: { status: 502, description: "El proveedor de IA externo falló; el motor determinístico sigue disponible." },
   INTERNAL_ERROR: { status: 500, description: "Error inesperado del servidor." },
 } as const;
@@ -22,10 +23,18 @@ export class AuthenticationError extends Error { name = "AuthenticationError"; }
 export class AuthorizationError extends Error { name = "AuthorizationError"; }
 export class NotFoundError extends Error { name = "NotFoundError"; }
 export class ConflictError extends Error { name = "ConflictError"; }
+export class RateLimitError extends Error {
+  name = "RateLimitError";
+  retryAfter: number;
+  constructor(message = "Límite de peticiones excedido", retryAfter = 60) {
+    super(message);
+    this.retryAfter = retryAfter;
+  }
+}
 export class AIServiceError extends Error { name = "AIServiceError"; }
 
 export function assertObjectId(value: string, field = "id") {
-  if (!/^[a-f\d]{24}$/i.test(value)) {
+  if (typeof value !== "string" || !/^[a-f\d]{24}$/i.test(value.trim())) {
     throw new ValidationError(`${field} must be a valid MongoDB ObjectId (24 hexadecimal characters)`);
   }
 }
