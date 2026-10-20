@@ -1,6 +1,5 @@
 # Contrato oficial Haitani ↔ Sanzu — API v1
 
-**Responsable:** Alberto Jiménez Olvera · **Tareas:** SB-01-ST010, ST011, ST012, ST081 · INT-01-ST042–ST044
 **Versión del contrato:** 1.1 · **Fecha:** 2026-10-07
 
 ## 1. Roles de cada sistema
@@ -70,6 +69,8 @@ Definidos en `src/lib/errors.ts` (`ERROR_CODES`). Los clientes deben decidir por
 | DELETE | `/api/v1/partner/projects/:externalRef/backlog/:itemId` | API key | Elimina un ítem (`404` si es de otro proyecto) |
 | GET | `/api/v1/partner/projects/:externalRef/sprints` | API key | Sprints del proyecto, para asignarles ítems |
 | PUT | `/api/v1/partner/projects/:externalRef/sprints` | API key | Haitani manda **todos** sus sprints: `{ sprints: [{ externalRef: "haitani-sprint-<id>", name, goal?, startDate, endDate, status? }] }`. Sanzu crea, actualiza y borra su copia para que quede igual (los ítems de un sprint borrado quedan sin sprint). Estados: `planificado→PLANNED`, `activo→ACTIVE`, `cerrado→COMPLETED` |
+| GET | `/api/v1/partner/projects/:externalRef/documents/recommended` | API key | ST055: documentos recomendados (`?phase=INICIO\|EJECUCION\|CIERRE`, `?q`, `?limit`); sin `phase` se deduce del estado y las fechas |
+| GET | `/api/v1/documentation/search` | Pública | ST054: búsqueda en el corpus y guías (`?q` obligatorio, `?methodology`, `?category`, `?limit`) |
 
 Rutas de usuario de Sanzu (JWT) relevantes para inteligencia:
 `GET /projects/:id/health`, `/metrics`, `/risks` (`?status=`, `?summary=true`), `/recommendations` (`?live=true`), `POST /projects/:id/recommendations`, `GET /projects/:id/analysis`, `/compliance`, `GET /projects/:id/backlog` (`?type&status&priority&sprintId=<id>|none`).

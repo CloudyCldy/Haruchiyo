@@ -36,7 +36,29 @@ curl -X POST localhost:3000/api/v1/projects/haitani-proj-1/context \
   -d '{"project":{"name":"Demo","methodology":"SCRUM","phase":"EXECUTION","startDate":"2026-09-13","endDate":"2026-10-24"},
        "tasks":[{"id":1,"title":"API v1","status":"bloqueada","priority":"alta","assignedTo":7}],
        "team":[{"userId":7,"name":"Alberto"}]}'
+
+# Obtener la API key de integración (sz_live_…) del usuario autenticado -> se pega en Haitani (Configuración > Sanzu IA) o en SANZU_API_KEY
+curl localhost:3000/api/v1/users/me/credentials -H "Authorization: Bearer $TOKEN"
+
+# Sincronización Haitani -> Sanzu (API key): sprints
+curl -X PUT localhost:3000/api/v1/partner/projects/haitani-proj-1/sprints -H "X-Api-Key: $SANZU_API_KEY" -H 'Content-Type: application/json' \
+  -d '{"sprints":[{"externalRef":"haitani-sprint-2","name":"Sprint 2","startDate":"2026-09-28","endDate":"2026-10-09","status":"ACTIVE"}]}'
+
+# SB-13 · ST054 búsqueda inteligente de documentación (pública)
+curl "localhost:3000/api/v1/documentation/search?q=riesgos&methodology=SCRUM&limit=5"
+
+# SB-13 · ST055 documentos recomendados según proyecto, metodología y fase (INICIO | EJECUCION | CIERRE; si se omite se deduce)
+curl "localhost:3000/api/v1/projects/$ID/documents/recommended?phase=EJECUCION" -H "Authorization: Bearer $TOKEN"
+curl "localhost:3000/api/v1/partner/projects/haitani-proj-1/documents/recommended" -H "X-Api-Key: $SANZU_API_KEY"
+
+# Hitos, riesgos (severidad = probabilidad × impacto) e incidencias
+curl -X POST localhost:3000/api/v1/projects/$ID/risks -H "Authorization: Bearer $TOKEN" -H 'Content-Type: application/json' \
+  -d '{"title":"Render se duerme","probability":"HIGH","impact":"MEDIUM"}'
+curl localhost:3000/api/v1/projects/$ID/milestones -H "Authorization: Bearer $TOKEN"
+curl localhost:3000/api/v1/projects/$ID/issues -H "Authorization: Bearer $TOKEN"
 ```
+
+Producción: `https://sanzu.onrender.com/api/v1`. La especificación completa está en [openapi.yaml](openapi.yaml) (v1.2.0, 48 rutas).
 
 Errores: `{ "success": false, "error": { "code": "VALIDATION_ERROR", "message": "..." } }` con los códigos
 `BAD_REQUEST 400 · UNAUTHORIZED 401 · INVALID_CREDENTIALS 401 · FORBIDDEN 403 · NOT_FOUND 404 · CONFLICT 409 · VALIDATION_ERROR 422 · INTERNAL_ERROR 500 · AI_SERVICE_ERROR 502`.

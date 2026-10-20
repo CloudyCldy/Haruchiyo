@@ -1,13 +1,16 @@
 openapi: 3.0.3
 info:
   title: Sanzu API
-  version: 1.1.0
+  version: 1.2.0
   description: |
     Project Management and AI Assistant REST API. Haitani is an external client.
     Ruta oficial versionada: /api/v1. /api es un alias legado (mismas respuestas).
     Todas las respuestas incluyen el header X-API-Version. Códigos de error en docs/CONTRATO_HAITANI_SANZU.md.
 servers:
+  - url: https://sanzu.onrender.com/api/v1
+    description: Producción (Render)
   - url: http://localhost:3000/api/v1
+    description: Desarrollo local
   - url: http://localhost:3000/api
     description: Alias legado (deprecado)
 components:
@@ -77,6 +80,19 @@ paths:
   /projects:
     get: { security: [{ bearerAuth: [] }], summary: List accessible projects, responses: { '200': { description: Projects } } }
     post: { security: [{ bearerAuth: [] }], summary: Create a project, responses: { '201': { description: Created } } }
+  /projects/{id}:
+    get: { security: [{ bearerAuth: [] }], summary: Get a project, parameters: [{ in: path, name: id, required: true, schema: { type: string } }], responses: { '200': { description: Project }, '404': { description: Not found } } }
+    put: { security: [{ bearerAuth: [] }], summary: Update a project (manager only), parameters: [{ in: path, name: id, required: true, schema: { type: string } }], responses: { '200': { description: Updated } } }
+    delete: { security: [{ bearerAuth: [] }], summary: Delete a project (manager only), parameters: [{ in: path, name: id, required: true, schema: { type: string } }], responses: { '200': { description: Deleted } } }
+  /projects/{id}/{resource}:
+    get: { security: [{ bearerAuth: [] }], summary: 'List project resources (resource = team | backlog | sprints | milestones | risks | issues)', parameters: [{ in: path, name: id, required: true, schema: { type: string } }, { in: path, name: resource, required: true, schema: { type: string, enum: [team, backlog, sprints, milestones, risks, issues] } }], responses: { '200': { description: Items } } }
+    post: { security: [{ bearerAuth: [] }], summary: 'Create a project resource (risk severity = probability × impact)', parameters: [{ in: path, name: id, required: true, schema: { type: string } }, { in: path, name: resource, required: true, schema: { type: string, enum: [team, backlog, sprints, milestones, risks, issues] } }], responses: { '201': { description: Created }, '422': { description: Validation error } } }
+  /{resource}/{id}:
+    get: { security: [{ bearerAuth: [] }], summary: 'Get a resource by id (milestones | risks | issues | team)', parameters: [{ in: path, name: resource, required: true, schema: { type: string } }, { in: path, name: id, required: true, schema: { type: string } }], responses: { '200': { description: Item } } }
+    put: { security: [{ bearerAuth: [] }], summary: Update a resource, parameters: [{ in: path, name: resource, required: true, schema: { type: string } }, { in: path, name: id, required: true, schema: { type: string } }], responses: { '200': { description: Updated } } }
+    delete: { security: [{ bearerAuth: [] }], summary: Delete a resource, parameters: [{ in: path, name: resource, required: true, schema: { type: string } }, { in: path, name: id, required: true, schema: { type: string } }], responses: { '200': { description: Deleted } } }
+  /projects/{id}/documents/recommended:
+    get: { security: [{ bearerAuth: [] }], summary: 'ST055 · Recommended documents by project, methodology and phase', parameters: [{ in: path, name: id, required: true, schema: { type: string } }, { in: query, name: phase, required: false, schema: { type: string, enum: [INICIO, EJECUCION, CIERRE] } }, { in: query, name: q, required: false, schema: { type: string } }], responses: { '200': { description: Recommendations }, '422': { description: Invalid phase } } }
   /projects/{projectId}/tasks:
     get: { security: [{ bearerAuth: [] }], summary: List project tasks, parameters: [{ in: path, name: projectId, required: true, schema: { type: string } }], responses: { '200': { description: Tasks } } }
     post: { security: [{ bearerAuth: [] }], summary: Create a project task, parameters: [{ in: path, name: projectId, required: true, schema: { type: string } }], responses: { '201': { description: Created }, '422': { description: Validation error } } }
@@ -133,12 +149,18 @@ paths:
   /partner/projects/{externalRef}/sprints:
     get: { security: [{ apiKeyAuth: [] }], summary: Sprints of the project, parameters: [{ in: path, name: externalRef, required: true, schema: { type: string } }], responses: { '200': { description: Sprints } } }
     put: { security: [{ apiKeyAuth: [] }], summary: 'Sync Haitani sprints (full list; creates, updates and deletes the mirror)', parameters: [{ in: path, name: externalRef, required: true, schema: { type: string } }], requestBody: { required: true, content: { application/json: { schema: { type: object, required: [sprints], properties: { sprints: { type: array, items: { type: object, required: [externalRef, name, startDate, endDate], properties: { externalRef: { type: string }, name: { type: string }, goal: { type: string }, startDate: { type: string, format: date }, endDate: { type: string, format: date }, status: { type: string, enum: [PLANNED, ACTIVE, COMPLETED, CANCELLED] } } } } } } } } }, responses: { '200': { description: Sprints after sync }, '422': { description: Invalid list } } }
+  /partner/projects/{externalRef}:
+    get: { security: [{ apiKeyAuth: [] }], summary: Synced project with its relations, parameters: [{ in: path, name: externalRef, required: true, schema: { type: string } }], responses: { '200': { description: Project }, '404': { description: Project not synced } } }
+  /partner/projects/{externalRef}/documents/recommended:
+    get: { security: [{ apiKeyAuth: [] }], summary: 'ST055 · Recommended documents for the project (methodology + phase)', parameters: [{ in: path, name: externalRef, required: true, schema: { type: string } }, { in: query, name: phase, required: false, schema: { type: string, enum: [INICIO, EJECUCION, CIERRE] }, description: 'If omitted it is inferred from status and timeline' }, { in: query, name: q, required: false, schema: { type: string } }, { in: query, name: limit, required: false, schema: { type: integer, minimum: 1, maximum: 15 } }], responses: { '200': { description: 'templates, checklists, processes, documentation and readings' }, '404': { description: Project not synced }, '422': { description: Invalid phase } } }
   /partner/chatbot/message:
     post: { security: [{ apiKeyAuth: [] }], summary: 'Chatbot for Haitani (externalRef + message)', responses: { '200': { description: Contextual answer } } }
   /chatbot/message:
     post: { security: [{ bearerAuth: [] }], summary: Ask the Sanzu Project Management Assistant, responses: { '200': { description: Contextual answer } } }
   /documentation:
     get: { summary: List documentation items, responses: { '200': { description: Documentation items } } }
+  /documentation/search:
+    get: { summary: 'ST054 · Smart documentation search (corpus + Sanzu guides, ranked by relevance)', parameters: [{ in: query, name: q, required: true, schema: { type: string, minLength: 2 } }, { in: query, name: methodology, required: false, schema: { type: string } }, { in: query, name: category, required: false, schema: { type: string } }, { in: query, name: limit, required: false, schema: { type: integer, minimum: 1, maximum: 25 } }], responses: { '200': { description: 'Results with title, section, snippet, score and citation' }, '422': { description: Invalid query } } }
   /documentation/{id}:
     get: { summary: Get documentation item, parameters: [{ in: path, name: id, required: true, schema: { type: string } }, { in: query, name: section, required: false, schema: { type: string } }], responses: { '200': { description: Documentation item } } }
   /methodologies:
@@ -159,3 +181,18 @@ paths:
     get: { summary: Get checklist items and criticality, parameters: [{ in: path, name: id, required: true, schema: { type: string } }, { in: query, name: section, required: false, schema: { type: string } }], responses: { '200': { description: Checklist definition } } }
   /checklists/{id}/evaluate:
     post: { summary: Evaluate checklist compliance, parameters: [{ in: path, name: id, required: true, schema: { type: string } }], requestBody: { required: true, content: { application/json: { schema: { type: object, properties: { itemStatuses: { type: object } } } } } }, responses: { '200': { description: Evaluation result } } }
+  /methodologies/{id}/metrics:
+    get: { summary: Metrics defined by a methodology, parameters: [{ in: path, name: id, required: true, schema: { type: string } }], responses: { '200': { description: Metrics } } }
+  /methodologies/{id}/rules:
+    get: { summary: Governance rules of a methodology, parameters: [{ in: path, name: id, required: true, schema: { type: string } }], responses: { '200': { description: Rules } } }
+  /chatbot/conversations:
+    get: { security: [{ bearerAuth: [] }], summary: List the user's chatbot conversations, responses: { '200': { description: Conversations } } }
+  /chatbot/conversations/{id}:
+    get: { security: [{ bearerAuth: [] }], summary: Conversation history, parameters: [{ in: path, name: id, required: true, schema: { type: string } }], responses: { '200': { description: Messages } } }
+    delete: { security: [{ bearerAuth: [] }], summary: Delete a conversation, parameters: [{ in: path, name: id, required: true, schema: { type: string } }], responses: { '200': { description: Deleted } } }
+  /users/me:
+    get: { security: [{ bearerAuth: [] }], summary: Current user profile, responses: { '200': { description: User } } }
+    put: { security: [{ bearerAuth: [] }], summary: Update current user profile, responses: { '200': { description: Updated } } }
+  /users/me/credentials:
+    get: { security: [{ bearerAuth: [] }], summary: List the user's integration credentials (API keys, values masked), responses: { '200': { description: Credentials } } }
+    post: { security: [{ bearerAuth: [] }], summary: Create an integration API key (shown once), responses: { '201': { description: Created } } }
