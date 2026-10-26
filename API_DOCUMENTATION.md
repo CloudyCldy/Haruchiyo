@@ -1,88 +1,147 @@
-# Sanzu API Documentation
+# Sanzu API Documentation: Seguridad Empresarial y Autorización Granular
 
 Base URL: `/api`
 
-All endpoints except `GET /health` and methodology discovery require `Authorization: Bearer <JWT>`.
+Todos los endpoints privados exigen autenticación y autorización explícitas mediante JWT (`Authorization: Bearer TU_ACCESS_TOKEN`) o claves de integración seguras (`X-Api-Key: TU_API_KEY`). El único endpoint público sin autenticación es `GET /api/health`.
 
-## Response format
+---
 
-Success responses use `{ "success": true, "data": ..., "message": "..." }`. Errors use `{ "success": false, "error": { "code": "...", "message": "..." } }`.
+## 1. Esquema General de Respuesta y Errores HTTP
 
-## Endpoint groups
-
-### Sprint 2: daily work management
-
-All endpoints below require JWT authentication and project ownership or membership. They use the standard success/error envelopes described above.
-
-- `GET /api/projects/:projectId/tasks`: list project tasks.
-- `POST /api/projects/:projectId/tasks`: create a task (`title` required; optional `status`, `priority`, `storyPoints`, `sprintId`).
-- `GET|PUT|DELETE /api/tasks/:id`: read, update, or delete a task. A supplied `sprintId` must belong to the task project.
-- `GET /api/projects/:projectId/backlog`: list backlog items.
-- `POST /api/projects/:projectId/backlog`: create a backlog item (`type` required: `USER_STORY`, `BUG`, `TASK`, `FEATURE`, or `IMPROVEMENT`).
-- `GET|PUT|DELETE /api/backlog/:id`: manage a backlog item. Status transitions are `BACKLOGGED -> READY -> IN_PROGRESS -> DONE`; `sprintId` may be `null`.
-- `GET /api/projects/:projectId/sprints`: list project sprints.
-- `POST /api/projects/:projectId/sprints`: create a sprint with `startDate` before `endDate`.
-- `GET|PUT|DELETE /api/sprints/:id`: manage a sprint. `GET` includes related `tasks` and `backlogItems`; status transitions are `PLANNED -> ACTIVE -> COMPLETED` or `CANCELLED`.
-
-
-Use ISO dates for date fields. Create and update payloads are validated with Zod. Project-related requests require ownership or membership.
-
-## Integración de partners (API key)
-
-Las rutas de partner usan una API key compartida por Haitani, no JWT ni usuarios por organización o proyecto. En cada request se debe enviar:
-
-`X-Api-Key: <SANZU_API_KEY>`
-
-Endpoints disponibles:
-
-- `POST /api/partner/projects`: crea o actualiza idempotentemente un proyecto por `externalRef`.
-- `GET /api/partner/projects/:externalRef`: obtiene el proyecto y su metodología.
-- `GET /api/partner/projects/:externalRef/metrics`
-- `GET /api/partner/projects/:externalRef/health`
-- `GET /api/partner/projects/:externalRef/compliance`
-- `GET /api/partner/projects/:externalRef/analysis`
-- `GET /api/partner/projects/:externalRef/recommendations`
-- `POST /api/partner/chatbot/message`: consulta el chatbot con el contexto del proyecto.
-
-Ejemplo de alta o actualización:
-
+Las respuestas exitosas siguen la estructura:
 ```json
 {
-	"externalRef": "haitani-proj-123",
-	"name": "Haitani Delivery Platform",
-	"methodologyId": "SCRUM",
-	"requirements": {
-		"business": ["Release MVP in Q4"],
-		"technical": ["Use the existing payment provider"]
-	}
+  "success": true,
+  "data": { ... },
+  "message": "Operación completada exitosamente"
 }
 ```
 
-La clave se genera manualmente con `npm run create-partner-key` y se muestra una sola vez en consola. No existe un endpoint público para generarla.
+Códigos de error normalizados:
+- **401 Unauthorized**: Credenciales ausentes, inválidas, expiradas o revocadas (`UNAUTHORIZED`).
+- **403 Forbidden**: Identidad autenticada sin permisos o scopes suficientes (`FORBIDDEN`).
+- **404 Not Found**: Recurso inexistente o perteneciente a otra organización (mitigación de IDOR/BOLA).
+- **422 Unprocessable Entity**: Validación de entrada fallida conforme al esquema Zod (`VALIDATION_ERROR`).
+- **429 Too Many Requests**: Límite de peticiones por ventana excedido (`TOO_MANY_REQUESTS`). Incluye encabezado `Retry-After`.
 
-## Knowledge Base API (Documentación viva y metodologías)
+---
 
-Endpoints públicos y reutilizables para alimentar clientes, portales o integraciones con el catálogo estandarizado de gobernanza:
+## 2. Autenticación y Gestión de Credenciales
 
-### 1. Documentación general
-- `GET /api/documentation`: lista directrices y estándares organizacionales (`?category=STANDARDS`).
-- `GET /api/documentation/:id`: contenido completo del documento o sección enfocada (`?section=methodology-alignment`).
+### POST `/api/auth/login`
+- **Autenticación**: Pública.
+- **Entrada**: `{ "email": "usuario@empresa.com", "password": "TU_PASSWORD" }`
+- **Salida esperada (200)**: `{ "user": { "id": "...", "name": "...", "email": "...", "role": "..." }, "token": "TU_ACCESS_TOKEN" }`
+- **Errores**: `401` ante credenciales inválidas.
 
-### 2. Metodologías
-- `GET /api/methodologies`: lista todas las metodologías registradas (Scrum, Kanban, XP, Lean, Waterfall, Agile, Hybrid) con roles, eventos, principios, plantillas, procesos y checklists asociados.
-- `GET /api/methodologies/:id`: detalle completo de una estrategia metodológica.
+### GET `/api/users/me/credentials`
+- **Autenticación**: `Authorization: Bearer TU_ACCESS_TOKEN`.
+- **Salida esperada (200)**: Información del usuario, endpoints disponibles y placeholders para desarrollo seguro.
 
-### 3. Plantillas (Templates)
-- `GET /api/templates`: catálogo de plantillas (`?methodology=SCRUM`, `?category=EXECUTION`).
-- `GET /api/templates/:id`: estructura completa o sección puntual de la plantilla (`?section=acceptance-criteria`) con campos, tipos y validaciones.
+### POST `/api/integrations/api-keys`
+- **Autenticación**: `Authorization: Bearer TU_ACCESS_TOKEN`.
+- **Scopes/Permisos**: Exclusivo para administradores de empresa / plataforma.
+- **Entrada**:
+  ```json
+  {
+    "name": "Integración Haitani Producción",
+    "organizationId": "org-haitani-1",
+    "scopes": ["projects:read", "projects:create", "projects:update", "analysis:run", "chat:use"],
+    "expiresInDays": 90
+  }
+  ```
+- **Salida esperada (201)**: Retorna la clave completa criptográficamente segura (`apiKey: "sz_live_..."`) **únicamente una vez**. La base de datos almacena exclusivamente su hash SHA-256.
 
-### 4. Procesos (Processes)
-- `GET /api/processes`: lista de procesos estándar (`?methodology=SCRUM`).
-- `GET /api/processes/:id`: proceso completo o fase enfocada (`?phase=1` o `?phase=refinamiento`) con responsables (RACI), entradas, salidas y criterios de salida.
+### GET `/api/integrations/api-keys`
+- **Autenticación**: `Authorization: Bearer TU_ACCESS_TOKEN`.
+- **Salida esperada (200)**: Lista de claves con su prefijo enmascarado (`keyPrefix: "sz_live_a1b2..."`), scopes, estado y fechas de uso/expiración.
 
-### 5. Checklists de Calidad y Cumplimiento
-- `GET /api/checklists`: listas de comprobación (`?methodology=SCRUM`, `?stage=DONE`).
-- `GET /api/checklists/:id`: detalle completo o sección específica (`?section=code-quality-and-tests`) con items clasificados por criticidad.
-- `POST /api/checklists/:id/evaluate`: evalúa el cumplimiento enviando `{ "itemStatuses": { "<item_id>": true/false } }`. Retorna porcentaje general de cumplimiento, estado de aprobación (`isPassed`), desglose por sección (`sectionBreakdown`) y recomendaciones automáticas de mitigación.
+### DELETE `/api/integrations/api-keys/:id`
+- **Autenticación**: `Authorization: Bearer TU_ACCESS_TOKEN`.
+- **Salida esperada (200)**: Revocación inmediata de la clave (`active: false`, `revokedAt`).
 
+---
 
+## 3. Integración de Partners Servidor a Servidor (Haitani ↔ Sanzu)
+
+Las peticiones de backend utilizan claves independientes por organización con aislamiento multi-inquilino.
+
+Encabezado obligatorio:
+`X-Api-Key: TU_API_KEY`
+
+### POST `/api/partner/projects`
+- **Autenticación**: `X-Api-Key: TU_API_KEY` (Scope requerido: `projects:create`).
+- **Aislamiento**: Asocia el proyecto al `organizationId` vinculado a la clave.
+- **Entrada**:
+  ```json
+  {
+    "externalRef": "haitani-proj-101",
+    "name": "Plataforma Sakura Coffee",
+    "methodologyId": "SCRUM",
+    "requirements": {
+      "business": ["Despliegue MVP en Q4"],
+      "technical": ["Pasarela de pagos y OAuth"]
+    }
+  }
+  ```
+- **Salida (201)**: Proyecto creado o sincronizado idempotentemente.
+
+### GET `/api/partner/projects/:externalRef`
+- **Autenticación**: `X-Api-Key: TU_API_KEY` (Scope requerido: `projects:read`).
+- **Aislamiento**: Si el proyecto pertenece a otra organización, responde **404 Not Found** (previniendo filtración cruzada de datos).
+
+### GET `/api/partner/projects/:externalRef/:metric`
+- **Autenticación**: `X-Api-Key: TU_API_KEY` (Scope requerido: `analysis:run`).
+- **Métricas soportadas**: `metrics`, `health`, `compliance`, `analysis`, `recommendations`.
+- **Salida (200)**: Análisis táctico y métricas operativas del proyecto.
+
+### POST `/api/partner/chatbot/message`
+- **Autenticación**: `X-Api-Key: TU_API_KEY` (Scope requerido: `chat:use`).
+- **Limitación de velocidad**: 60 req/min por cliente.
+- **Entrada**:
+  ```json
+  {
+    "externalRef": "haitani-proj-101",
+    "message": "¿Cuáles tareas se encuentran vencidas en el sprint actual?",
+    "context": {
+      "projectId": 101,
+      "project": { "name": "Sakura Coffee", "methodology": "SCRUM" }
+    }
+  }
+  ```
+- **Salida (200)**: Respuesta generada con citas bibliográficas, sugerencias y metadatos de intención.
+
+---
+
+## 4. API de Proyectos y Gestión de Trabajo
+
+Requiere `Authorization: Bearer TU_ACCESS_TOKEN` o `X-Api-Key: TU_API_KEY` según el endpoint.
+
+- `GET /api/projects`: Listado de proyectos accesibles por el usuario.
+- `POST /api/projects`: Creación de nuevo proyecto.
+- `GET /api/projects/:id/tasks`: Listado de tareas del proyecto.
+- `POST /api/projects/:id/tasks`: Alta de tarea asociada al proyecto.
+- `GET|PUT|DELETE /api/tasks/:id`: Gestión granular de tareas individuales.
+- `GET /api/projects/:id/backlog`: Backlog del proyecto.
+- `POST /api/projects/:id/backlog`: Alta de ítem en el backlog.
+- `GET|PUT|DELETE /api/backlog/:id`: Modificación y transiciones de estado del backlog (`BACKLOGGED -> READY -> IN_PROGRESS -> DONE`).
+- `GET /api/projects/:id/sprints`: Sprints planificados y activos.
+- `POST /api/projects/:id/sprints`: Creación de sprint con rango de fechas validado.
+- `GET|PUT|DELETE /api/sprints/:id`: Gestión del sprint y cierre de ciclo.
+- `POST /api/projects/:id/context`: Evaluación contextual de proyecto (soporta Token o X-Api-Key).
+
+---
+
+## 5. Knowledge Base & Metodologías
+
+- `GET /api/methodologies`: Catálogo de metodologías (Scrum, Kanban, XP, Lean, Waterfall, Agile, Hybrid).
+- `GET /api/methodologies/:id`: Detalle y prácticas de la metodología solicitada.
+- `GET /api/documentation`: Estándares de ingeniería y directrices organizacionales.
+- `GET /api/documentation/search`: Búsqueda ponderada de lineamientos por relevancia y metodología.
+- `GET /api/templates`: Plantillas formales de artefactos de software.
+- `GET /api/templates/:id`: Estructura y campos de la plantilla.
+- `GET /api/processes`: Flujos de procesos estandarizados.
+- `GET /api/processes/:id`: Desglose de fases y matrices RACI.
+- `GET /api/checklists`: Listas de comprobación de calidad.
+- `POST /api/checklists/:id/evaluate`: Evaluación automatizada de criterios de aceptación y Definition of Done.
+- `GET /api/dictionary`: Catálogo terminológico para ingenieros y directores.

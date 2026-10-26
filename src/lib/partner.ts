@@ -13,15 +13,28 @@ export const partnerProjectInclude = {
   milestones: true,
 } as const;
 
-export async function getPartnerProject(externalRef: string) {
+export async function getPartnerProject(externalRef: string, organizationId?: string) {
   const project = await prisma.project.findUnique({ where: { externalRef }, include: partnerProjectInclude });
   if (!project) throw new NotFoundError("Project not found");
+  if (organizationId && project.organizationId && project.organizationId !== organizationId) {
+    throw new NotFoundError("Project not found");
+  }
   return project;
 }
 
-export async function getOrCreatePartnerProject(externalRef: string, name = "Haitani Project", methodologyId = "SCRUM") {
+export async function getOrCreatePartnerProject(
+  externalRef: string,
+  name = "Haitani Project",
+  methodologyId = "SCRUM",
+  organizationId?: string
+) {
   let project = await prisma.project.findUnique({ where: { externalRef }, include: partnerProjectInclude });
-  if (project) return project;
+  if (project) {
+    if (organizationId && project.organizationId && project.organizationId !== organizationId) {
+      throw new NotFoundError("Project not found or belongs to another organization");
+    }
+    return project;
+  }
   const user = await getPartnerServiceUser();
   await prisma.project.create({
     data: {
@@ -29,12 +42,12 @@ export async function getOrCreatePartnerProject(externalRef: string, name = "Hai
       name,
       methodologyId,
       managerId: user.id,
+      organizationId: organizationId || null,
       status: "ACTIVE"
-    }
+    } as any
   });
   return prisma.project.findUniqueOrThrow({ where: { externalRef }, include: partnerProjectInclude });
 }
-
 
 export async function getPartnerServiceUser() {
   const existing = await prisma.user.findUnique({ where: { email: "partner-service@sanzu.internal" } });
@@ -49,10 +62,12 @@ export async function getPartnerServiceUser() {
   });
 }
 
-
 /** Id de Sanzu del proyecto de Haitani (por externalRef), sin cargar relaciones. */
-export async function getPartnerProjectId(externalRef: string) {
-  const project = await prisma.project.findUnique({ where: { externalRef }, select: { id: true } });
+export async function getPartnerProjectId(externalRef: string, organizationId?: string) {
+  const project = await prisma.project.findUnique({ where: { externalRef }, select: { id: true, organizationId: true } });
   if (!project) throw new NotFoundError("Project not found. Sync it first with POST /api/v1/partner/projects");
+  if (organizationId && project.organizationId && project.organizationId !== organizationId) {
+    throw new NotFoundError("Project not found. Sync it first with POST /api/v1/partner/projects");
+  }
   return project.id;
 }

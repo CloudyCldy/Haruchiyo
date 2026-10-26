@@ -8,7 +8,7 @@ import { parse, partnerChatSchema } from "@/validators/schemas";
 import { assertRateLimit } from "@/lib/rate-limit";
 
 export async function POST(request: NextRequest) {
-  return withApiKey(request, async () => {
+  return withApiKey(request, "chat:use", async (client) => {
     assertRateLimit(request, { keyPrefix: "partner-chatbot", max: 60, windowMs: 60_000 });
     const input = parse(partnerChatSchema, await request.json());
 
@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
     const contextProjectName = (input.context?.project as any)?.name || "Haitani Project";
     const contextMethodology = (input.context?.project as any)?.methodology || "SCRUM";
 
-    const project = await getOrCreatePartnerProject(rawRef, contextProjectName, contextMethodology);
+    const project = await getOrCreatePartnerProject(rawRef, contextProjectName, contextMethodology, client?.organizationId);
     const user = await getPartnerServiceUser();
     const conversationId = input.conversationId === undefined ? undefined : String(input.conversationId);
 

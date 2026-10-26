@@ -8,8 +8,8 @@ import { generateRecommendations } from "@/services/recommendation.service";
 
 export async function GET(request: NextRequest, { params }: { params: Promise<{ externalRef: string; metric: string }> }) {
   const { externalRef, metric } = await params;
-  return withApiKey(request, async () => {
-    const project = await getPartnerProject(externalRef);
+  return withApiKey(request, "analysis:run", async (client) => {
+    const project = await getPartnerProject(externalRef, client?.organizationId);
     if (metric === "metrics") return ok(calculateMetrics(project));
     const analysis = analyzeProject(project);
     if (metric === "health") return ok(analysis.health);

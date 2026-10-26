@@ -42,8 +42,8 @@ export async function GET(request: NextRequest) {
             { method: "GET", path: "/api/partner/projects/:externalRef", description: "Sincronización entre plataformas", auth: "X-Api-Key" },
           ],
           curlExamples: {
-            withToken: `curl -X GET "${apiUrl}/projects" -H "Authorization: Bearer ${currentToken}"`,
-            withApiKey: `curl -X POST "${apiUrl}/projects/PROYECTO_ID/context" -H "X-Api-Key: ${apiKey}" -H "Content-Type: application/json" -d '{"project":{"name":"Test","methodology":"SCRUM"}}'`,
+            withToken: `curl -X GET "${apiUrl}/projects" -H "Authorization: Bearer TU_ACCESS_TOKEN"`,
+            withApiKey: `curl -X POST "${apiUrl}/projects/PROYECTO_ID/context" -H "X-Api-Key: TU_API_KEY" -H "Content-Type: application/json" -d '{"project":{"name":"Test","methodology":"SCRUM"}}'`,
           },
         },
         "Credenciales de API obtenidas exitosamente"

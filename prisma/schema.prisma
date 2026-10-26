@@ -129,15 +129,24 @@ model User {
 }
 
 model ApiClient {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  name      String
-  keyHash   String   @unique
-  rawKey    String?
-  userId    String?  @db.ObjectId
-  active    Boolean  @default(true)
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  name String
+  keyHash String @unique
+  keyPrefix String?
+  rawKey String?
+  organizationId String?
+  scopes String[]
+  userId String? @db.ObjectId
+  active Boolean @default(true)
+  expiresAt DateTime?
+  lastUsedAt DateTime?
+  usageCount Int @default(0)
+  revokedAt DateTime?
   createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([userId])
+  @@index([organizationId])
 }
 
 model Methodology {
@@ -158,6 +167,7 @@ model Methodology {
 model Project {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   externalRef String? @unique
+  organizationId String?
   name String
   description String?
   status ProjectStatus @default(PLANNING)
@@ -340,4 +350,18 @@ model ChatMessage {
   createdAt DateTime @default(now())
   conversation ChatConversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
   @@index([conversationId])
+}
+
+model AuditLog {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  organizationId String?
+  actorId        String?
+  actorType      String   @default("api_key")
+  action         String
+  resource       String
+  details        Json?
+  ip             String?
+  createdAt      DateTime @default(now())
+
+  @@index([organizationId, createdAt])
 }

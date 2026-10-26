@@ -4,6 +4,7 @@ import { getAuthClient, getAuthUser, requireProjectAccess } from "@/lib/auth";
 import { handleError, ok } from "@/lib/http";
 import { parse } from "@/validators/schemas";
 import { analyzeContext, contextSchema } from "@/services/context.service";
+import { NotFoundError } from "@/lib/errors";
 
 /**
  * INT-01-ST042: POST /api/v1/projects/:id/context
@@ -21,9 +22,17 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
     const { id } = await params;
     let sanzuProjectId: string | null = null;
     if (request.headers.get("X-Api-Key")) {
-      await getAuthClient(request);
+      const client = await getAuthClient(request, "analysis:run");
       const isObjectId = /^[a-f\d]{24}$/i.test(id);
-      const project = await prisma.project.findFirst({ where: isObjectId ? { OR: [{ id }, { externalRef: id }] } : { externalRef: id }, select: { id: true } });
+      const project = await prisma.project.findFirst({
+        where: isObjectId ? { OR: [{ id }, { externalRef: id }] } : { externalRef: id },
+        select: { id: true, organizationId: true }
+      });
+
+      if (project && (client as any)?.organizationId && project.organizationId && project.organizationId !== (client as any).organizationId) {
+        throw new NotFoundError("Project not found");
+      }
+
       sanzuProjectId = project?.id ?? null;
     } else {
       const user = await getAuthUser(request);
