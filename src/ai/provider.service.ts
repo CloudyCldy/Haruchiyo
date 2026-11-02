@@ -1,7 +1,26 @@
 import { KnowledgeService } from "@/knowledge/service";
 
 export interface AIProvider { complete(system: string, user: string): Promise<string>; }
-type CorePayload = { question: string; context: { project: { name: string; methodology: string }; findings: { metrics: { progress: number; blockedTasks: number; overdueTasks: number; pendingTasks: number; riskCount: number; issueCount: number; milestoneProgress: number }; problems: { description: string }[] } } };
+type CorePayload = {
+	question: string;
+	context: {
+		project: { name: string; methodology: string };
+		tasks?: { id: string; title: string; status: string; priority: string }[];
+		findings: {
+			metrics: {
+				progress: number;
+				blockedTasks: number;
+				overdueTasks: number;
+				pendingTasks: number;
+				riskCount: number;
+				issueCount: number;
+				milestoneProgress: number;
+			};
+			problems: { description: string }[];
+			recommendations?: { description: string }[];
+		};
+	};
+};
 
 export class SanzuCoreProvider implements AIProvider {
 	async complete(_system: string, user: string) {
@@ -28,13 +47,28 @@ export class SanzuCoreProvider implements AIProvider {
 			knowledgeTip = ` Procesos estándar disponibles: ${names || "sprint-lifecycle, release-management"}. Consulta /api/processes.`;
 		}
 
-		if (questionText.includes("riesgo")) action = metrics.riskCount ? "Asigna responsables y define mitigación para cada riesgo abierto." : "Mantén el registro de riesgos actualizado y revísalo en cada ciclo.";
-		else if (questionText.includes("retras") || questionText.includes("detrás") || questionText.includes("schedule")) action = metrics.overdueTasks ? "Replanifica las tareas vencidas, revisa dependencias y acuerda una nueva fecha." : "Compara el progreso actual con las fechas objetivo y ajusta el plan si cambia el alcance.";
-		else if (questionText.includes("bloque") || questionText.includes("acumul")) action = metrics.blockedTasks ? "Reúne a los responsables de las tareas bloqueadas y elimina primero el impedimento más antiguo." : "No hay tareas bloqueadas registradas; continúa vigilando el flujo.";
-		else if (project.methodology === "KANBAN") action = "Limita el trabajo en curso y extrae la siguiente tarea solo cuando haya capacidad.";
-		else if (project.methodology === "SCRUM") action = "Revisa el objetivo del Sprint, el backlog priorizado y la capacidad real del equipo.";
+		if (questionText.includes("metrica") || questionText.includes("kpi") || questionText.includes("rendimiento") || questionText.includes("estadistic")) {
+			action = `Métricas clave: Progreso de tareas ${metrics.progress}%, Cumplimiento de hitos ${metrics.milestoneProgress}%, Tareas pendientes ${metrics.pendingTasks}, Con retraso ${metrics.overdueTasks}, Bloqueadas ${metrics.blockedTasks}, Riesgos ${metrics.riskCount}, Incidencias ${metrics.issueCount}.`;
+		} else if (questionText.includes("tarea") || questionText.includes("pendientes") || questionText.includes("abiertas")) {
+			action = `Desglose de tareas: ${metrics.pendingTasks} pendientes, ${metrics.blockedTasks} bloqueadas y ${metrics.overdueTasks} vencidas. Revisa las asignaciones en el tablero.`;
+		} else if (questionText.includes("metodolog") || questionText.includes("framework") || questionText.includes("scrum") || questionText.includes("kanban") || questionText.includes("waterfall")) {
+			action = `Metodología ${project.methodology}: ` +
+				(project.methodology === "SCRUM" ? "Enfocada en sprints iterativos, reuniones diarias y entregas incrementales." :
+				 project.methodology === "KANBAN" ? "Enfocada en la visualización del flujo continuo y limitación de trabajo en curso (WIP)." :
+				 project.methodology === "WATERFALL" ? "Enfocada en secuencia estructurada de fases, hitos y control formal." :
+				 "Enfoque ágil adaptativo para entregas tempranas y continuas.");
+		} else if (questionText.includes("riesgo")) {
+			action = metrics.riskCount ? "Asigna responsables y define mitigación para cada riesgo abierto." : "Mantén el registro de riesgos actualizado y revísalo en cada ciclo.";
+		} else if (questionText.includes("retras") || questionText.includes("detrás") || questionText.includes("schedule")) {
+			action = metrics.overdueTasks ? "Replanifica las tareas vencidas, revisa dependencias y acuerda una nueva fecha." : "Compara el progreso actual con las fechas objetivo y ajusta el plan si cambia el alcance.";
+		} else if (questionText.includes("bloque") || questionText.includes("acumul")) {
+			action = metrics.blockedTasks ? "Reúne a los responsables de las tareas bloqueadas y elimina primero el impedimento más antiguo." : "No hay tareas bloqueadas registradas; continúa vigilando el flujo.";
+		} else if (project.methodology === "KANBAN") {
+			action = "Limita el trabajo en curso y extrae la siguiente tarea solo cuando haya capacidad.";
+		} else if (project.methodology === "SCRUM") {
+			action = "Revisa el objetivo del Sprint, el backlog priorizado y la capacidad real del equipo.";
+		}
 
 		return `Contexto de ${project.name}: metodología ${project.methodology}. Progreso: ${metrics.progress}%. Pendientes: ${metrics.pendingTasks}. Bloqueadas: ${metrics.blockedTasks}. Vencidas: ${metrics.overdueTasks}. Riesgos: ${metrics.riskCount}. Issues: ${metrics.issueCount}. Progreso de hitos: ${metrics.milestoneProgress}%. ${problems} Acción sugerida: ${action}${knowledgeTip}`;
 	}
 }
-
