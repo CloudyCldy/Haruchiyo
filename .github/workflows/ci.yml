@@ -1,0 +1,44 @@
+# DO-01 · Integración continua de Sanzu
+# En cada push y pull request: instala, genera el cliente de Prisma, revisa los tipos y corre las pruebas.
+name: CI Sanzu
+
+on:
+  push:
+    branches: [main, dev, develop, QA]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  pruebas:
+    name: Pruebas
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Descargar el código
+        uses: actions/checkout@v4
+
+      - name: Preparar Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Instalar dependencias
+        run: npm ci --no-audit --no-fund
+
+      - name: Generar el cliente de Prisma
+        run: npx prisma generate
+
+      - name: Revisar los tipos de TypeScript
+        run: npm run typecheck
+
+      - name: Ejecutar las pruebas
+        run: npm test
